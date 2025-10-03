@@ -64,8 +64,7 @@ Visit the live demo: [https://edugamiz.vercel.app/](https://edugamiz.vercel.app/
 - **Styling**: Tailwind CSS v4
 - **Icons**: Lucide React
 - **Components**: Custom shadcn/ui components
-- **Deployment**: GitHub Pages with GitHub Actions
-
+- **Deployment**: Vercel
 ---
 
 ## Quick Start
