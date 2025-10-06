@@ -18,13 +18,11 @@ import {
   Calculator,
   Atom,
   Microscope,
-  Rocket,
   Brain,
   Award,
   TrendingUp,
   Monitor,
   HelpCircle,
-  TreePine,
   Clock
 } from 'lucide-react';
 
@@ -53,6 +51,7 @@ export function StudentDashboard({ user, language, isOffline, isLiteMode, onLite
       physics: 'Physics',
       chemistry: 'Chemistry',
       biology: 'Biology',
+      history: 'History',
       weeklyGoal: 'Weekly Goal',
       dailyStreak: 'Daily Streak',
       totalScore: 'Total Score',
@@ -60,7 +59,13 @@ export function StudentDashboard({ user, language, isOffline, isLiteMode, onLite
       compatibility: 'Compatibility',
       troubleshoot: 'Troubleshoot',
       learning: 'Learning',
-      history: 'History'
+      // FIX 1: Add achievement translations
+      firstWin: 'First Win',
+      speedDemon: 'Speed Demon',
+      scholar: 'Scholar',
+      perfectionist: 'Perfectionist',
+      questions: 'questions',
+      complete: 'complete',
     },
     hi: {
       modules: 'शिक्षण मॉड्यूल',
@@ -74,6 +79,7 @@ export function StudentDashboard({ user, language, isOffline, isLiteMode, onLite
       physics: 'भौतिकी',
       chemistry: 'रसायन विज्ञान',
       biology: 'जीव विज्ञान',
+      history: 'इतिहास',
       weeklyGoal: 'साप्ताहिक लक्ष्य',
       dailyStreak: 'दैनिक लकीर',
       totalScore: 'कुल स्कोर',
@@ -81,7 +87,12 @@ export function StudentDashboard({ user, language, isOffline, isLiteMode, onLite
       compatibility: 'संगतता',
       troubleshoot: 'समस्या निवारण',
       learning: 'सीखना',
-      history: 'इतिहास'
+      firstWin: 'पहली जीत',
+      speedDemon: 'गति दानव',
+      scholar: 'विद्वान',
+      perfectionist: 'पूर्णतावादी',
+      questions: 'प्रश्न',
+      complete: 'पूर्ण',
     },
     pa: {
       modules: 'ਸਿਖਲਾਈ ਮਾਡਿਊਲ',
@@ -95,6 +106,7 @@ export function StudentDashboard({ user, language, isOffline, isLiteMode, onLite
       physics: 'ਭੌਤਿਕ ਵਿਗਿਆਨ',
       chemistry: 'ਰਸਾਇਣ ਵਿਗਿਆਨ',
       biology: 'ਜੀਵ ਵਿਗਿਆਨ',
+      history: 'ਇਤਿਹਾਸ',
       weeklyGoal: 'ਹਫ਼ਤਾਵਾਰੀ ਟੀਚਾ',
       dailyStreak: 'ਰੋਜ਼ਾਨਾ ਸਟ੍ਰੀਕ',
       totalScore: 'ਕੁੱਲ ਸਕੋਰ',
@@ -102,70 +114,32 @@ export function StudentDashboard({ user, language, isOffline, isLiteMode, onLite
       compatibility: 'ਅਨੁਕੂਲਤਾ',
       troubleshoot: 'ਸਮੱਸਿਆ-ਨਿਵਾਰਨ',
       learning: 'ਸਿਖਲਾਈ',
-      history: 'ਇਤਿਹਾਸ'
+      firstWin: 'ਪਹਿਲੀ ਜਿੱਤ',
+      speedDemon: 'ਸਪੀਡ ਡੈਮਨ',
+      scholar: 'ਵਿਦਵਾਨ',
+      perfectionist: 'ਪਰਫੈਕਸ਼ਨਿਸਟ',
+      questions: 'ਸਵਾਲ',
+      complete: 'ਪੂਰਾ',
     }
   };
 
   const t = translations[language as keyof typeof translations] || translations.en;
-
+  
+  // NOTE: This uses the translations object 't' now, it will update automatically with language
   const subjects = [
-    {
-      id: 'math',
-      name: t.mathematics,
-      icon: Calculator,
-      color: 'bg-blue-500',
-      progress: 75,
-      games: 20,
-      downloaded: true,
-      image: 'https://images.unsplash.com/photo-1685358268305-c621b38e75d8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb2xvcmZ1bCUyMGVkdWNhdGlvbiUyMGdhbWUlMjBjaGlsZHJlbnxlbnwxfHx8fDE3NTc2MDE3ODF8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral'
-    },
-    {
-      id: 'physics',
-      name: t.physics,
-      icon: Atom,
-      color: 'bg-purple-500',
-      progress: 60,
-      games: 20,
-      downloaded: false,
-      image: 'https://images.unsplash.com/photo-1576669801838-1b1c52121e6a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzdGVtJTIwc2NpZW5jZSUyMGVkdWNhdGlvbiUyMGxhYnxlbnwxfHx8fDE3NTc2MDE3ODN8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral'
-    },
-    {
-      id: 'chemistry',
-      name: t.chemistry,
-      icon: Microscope,
-      color: 'bg-green-500',
-      progress: 45,
-      games: 20,
-      downloaded: true,
-      image: 'https://images.unsplash.com/photo-1576669801838-1b1c52121e6a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzdGVtJTIwc2NpZW5jZSUyMGVkdWNhdGlvbiUyMGxhYnxlbnwxfHx8fDE3NTc2MDE3ODN8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral'
-    },
-    {
-      id: 'biology',
-      name: t.biology,
-      icon: Brain,
-      color: 'bg-pink-500',
-      progress: 30,
-      games: 20,
-      downloaded: false,
-      image: 'https://images.unsplash.com/photo-1611581719398-08fe2eb020c7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxydXJhbCUyMHNjaG9vbCUyMGNoaWxkcmVuJTIwbGVhcm5pbmd8ZW58MXx8fHwxNzU3NjAxNzg1fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral'
-    },
-    {
-      id: 'history',
-      name: t.history,
-      icon: Clock,
-      color: 'bg-orange-500',
-      progress: 20,
-      games: 20,
-      downloaded: false,
-      image: 'https://images.unsplash.com/photo-1611581719398-08fe2eb020c7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxydXJhbCUyMHNjaG9vbCUyMGNoaWxkcmVuJTIwbGVhcm5pbmd8ZW58MXx8fHwxNzU3NjAxNzg1fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral'
-    }
+    { id: 'math', name: t.mathematics, icon: Calculator, color: 'bg-blue-500', progress: 75, games: 20, downloaded: true, image: 'https://images.unsplash.com/photo-1685358268305-c621b38e75d8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb2xvcmZ1bCUyMGVkdWNhdGlvbiUyMGdhbWUlMjBjaGlsZHJlbnxlbnwxfHx8fDE3NTc2MDE3ODF8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral' },
+    { id: 'physics', name: t.physics, icon: Atom, color: 'bg-purple-500', progress: 60, games: 20, downloaded: false, image: 'https://images.unsplash.com/photo-1576669801838-1b1c52121e6a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzdGVtJTIwc2NpZW5jZSUyMGVkdWNhdGlvbiUyMGxhYnxlbnwxfHx8fDE3NTc2MDE3ODN8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral' },
+    { id: 'chemistry', name: t.chemistry, icon: Microscope, color: 'bg-green-500', progress: 45, games: 20, downloaded: true, image: 'https://images.unsplash.com/photo-1576669801838-1b1c52121e6a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzdGVtJTIwc2NpZW5jZSUyMGVkdWNhdGlvbiUyMGxhYnxlbnwxfHx8fDE3NTc2MDE3ODN8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral' },
+    { id: 'biology', name: t.biology, icon: Brain, color: 'bg-pink-500', progress: 30, games: 20, downloaded: false, image: 'https://images.unsplash.com/photo-1611581719398-08fe2eb020c7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxydXJhbCUyMHNjaG9vbCUyMGNoaWxkcmVuJTIwbGVhcm5pbmd8ZW58MXx8fHwxNzU3NjAxNzg1fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral' },
+    { id: 'history', name: t.history, icon: Clock, color: 'bg-orange-500', progress: 20, games: 20, downloaded: false, image: 'https://images.unsplash.com/photo-1611581719398-08fe2eb020c7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxydXJhbCUyMHNjaG9vbCUyMGNoaWxkcmVuJTIwbGVhcm5pbmd8ZW58MXx8fHwxNzU3NjAxNzg1fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral' }
   ];
 
+  // FIX 2: Use a nameKey instead of a hardcoded name
   const achievements = [
-    { id: 1, name: 'First Win', icon: Trophy, unlocked: true },
-    { id: 2, name: 'Speed Demon', icon: Zap, unlocked: true },
-    { id: 3, name: 'Scholar', icon: BookOpen, unlocked: false },
-    { id: 4, name: 'Perfectionist', icon: Star, unlocked: false },
+    { id: 1, nameKey: 'firstWin', icon: Trophy, unlocked: true },
+    { id: 2, nameKey: 'speedDemon', icon: Zap, unlocked: true },
+    { id: 3, nameKey: 'scholar', icon: BookOpen, unlocked: false },
+    { id: 4, nameKey: 'perfectionist', icon: Star, unlocked: false },
   ];
 
   const stats = [
@@ -177,7 +151,6 @@ export function StudentDashboard({ user, language, isOffline, isLiteMode, onLite
 
   return (
     <div className="space-y-6">
-      {/* Progress Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {stats.map((stat, index) => {
           const IconComponent = stat.icon;
@@ -196,92 +169,39 @@ export function StudentDashboard({ user, language, isOffline, isLiteMode, onLite
         })}
       </div>
 
-      {/* Main Tabbed Interface */}
       <Tabs defaultValue="learning" className="w-full">
         <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="learning" className="flex items-center gap-2">
-            <BookOpen className="w-4 h-4" />
-            {t.learning}
-          </TabsTrigger>
-          <TabsTrigger value="compatibility" className="flex items-center gap-2">
-            <Monitor className="w-4 h-4" />
-            {t.compatibility}
-          </TabsTrigger>
-          <TabsTrigger value="troubleshoot" className="flex items-center gap-2">
-            <HelpCircle className="w-4 h-4" />
-            {t.troubleshoot}
-          </TabsTrigger>
+          <TabsTrigger value="learning" className="flex items-center gap-2"><BookOpen className="w-4 h-4" />{t.learning}</TabsTrigger>
+          <TabsTrigger value="compatibility" className="flex items-center gap-2"><Monitor className="w-4 h-4" />{t.compatibility}</TabsTrigger>
+          <TabsTrigger value="troubleshoot" className="flex items-center gap-2"><HelpCircle className="w-4 h-4" />{t.troubleshoot}</TabsTrigger>
         </TabsList>
 
         <TabsContent value="learning" className="space-y-6">
-          {/* Learning Modules */}
           <Card className="border-2 border-blue-200 dark:border-gray-600">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-blue-900 dark:text-blue-100">
-                <BookOpen className="w-6 h-6" />
-                {t.modules}
-              </CardTitle>
-            </CardHeader>
+            <CardHeader><CardTitle className="flex items-center gap-2 text-blue-900 dark:text-blue-100"><BookOpen className="w-6 h-6" />{t.modules}</CardTitle></CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {subjects.map((subject) => {
                   const IconComponent = subject.icon;
                   return (
-                    <Card 
-                      key={subject.id} 
-                      className={`relative overflow-hidden border-2 cursor-pointer transition-all hover:scale-105 dark:bg-gray-800 ${
-                        selectedSubject === subject.id ? 'border-blue-500 shadow-lg' : 'border-gray-200 dark:border-gray-600'
-                      }`}
-                      onClick={() => setSelectedSubject(subject.id)}
-                    >
+                    <Card key={subject.id} className={`relative overflow-hidden border-2 cursor-pointer transition-all hover:scale-105 dark:bg-gray-800 ${selectedSubject === subject.id ? 'border-blue-500 shadow-lg' : 'border-gray-200 dark:border-gray-600'}`} onClick={() => setSelectedSubject(subject.id)}>
                       <div className="relative">
-                        {!isLiteMode && (
-                          <ImageWithFallback
-                            src={subject.image}
-                            alt={subject.name}
-                            className="w-full h-32 object-cover"
-                          />
-                        )}
-                        <div className={`${!isLiteMode ? 'absolute inset-0' : 'h-32'} ${subject.color} ${!isLiteMode ? 'bg-opacity-80' : ''} flex items-center justify-center`}>
-                          <IconComponent className="w-12 h-12 text-white" />
-                        </div>
-                        {subject.downloaded && (
-                          <Badge className="absolute top-2 right-2 bg-green-500 text-white">
-                            <Download className="w-3 h-3 mr-1" />
-                            {t.downloaded}
-                          </Badge>
-                        )}
+                        {!isLiteMode && (<ImageWithFallback src={subject.image} alt={subject.name} className="w-full h-32 object-cover" />)}
+                        <div className={`${!isLiteMode ? 'absolute inset-0' : 'h-32'} ${subject.color} ${!isLiteMode ? 'bg-opacity-80' : ''} flex items-center justify-center`}><IconComponent className="w-12 h-12 text-white" /></div>
+                        {subject.downloaded && (<Badge className="absolute top-2 right-2 bg-green-500 text-white"><Download className="w-3 h-3 mr-1" />{t.downloaded}</Badge>)}
                       </div>
                       <CardContent className="p-4">
                         <h3 className="font-bold text-lg mb-2 dark:text-white">{subject.name}</h3>
                         <div className="flex items-center justify-between mb-3">
-                          <span className="text-sm text-gray-600 dark:text-gray-300">{subject.games} questions</span>
-                          <span className="text-sm font-medium dark:text-gray-200">{subject.progress}% complete</span>
+                          <span className="text-sm text-gray-600 dark:text-gray-300">{subject.games} {t.questions}</span>
+                          <span className="text-sm font-medium dark:text-gray-200">{subject.progress}% {t.complete}</span>
                         </div>
                         <Progress value={subject.progress} className="mb-3 h-2" />
                         <div className="flex gap-2">
-                          <Button 
-                            className={`flex-1 ${subject.color} text-white hover:opacity-90`}
-                            disabled={isOffline && !subject.downloaded}
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              onGameLaunch(subject);
-                            }}
-                          >
-                            <Play className="w-4 h-4 mr-1" />
-                            {t.playNow}
+                          <Button className={`flex-1 ${subject.color} text-white hover:opacity-90`} disabled={isOffline && !subject.downloaded} onClick={(e) => { e.stopPropagation(); onGameLaunch(subject); }}>
+                            <Play className="w-4 h-4 mr-1" />{t.playNow}
                           </Button>
-                          {!subject.downloaded && (
-                            <Button 
-                              variant="outline" 
-                              size="sm"
-                              disabled={isOffline}
-                              className="border-2 border-blue-200 dark:border-gray-600"
-                              onClick={(e) => e.stopPropagation()}
-                            >
-                              <Download className="w-4 h-4" />
-                            </Button>
-                          )}
+                          {!subject.downloaded && (<Button variant="outline" size="sm" disabled={isOffline} className="border-2 border-blue-200 dark:border-gray-600" onClick={(e) => e.stopPropagation()}><Download className="w-4 h-4" /></Button>)}
                         </div>
                       </CardContent>
                     </Card>
@@ -291,36 +211,18 @@ export function StudentDashboard({ user, language, isOffline, isLiteMode, onLite
             </CardContent>
           </Card>
 
-          {/* Achievements */}
           <Card className="border-2 border-purple-200 dark:border-gray-600 bg-gradient-to-br from-white to-purple-50 dark:from-gray-800 dark:to-gray-700">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-purple-900 dark:text-purple-100">
-                <Trophy className="w-6 h-6" />
-                {t.achievements}
-              </CardTitle>
-            </CardHeader>
+            <CardHeader><CardTitle className="flex items-center gap-2 text-purple-900 dark:text-purple-100"><Trophy className="w-6 h-6" />{t.achievements}</CardTitle></CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {achievements.map((achievement) => {
                   const IconComponent = achievement.icon;
                   return (
-                    <div 
-                      key={achievement.id}
-                      className={`p-4 rounded-lg border-2 text-center ${
-                        achievement.unlocked 
-                          ? 'bg-gradient-to-br from-yellow-100 to-orange-100 dark:from-yellow-900 dark:to-orange-900 border-yellow-300 dark:border-yellow-600' 
-                          : 'bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600'
-                      }`}
-                    >
-                      <IconComponent 
-                        className={`w-8 h-8 mx-auto mb-2 ${
-                          achievement.unlocked ? 'text-yellow-600 dark:text-yellow-400' : 'text-gray-400'
-                        }`} 
-                      />
-                      <p className={`font-medium text-sm ${
-                        achievement.unlocked ? 'text-yellow-800 dark:text-yellow-200' : 'text-gray-500 dark:text-gray-400'
-                      }`}>
-                        {achievement.name}
+                    <div key={achievement.id} className={`p-4 rounded-lg border-2 text-center ${achievement.unlocked ? 'bg-gradient-to-br from-yellow-100 to-orange-100 dark:from-yellow-900 dark:to-orange-900 border-yellow-300 dark:border-yellow-600' : 'bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600'}`}>
+                      <IconComponent className={`w-8 h-8 mx-auto mb-2 ${achievement.unlocked ? 'text-yellow-600 dark:text-yellow-400' : 'text-gray-400'}`} />
+                      {/* FIX 3: Look up the translation using the nameKey */}
+                      <p className={`font-medium text-sm ${achievement.unlocked ? 'text-yellow-800 dark:text-yellow-200' : 'text-gray-500 dark:text-gray-400'}`}>
+                        {t[achievement.nameKey as keyof typeof t]}
                       </p>
                     </div>
                   );
@@ -331,20 +233,11 @@ export function StudentDashboard({ user, language, isOffline, isLiteMode, onLite
         </TabsContent>
 
         <TabsContent value="compatibility">
-          <CompatibilityModule
-            language={language}
-            userRole="student"
-            onLiteModeToggle={onLiteModeToggle}
-            isLiteMode={isLiteMode}
-          />
+          <CompatibilityModule language={language} userRole="student" onLiteModeToggle={onLiteModeToggle} isLiteMode={isLiteMode} />
         </TabsContent>
 
         <TabsContent value="troubleshoot">
-          <TroubleshootModule
-            language={language}
-            userRole="student"
-            isOffline={isOffline}
-          />
+          <TroubleshootModule language={language} userRole="student" isOffline={isOffline} />
         </TabsContent>
       </Tabs>
     </div>
