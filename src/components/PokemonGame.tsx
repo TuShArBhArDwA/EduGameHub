@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useCallback } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
@@ -74,7 +75,6 @@ export function PokemonGame({ subject, language, isLiteMode = false, onExit, onG
       tryAgain: 'Try Again!',
       submitAnswer: 'Submit Answer',
       nextQuestion: 'Continue Adventure',
-      // FIX 5: Added missing translations
       exitAdventure: 'Exit Adventure',
       gameStats: 'Game Stats',
       controls: 'Controls',
@@ -134,44 +134,31 @@ export function PokemonGame({ subject, language, isLiteMode = false, onExit, onG
   const initializeGame = useCallback(() => {
     const questions = getQuestionsBySubject(subject.id);
     const items: GameItem[] = [];
-
-    // Add question items up to TOTAL_QUESTIONS
+    
     questions.slice(0, TOTAL_QUESTIONS).forEach((question, index) => {
       let pos: Position;
-      do {
-        pos = {
-          x: Math.floor(Math.random() * GRID_SIZE),
-          y: Math.floor(Math.random() * GRID_SIZE)
-        };
-      } while (
-        (pos.x === 5 && pos.y === 5) ||
-        items.some(item => item.position.x === pos.x && item.position.y === pos.y)
-      );
+      do { pos = { x: Math.floor(Math.random() * GRID_SIZE), y: Math.floor(Math.random() * GRID_SIZE) }; }
+      while ((pos.x === 5 && pos.y === 5) || items.some(item => item.position.x === pos.x && item.position.y === pos.y));
       items.push({ id: `question-${index}`, position: pos, type: 'question', content: question, collected: false });
     });
 
-    // Add treasure items
     for (let i = 0; i < 4; i++) {
       let pos: Position;
-      do {
-        pos = { x: Math.floor(Math.random() * GRID_SIZE), y: Math.floor(Math.random() * GRID_SIZE) };
-      } while ((pos.x === 5 && pos.y === 5) || items.some(item => item.position.x === pos.x && item.position.y === pos.y));
+      do { pos = { x: Math.floor(Math.random() * GRID_SIZE), y: Math.floor(Math.random() * GRID_SIZE) }; }
+      while ((pos.x === 5 && pos.y === 5) || items.some(item => item.position.x === pos.x && item.position.y === pos.y));
       items.push({ id: `treasure-${i}`, position: pos, type: 'treasure', collected: false });
     }
 
-    // Add obstacles
     for (let i = 0; i < 8; i++) {
       let pos: Position;
-      do {
-        pos = { x: Math.floor(Math.random() * GRID_SIZE), y: Math.floor(Math.random() * GRID_SIZE) };
-      } while ((pos.x === 5 && pos.y === 5) || items.some(item => item.position.x === pos.x && item.position.y === pos.y));
+      do { pos = { x: Math.floor(Math.random() * GRID_SIZE), y: Math.floor(Math.random() * GRID_SIZE) }; }
+      while ((pos.x === 5 && pos.y === 5) || items.some(item => item.position.x === pos.x && item.position.y === pos.y));
       items.push({ id: `obstacle-${i}`, position: pos, type: 'obstacle' });
     }
 
     setGameItems(items);
   }, [subject.id]);
   
-  // Initialize game on mount
   useEffect(() => {
     initializeGame();
   }, [initializeGame]);
@@ -189,34 +176,26 @@ export function PokemonGame({ subject, language, isLiteMode = false, onExit, onG
     }
   };
 
-  // FIX 1: Wrap movePlayer in useCallback to make it a stable function
   const movePlayer = useCallback((direction: 'up' | 'down' | 'left' | 'right') => {
     if (showQuestionModal || gameComplete) return;
 
     setPlayerDirection(direction);
     setPlayerPos(prev => {
       let newPos = { ...prev };
-      
       switch (direction) {
         case 'up': newPos.y = Math.max(0, prev.y - 1); break;
         case 'down': newPos.y = Math.min(GRID_SIZE - 1, prev.y + 1); break;
         case 'left': newPos.x = Math.max(0, prev.x - 1); break;
         case 'right': newPos.x = Math.min(GRID_SIZE - 1, prev.x + 1); break;
       }
-
-      const itemAtPosition = gameItems.find(
-        item => item.position.x === newPos.x && item.position.y === newPos.y
-      );
-
+      const itemAtPosition = gameItems.find(item => item.position.x === newPos.x && item.position.y === newPos.y);
       if (itemAtPosition) {
         handleItemCollision(itemAtPosition);
       }
-
       return newPos;
     });
   }, [gameItems, showQuestionModal, gameComplete]);
 
-  // FIX 2: Add the stable `movePlayer` function to the dependency array
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
       switch (e.key) {
@@ -226,43 +205,33 @@ export function PokemonGame({ subject, language, isLiteMode = false, onExit, onG
         case 'ArrowRight': e.preventDefault(); movePlayer('right'); break;
       }
     };
-
     window.addEventListener('keydown', handleKeyPress);
     return () => window.removeEventListener('keydown', handleKeyPress);
   }, [movePlayer]);
 
-  // FIX 3: Create a dedicated effect to check for game completion
   useEffect(() => {
     if (!gameComplete && (questionsAnswered >= TOTAL_QUESTIONS || health <= 0)) {
-        setTimeout(() => {
-            setGameComplete(true);
-            const xpEarned = score + (treasuresFound * 10) + (health > 50 ? 50 : 0);
-            onGameComplete(score, xpEarned);
-        }, 500);
+      setTimeout(() => {
+        setGameComplete(true);
+        const xpEarned = score + (treasuresFound * 10) + (health > 50 ? 50 : 0);
+        onGameComplete(score, xpEarned);
+      }, 500);
     }
   }, [questionsAnswered, health, score, treasuresFound, onGameComplete, gameComplete]);
 
-
   const handleAnswerSubmit = (answerIndex: number) => {
     if (!currentQuestion) return;
-
     const isCorrect = answerIndex === currentQuestion.correct;
-    
     if (isCorrect) {
       const points = currentQuestion.difficulty === 'hard' ? 20 : currentQuestion.difficulty === 'medium' ? 15 : 10;
       setScore(prev => prev + points);
     } else {
       setHealth(prev => Math.max(0, prev - 5));
     }
-
     setQuestionsAnswered(prev => prev + 1);
-    
     setGameItems(prev => prev.map(item => item.content?.id === currentQuestion.id ? { ...item, collected: true } : item));
-
     setShowQuestionModal(false);
     setCurrentQuestion(null);
-
-    // FIX 4: Remove the incorrect game completion check from here
   };
 
   const restartGame = () => {
@@ -298,15 +267,12 @@ export function PokemonGame({ subject, language, isLiteMode = false, onExit, onG
       if (percentage >= 50) return t.good;
       return t.tryAgain;
     };
-
     return (
       <div className={`min-h-screen p-4 flex items-center justify-center ${isLiteMode ? 'bg-gray-100 dark:bg-gray-900' : 'bg-gradient-to-br from-green-100 via-blue-100 to-purple-100 dark:from-gray-900 dark:via-green-900 dark:to-blue-900'}`}>
         <div className="max-w-2xl w-full">
           <Card className="border-2 border-yellow-300 bg-gradient-to-br from-yellow-50 to-orange-50">
             <CardContent className="p-8 text-center">
-              <div className="w-20 h-20 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Trophy className="w-10 h-10 text-white" />
-              </div>
+              <div className="w-20 h-20 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-6"><Trophy className="w-10 h-10 text-white" /></div>
               <h2 className="text-3xl font-bold text-yellow-800 mb-2">{t.gameComplete}</h2>
               <p className="text-xl text-yellow-700 mb-6">{getMessage()}</p>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
@@ -315,7 +281,10 @@ export function PokemonGame({ subject, language, isLiteMode = false, onExit, onG
                 <div className="bg-white p-4 rounded-lg border-2 border-yellow-200"><Sparkles className="w-5 h-5 text-purple-600 mx-auto mb-2" /><p className="font-medium">{t.treasures}</p><p className="text-2xl font-bold text-purple-600">{treasuresFound}</p></div>
                 <div className="bg-white p-4 rounded-lg border-2 border-yellow-200"><Heart className="w-5 h-5 text-red-600 mx-auto mb-2" /><p className="font-medium">{t.health}</p><p className="text-2xl font-bold text-red-600">{health}%</p></div>
               </div>
-              <div className="flex gap-4 justify-center"><Button onClick={restartGame} className="bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:opacity-90">{t.playAgain}</Button><Button onClick={onExit} variant="outline" className="border-2 border-gray-300"><ArrowLeft className="w-4 h-4 mr-2" />{t.backToDashboard}</Button></div>
+              <div className="flex gap-4 justify-center">
+                <Button onClick={restartGame} className="bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:opacity-90">{t.playAgain}</Button>
+                <Button onClick={onExit} variant="outline" className="border-2 border-gray-300"><ArrowLeft className="w-4 h-4 mr-2" />{t.backToDashboard}</Button>
+              </div>
             </CardContent>
           </Card>
         </div>
@@ -335,9 +304,11 @@ export function PokemonGame({ subject, language, isLiteMode = false, onExit, onG
             <Badge className="bg-purple-500 text-white flex items-center gap-1"><Sparkles className="w-4 h-4" />{treasuresFound}</Badge>
           </div>
         </div>
-        <div className="flex flex-col md:flex-row gap-4">
+        
+        {/* MERGED LAYOUT FROM YOUR ORIGINAL CODE */}
+        <div className="flex gap-4">
           <Card className="flex-1 border-2 border-green-300">
-            <CardContent className="p-2 sm:p-4">
+            <CardContent className="p-4">
               <div className="grid gap-1 aspect-square bg-green-200 p-2 rounded-lg" style={{ gridTemplateColumns: `repeat(${GRID_SIZE}, minmax(0, 1fr))` }}>
                 {Array.from({ length: GRID_SIZE * GRID_SIZE }).map((_, index) => {
                   const x = index % GRID_SIZE;
@@ -345,7 +316,7 @@ export function PokemonGame({ subject, language, isLiteMode = false, onExit, onG
                   const isPlayer = playerPos.x === x && playerPos.y === y;
                   const item = gameItems.find(item => item.position.x === x && item.position.y === y);
                   return (
-                    <div key={index} className={`aspect-square flex items-center justify-center text-xs sm:text-base rounded transition-colors ${isPlayer ? 'bg-yellow-300 border-2 border-yellow-500' : 'bg-green-300'}`}>
+                    <div key={index} className={`aspect-square flex items-center justify-center text-xs sm:text-base rounded transition-colors ${isPlayer ? 'bg-yellow-300 border-2 border-yellow-500' : item && !item.collected ? 'bg-blue-100' : 'bg-green-300'}`}>
                       {isPlayer ? getPlayerSprite() : item ? getItemSprite(item) : ''}
                     </div>
                   );
@@ -353,7 +324,8 @@ export function PokemonGame({ subject, language, isLiteMode = false, onExit, onG
               </div>
             </CardContent>
           </Card>
-          <div className="w-full md:w-64">
+          
+          <div className="w-64">
             <Card className="border-2 border-blue-300 mb-4">
               <CardHeader><CardTitle className="text-lg">{t.gameStats}</CardTitle></CardHeader>
               <CardContent className="space-y-4">
@@ -380,15 +352,18 @@ export function PokemonGame({ subject, language, isLiteMode = false, onExit, onG
             </Card>
           </div>
         </div>
+
         {showQuestionModal && currentQuestion && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
             <Card className="max-w-md w-full border-4 border-yellow-300 bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900 dark:to-orange-900">
               <CardHeader><CardTitle className="text-center text-xl text-yellow-800 dark:text-yellow-200">{t.questionFound}</CardTitle></CardHeader>
               <CardContent>
                 <div className="mb-6">
-                  <h3 className="font-bold text-lg mb-4 text-gray-800 dark:text-gray-200">{currentQuestion.question}</h3>
+                  <h3 className="font-bold text-lg mb-4 text-gray-800 dark:text-gray-200">
+                    {currentQuestion.question[language as keyof typeof currentQuestion.question] || currentQuestion.question.en}
+                  </h3>
                   <div className="space-y-2">
-                    {currentQuestion.options.map((option, index) => (
+                    {(currentQuestion.options[language as keyof typeof currentQuestion.options] || currentQuestion.options.en).map((option, index) => (
                       <Button key={index} onClick={() => handleAnswerSubmit(index)} variant="outline" className="w-full text-left justify-start p-4 h-auto border-2 hover:bg-blue-50 dark:hover:bg-blue-900 text-gray-800 dark:text-gray-200 border-gray-300 dark:border-gray-600">
                         {String.fromCharCode(65 + index)}. {option}
                       </Button>
