@@ -1,1023 +1,181 @@
 export interface Question {
   id: string;
-  question: string;
-  options: string[];
+  question: {
+    en: string;
+    hi: string;
+    pa: string;
+  };
+  options: {
+    en: string[];
+    hi: string[];
+    pa: string[];
+  };
   correct: number;
-  explanation: string;
+  explanation: {
+    en: string;
+    hi: string;
+    pa: string;
+  };
   difficulty: 'easy' | 'medium' | 'hard';
 }
 
 export const QuestionBanks = {
   math: [
-    // Easy Questions (1-7)
-    {
-      id: "math_1",
-      question: "What is 15 + 27?",
-      options: ["42", "41", "43", "40"],
-      correct: 0,
-      explanation: "15 + 27 = 42",
-      difficulty: 'easy' as const
-    },
-    {
-      id: "math_2",
-      question: "What is 9 × 6?",
-      options: ["54", "52", "56", "48"],
-      correct: 0,
-      explanation: "9 × 6 = 54",
-      difficulty: 'easy' as const
-    },
-    {
-      id: "math_3",
-      question: "What is 100 - 37?",
-      options: ["63", "67", "73", "53"],
-      correct: 0,
-      explanation: "100 - 37 = 63",
-      difficulty: 'easy' as const
-    },
-    {
-      id: "math_4",
-      question: "What is 8 + 17?",
-      options: ["25", "24", "26", "23"],
-      correct: 0,
-      explanation: "8 + 17 = 25",
-      difficulty: 'easy' as const
-    },
-    {
-      id: "math_5",
-      question: "What is 7 × 4?",
-      options: ["28", "24", "32", "30"],
-      correct: 0,
-      explanation: "7 × 4 = 28",
-      difficulty: 'easy' as const
-    },
-    {
-      id: "math_6",
-      question: "What is 45 ÷ 5?",
-      options: ["9", "8", "10", "7"],
-      correct: 0,
-      explanation: "45 ÷ 5 = 9",
-      difficulty: 'easy' as const
-    },
-    {
-      id: "math_7",
-      question: "What is 12 + 19?",
-      options: ["31", "30", "32", "29"],
-      correct: 0,
-      explanation: "12 + 19 = 31",
-      difficulty: 'easy' as const
-    },
-    
-    // Medium Questions (8-14)
-    {
-      id: "math_8",
-      question: "What is 144 ÷ 12?",
-      options: ["12", "11", "13", "10"],
-      correct: 0,
-      explanation: "144 ÷ 12 = 12",
-      difficulty: 'medium' as const
-    },
-    {
-      id: "math_9",
-      question: "What is 15% of 200?",
-      options: ["30", "25", "35", "20"],
-      correct: 0,
-      explanation: "15% of 200 = 0.15 × 200 = 30",
-      difficulty: 'medium' as const
-    },
-    {
-      id: "math_10",
-      question: "What is the area of a rectangle 8m × 5m?",
-      options: ["40 sq m", "35 sq m", "45 sq m", "30 sq m"],
-      correct: 0,
-      explanation: "Area = length × width = 8 × 5 = 40 sq m",
-      difficulty: 'medium' as const
-    },
-    {
-      id: "math_11",
-      question: "If x + 5 = 12, what is x?",
-      options: ["7", "6", "8", "5"],
-      correct: 0,
-      explanation: "x + 5 = 12, so x = 12 - 5 = 7",
-      difficulty: 'medium' as const
-    },
-    {
-      id: "math_12",
-      question: "What is 3/4 as a decimal?",
-      options: ["0.75", "0.70", "0.80", "0.65"],
-      correct: 0,
-      explanation: "3/4 = 3 ÷ 4 = 0.75",
-      difficulty: 'medium' as const
-    },
-    {
-      id: "math_13",
-      question: "What is 2³ (2 to the power of 3)?",
-      options: ["8", "6", "9", "12"],
-      correct: 0,
-      explanation: "2³ = 2 × 2 × 2 = 8",
-      difficulty: 'medium' as const
-    },
-    {
-      id: "math_14",
-      question: "What is the perimeter of a square with side 6 cm?",
-      options: ["24 cm", "20 cm", "28 cm", "18 cm"],
-      correct: 0,
-      explanation: "Perimeter = 4 × side = 4 × 6 = 24 cm",
-      difficulty: 'medium' as const
-    },
-    
-    // Hard Questions (15-20)
-    {
-      id: "math_15",
-      question: "What is 8²?",
-      options: ["64", "56", "72", "60"],
-      correct: 0,
-      explanation: "8² = 8 × 8 = 64",
-      difficulty: 'hard' as const
-    },
-    {
-      id: "math_16",
-      question: "Solve: 2x + 3 = 15",
-      options: ["6", "5", "7", "4"],
-      correct: 0,
-      explanation: "2x + 3 = 15, 2x = 12, x = 6",
-      difficulty: 'hard' as const
-    },
-    {
-      id: "math_17",
-      question: "What is the square root of 81?",
-      options: ["9", "8", "10", "7"],
-      correct: 0,
-      explanation: "√81 = 9 because 9² = 81",
-      difficulty: 'hard' as const
-    },
-    {
-      id: "math_18",
-      question: "What is 25% of 80?",
-      options: ["20", "15", "25", "18"],
-      correct: 0,
-      explanation: "25% of 80 = 0.25 × 80 = 20",
-      difficulty: 'hard' as const
-    },
-    {
-      id: "math_19",
-      question: "If a triangle has angles 60°, 70°, what is the third angle?",
-      options: ["50°", "45°", "55°", "40°"],
-      correct: 0,
-      explanation: "Sum of angles in triangle = 180°, so 180° - 60° - 70° = 50°",
-      difficulty: 'hard' as const
-    },
-    {
-      id: "math_20",
-      question: "What is 12 × 15?",
-      options: ["180", "175", "185", "170"],
-      correct: 0,
-      explanation: "12 × 15 = (12 × 10) + (12 × 5) = 120 + 60 = 180",
-      difficulty: 'hard' as const
-    }
+    // Easy Questions
+    { id: "math_1", question: { en: "What is 15 + 27?", hi: "15 + 27 क्या है?", pa: "15 + 27 ਕੀ ਹੈ?" }, options: { en: ["42", "41", "43", "40"], hi: ["42", "41", "43", "40"], pa: ["42", "41", "43", "40"] }, correct: 0, explanation: { en: "15 + 27 = 42", hi: "15 + 27 = 42", pa: "15 + 27 = 42" }, difficulty: 'easy' as const },
+    { id: "math_2", question: { en: "What is 9 × 6?", hi: "9 × 6 क्या है?", pa: "9 × 6 ਕੀ ਹੈ?" }, options: { en: ["54", "52", "56", "48"], hi: ["54", "52", "56", "48"], pa: ["54", "52", "56", "48"] }, correct: 0, explanation: { en: "9 × 6 = 54", hi: "9 × 6 = 54", pa: "9 × 6 = 54" }, difficulty: 'easy' as const },
+    { id: "math_3", question: { en: "What is 100 - 37?", hi: "100 - 37 क्या है?", pa: "100 - 37 ਕੀ ਹੈ?" }, options: { en: ["63", "67", "73", "53"], hi: ["63", "67", "73", "53"], pa: ["63", "67", "73", "53"] }, correct: 0, explanation: { en: "100 - 37 = 63", hi: "100 - 37 = 63", pa: "100 - 37 = 63" }, difficulty: 'easy' as const },
+    { id: "math_4", question: { en: "What is 8 + 17?", hi: "8 + 17 क्या है?", pa: "8 + 17 ਕੀ ਹੈ?" }, options: { en: ["25", "24", "26", "23"], hi: ["25", "24", "26", "23"], pa: ["25", "24", "26", "23"] }, correct: 0, explanation: { en: "8 + 17 = 25", hi: "8 + 17 = 25", pa: "8 + 17 = 25" }, difficulty: 'easy' as const },
+    { id: "math_5", question: { en: "What is 7 × 4?", hi: "7 × 4 क्या है?", pa: "7 × 4 ਕੀ ਹੈ?" }, options: { en: ["28", "24", "32", "30"], hi: ["28", "24", "32", "30"], pa: ["28", "24", "32", "30"] }, correct: 0, explanation: { en: "7 × 4 = 28", hi: "7 × 4 = 28", pa: "7 × 4 = 28" }, difficulty: 'easy' as const },
+    { id: "math_6", question: { en: "What is 45 ÷ 5?", hi: "45 ÷ 5 क्या है?", pa: "45 ÷ 5 ਕੀ ਹੈ?" }, options: { en: ["9", "8", "10", "7"], hi: ["9", "8", "10", "7"], pa: ["9", "8", "10", "7"] }, correct: 0, explanation: { en: "45 ÷ 5 = 9", hi: "45 ÷ 5 = 9", pa: "45 ÷ 5 = 9" }, difficulty: 'easy' as const },
+    { id: "math_7", question: { en: "What is 12 + 19?", hi: "12 + 19 क्या है?", pa: "12 + 19 ਕੀ ਹੈ?" }, options: { en: ["31", "30", "32", "29"], hi: ["31", "30", "32", "29"], pa: ["31", "30", "32", "29"] }, correct: 0, explanation: { en: "12 + 19 = 31", hi: "12 + 19 = 31", pa: "12 + 19 = 31" }, difficulty: 'easy' as const },
+    // Medium Questions
+    { id: "math_8", question: { en: "What is 144 ÷ 12?", hi: "144 ÷ 12 क्या है?", pa: "144 ÷ 12 ਕੀ ਹੈ?" }, options: { en: ["12", "11", "13", "10"], hi: ["12", "11", "13", "10"], pa: ["12", "11", "13", "10"] }, correct: 0, explanation: { en: "144 ÷ 12 = 12", hi: "144 ÷ 12 = 12", pa: "144 ÷ 12 = 12" }, difficulty: 'medium' as const },
+    { id: "math_9", question: { en: "What is 15% of 200?", hi: "200 का 15% क्या है?", pa: "200 ਦਾ 15% ਕੀ ਹੈ?" }, options: { en: ["30", "25", "35", "20"], hi: ["30", "25", "35", "20"], pa: ["30", "25", "35", "20"] }, correct: 0, explanation: { en: "15% of 200 = 0.15 × 200 = 30", hi: "200 का 15% = 0.15 × 200 = 30", pa: "200 ਦਾ 15% = 0.15 × 200 = 30" }, difficulty: 'medium' as const },
+    { id: "math_10", question: { en: "What is the area of a rectangle 8m × 5m?", hi: "8m × 5m आयत का क्षेत्रफल क्या है?", pa: "8m × 5m ਆਇਤ ਦਾ ਖੇਤਰਫਲ ਕੀ ਹੈ?" }, options: { en: ["40 sq m", "35 sq m", "45 sq m", "30 sq m"], hi: ["40 वर्ग मीटर", "35 वर्ग मीटर", "45 वर्ग मीटर", "30 वर्ग मीटर"], pa: ["40 ਵਰਗ ਮੀਟਰ", "35 ਵਰਗ ਮੀਟਰ", "45 ਵਰਗ ਮੀਟਰ", "30 ਵਰਗ ਮੀਟਰ"] }, correct: 0, explanation: { en: "Area = length × width = 8 × 5 = 40 sq m", hi: "क्षेत्रफल = लंबाई × चौड़ाई = 8 × 5 = 40 वर्ग मीटर", pa: "ਖੇਤਰਫਲ = ਲੰਬਾਈ × ਚੌੜਾਈ = 8 × 5 = 40 ਵਰਗ ਮੀਟਰ" }, difficulty: 'medium' as const },
+    { id: "math_11", question: { en: "If x + 5 = 12, what is x?", hi: "यदि x + 5 = 12, तो x क्या है?", pa: "ਜੇ x + 5 = 12, ਤਾਂ x ਕੀ ਹੈ?" }, options: { en: ["7", "6", "8", "5"], hi: ["7", "6", "8", "5"], pa: ["7", "6", "8", "5"] }, correct: 0, explanation: { en: "x + 5 = 12, so x = 12 - 5 = 7", hi: "x + 5 = 12, इसलिए x = 12 - 5 = 7", pa: "x + 5 = 12, ਇਸ ਲਈ x = 12 - 5 = 7" }, difficulty: 'medium' as const },
+    { id: "math_12", question: { en: "What is 3/4 as a decimal?", hi: "3/4 को दशमलव के रूप में क्या कहते हैं?", pa: "3/4 ਨੂੰ ਦਸ਼ਮਲਵ ਵਜੋਂ ਕੀ ਕਹਿੰਦੇ ਹਨ?" }, options: { en: ["0.75", "0.70", "0.80", "0.65"], hi: ["0.75", "0.70", "0.80", "0.65"], pa: ["0.75", "0.70", "0.80", "0.65"] }, correct: 0, explanation: { en: "3/4 = 3 ÷ 4 = 0.75", hi: "3/4 = 3 ÷ 4 = 0.75", pa: "3/4 = 3 ÷ 4 = 0.75" }, difficulty: 'medium' as const },
+    { id: "math_13", question: { en: "What is 2³ (2 to the power of 3)?", hi: "2³ (2 की घात 3) क्या है?", pa: "2³ (2 ਦੀ ਘਾਤ 3) ਕੀ ਹੈ?" }, options: { en: ["8", "6", "9", "12"], hi: ["8", "6", "9", "12"], pa: ["8", "6", "9", "12"] }, correct: 0, explanation: { en: "2³ = 2 × 2 × 2 = 8", hi: "2³ = 2 × 2 × 2 = 8", pa: "2³ = 2 × 2 × 2 = 8" }, difficulty: 'medium' as const },
+    { id: "math_14", question: { en: "What is the perimeter of a square with side 6 cm?", hi: "6 सेमी भुजा वाले वर्ग का परिमाप क्या है?", pa: "6 ਸੈ.ਮੀ. ਭੁਜਾ ਵਾਲੇ ਵਰਗ ਦਾ ਘੇਰਾ ਕੀ ਹੈ?" }, options: { en: ["24 cm", "20 cm", "28 cm", "18 cm"], hi: ["24 सेमी", "20 सेमी", "28 सेमी", "18 सेमी"], pa: ["24 ਸੈ.ਮੀ.", "20 ਸੈ.ਮੀ.", "28 ਸੈ.ਮੀ.", "18 ਸੈ.ਮੀ."] }, correct: 0, explanation: { en: "Perimeter = 4 × side = 4 × 6 = 24 cm", hi: "परिमाप = 4 × भुजा = 4 × 6 = 24 सेमी", pa: "ਘੇਰਾ = 4 × ਭੁਜਾ = 4 × 6 = 24 ਸੈ.ਮੀ." }, difficulty: 'medium' as const },
+    // Hard Questions
+    { id: "math_15", question: { en: "What is 8²?", hi: "8² क्या है?", pa: "8² ਕੀ ਹੈ?" }, options: { en: ["64", "56", "72", "60"], hi: ["64", "56", "72", "60"], pa: ["64", "56", "72", "60"] }, correct: 0, explanation: { en: "8² = 8 × 8 = 64", hi: "8² = 8 × 8 = 64", pa: "8² = 8 × 8 = 64" }, difficulty: 'hard' as const },
+    { id: "math_16", question: { en: "Solve: 2x + 3 = 15", hi: "हल करें: 2x + 3 = 15", pa: "ਹੱਲ ਕਰੋ: 2x + 3 = 15" }, options: { en: ["6", "5", "7", "4"], hi: ["6", "5", "7", "4"], pa: ["6", "5", "7", "4"] }, correct: 0, explanation: { en: "2x + 3 = 15, 2x = 12, x = 6", hi: "2x + 3 = 15, 2x = 12, x = 6", pa: "2x + 3 = 15, 2x = 12, x = 6" }, difficulty: 'hard' as const },
+    { id: "math_17", question: { en: "What is the square root of 81?", hi: "81 का वर्गमूल क्या है?", pa: "81 ਦਾ ਵਰਗਮੂਲ ਕੀ ਹੈ?" }, options: { en: ["9", "8", "10", "7"], hi: ["9", "8", "10", "7"], pa: ["9", "8", "10", "7"] }, correct: 0, explanation: { en: "√81 = 9 because 9² = 81", hi: "√81 = 9 क्योंकि 9² = 81", pa: "√81 = 9 ਕਿਉਂਕਿ 9² = 81" }, difficulty: 'hard' as const },
+    { id: "math_18", question: { en: "What is 25% of 80?", hi: "80 का 25% क्या है?", pa: "80 ਦਾ 25% ਕੀ ਹੈ?" }, options: { en: ["20", "15", "25", "18"], hi: ["20", "15", "25", "18"], pa: ["20", "15", "25", "18"] }, correct: 0, explanation: { en: "25% of 80 = 0.25 × 80 = 20", hi: "80 का 25% = 0.25 × 80 = 20", pa: "80 ਦਾ 25% = 0.25 × 80 = 20" }, difficulty: 'hard' as const },
+    { id: "math_19", question: { en: "If a triangle has angles 60°, 70°, what is the third angle?", hi: "यदि एक त्रिभुज के कोण 60°, 70° हैं, तो तीसरा कोण क्या है?", pa: "ਜੇ ਇੱਕ ਤਿਕੋਣ ਦੇ ਕੋਣ 60°, 70° ਹਨ, ਤਾਂ ਤੀਜਾ ਕੋਣ ਕੀ ਹੈ?" }, options: { en: ["50°", "45°", "55°", "40°"], hi: ["50°", "45°", "55°", "40°"], pa: ["50°", "45°", "55°", "40°"] }, correct: 0, explanation: { en: "Sum of angles in triangle = 180°, so 180° - 60° - 70° = 50°", hi: "त्रिभुज के कोणों का योग = 180°, इसलिए 180° - 60° - 70° = 50°", pa: "ਤਿਕੋਣ ਦੇ ਕੋਣਾਂ ਦਾ ਜੋੜ = 180°, ਇਸ ਲਈ 180° - 60° - 70° = 50°" }, difficulty: 'hard' as const },
+    { id: "math_20", question: { en: "What is 12 × 15?", hi: "12 × 15 क्या है?", pa: "12 × 15 ਕੀ ਹੈ?" }, options: { en: ["180", "175", "185", "170"], hi: ["180", "175", "185", "170"], pa: ["180", "175", "185", "170"] }, correct: 0, explanation: { en: "12 × 15 = (12 × 10) + (12 × 5) = 120 + 60 = 180", hi: "12 × 15 = (12 × 10) + (12 × 5) = 120 + 60 = 180", pa: "12 × 15 = (12 × 10) + (12 × 5) = 120 + 60 = 180" }, difficulty: 'hard' as const },
   ],
-  
   science: [
-    // Easy Questions (1-7)
-    {
-      id: "science_1",
-      question: "What planet is closest to the Sun?",
-      options: ["Mercury", "Venus", "Earth", "Mars"],
-      correct: 0,
-      explanation: "Mercury is the closest planet to the Sun",
-      difficulty: 'easy' as const
-    },
-    {
-      id: "science_2",
-      question: "How many legs does a spider have?",
-      options: ["8", "6", "10", "4"],
-      correct: 0,
-      explanation: "Spiders are arachnids and have 8 legs",
-      difficulty: 'easy' as const
-    },
-    {
-      id: "science_3",
-      question: "What do plants need from the sun?",
-      options: ["Light", "Heat", "Radiation", "Gravity"],
-      correct: 0,
-      explanation: "Plants need light from the sun for photosynthesis",
-      difficulty: 'easy' as const
-    },
-    {
-      id: "science_4",
-      question: "What gas do we breathe in?",
-      options: ["Oxygen", "Carbon dioxide", "Nitrogen", "Helium"],
-      correct: 0,
-      explanation: "We breathe in oxygen which our body needs",
-      difficulty: 'easy' as const
-    },
-    {
-      id: "science_5",
-      question: "What is the largest mammal?",
-      options: ["Blue whale", "Elephant", "Giraffe", "Lion"],
-      correct: 0,
-      explanation: "The blue whale is the largest mammal on Earth",
-      difficulty: 'easy' as const
-    },
-    {
-      id: "science_6",
-      question: "How many bones are in an adult human body?",
-      options: ["206", "200", "210", "195"],
-      correct: 0,
-      explanation: "An adult human has 206 bones",
-      difficulty: 'easy' as const
-    },
-    {
-      id: "science_7",
-      question: "What is H2O?",
-      options: ["Water", "Oxygen", "Hydrogen", "Carbon dioxide"],
-      correct: 0,
-      explanation: "H2O is the chemical formula for water",
-      difficulty: 'easy' as const
-    },
-    
-    // Medium Questions (8-14)
-    {
-      id: "science_8",
-      question: "What gas do plants absorb from the atmosphere?",
-      options: ["Carbon Dioxide", "Oxygen", "Nitrogen", "Hydrogen"],
-      correct: 0,
-      explanation: "Plants absorb CO₂ during photosynthesis",
-      difficulty: 'medium' as const
-    },
-    {
-      id: "science_9",
-      question: "How many chambers does a human heart have?",
-      options: ["4", "3", "2", "5"],
-      correct: 0,
-      explanation: "The human heart has 4 chambers: 2 atria and 2 ventricles",
-      difficulty: 'medium' as const
-    },
-    {
-      id: "science_10",
-      question: "What is the speed of light?",
-      options: ["300,000 km/s", "150,000 km/s", "450,000 km/s", "200,000 km/s"],
-      correct: 0,
-      explanation: "Light travels at approximately 300,000 kilometers per second",
-      difficulty: 'medium' as const
-    },
-    {
-      id: "science_11",
-      question: "What type of animal is a dolphin?",
-      options: ["Mammal", "Fish", "Reptile", "Amphibian"],
-      correct: 0,
-      explanation: "Dolphins are marine mammals, not fish",
-      difficulty: 'medium' as const
-    },
-    {
-      id: "science_12",
-      question: "What causes tides?",
-      options: ["Moon's gravity", "Sun's heat", "Earth's rotation", "Wind"],
-      correct: 0,
-      explanation: "Tides are primarily caused by the Moon's gravitational pull",
-      difficulty: 'medium' as const
-    },
-    {
-      id: "science_13",
-      question: "What is the hardest natural substance?",
-      options: ["Diamond", "Steel", "Quartz", "Iron"],
-      correct: 0,
-      explanation: "Diamond is the hardest naturally occurring substance",
-      difficulty: 'medium' as const
-    },
-    {
-      id: "science_14",
-      question: "How long does it take Earth to orbit the Sun?",
-      options: ["365 days", "360 days", "370 days", "355 days"],
-      correct: 0,
-      explanation: "Earth takes approximately 365 days to orbit the Sun",
-      difficulty: 'medium' as const
-    },
-    
-    // Hard Questions (15-20)
-    {
-      id: "science_15",
-      question: "What is the chemical symbol for gold?",
-      options: ["Au", "Ag", "Pb", "Fe"],
-      correct: 0,
-      explanation: "Au comes from the Latin word 'aurum' meaning gold",
-      difficulty: 'hard' as const
-    },
-    {
-      id: "science_16",
-      question: "What is the pH of pure water?",
-      options: ["7", "6", "8", "5"],
-      correct: 0,
-      explanation: "Pure water has a neutral pH of 7",
-      difficulty: 'hard' as const
-    },
-    {
-      id: "science_17",
-      question: "Which blood type is known as the universal donor?",
-      options: ["O negative", "A positive", "B negative", "AB positive"],
-      correct: 0,
-      explanation: "O negative blood can be given to anyone, making it the universal donor",
-      difficulty: 'hard' as const
-    },
-    {
-      id: "science_18",
-      question: "What is the powerhouse of the cell?",
-      options: ["Mitochondria", "Nucleus", "Ribosome", "Cytoplasm"],
-      correct: 0,
-      explanation: "Mitochondria produce energy (ATP) for the cell",
-      difficulty: 'hard' as const
-    },
-    {
-      id: "science_19",
-      question: "What is the study of earthquakes called?",
-      options: ["Seismology", "Geology", "Meteorology", "Oceanography"],
-      correct: 0,
-      explanation: "Seismology is the scientific study of earthquakes",
-      difficulty: 'hard' as const
-    },
-    {
-      id: "science_20",
-      question: "What gas makes up about 78% of Earth's atmosphere?",
-      options: ["Nitrogen", "Oxygen", "Carbon dioxide", "Argon"],
-      correct: 0,
-      explanation: "Nitrogen makes up about 78% of Earth's atmosphere",
-      difficulty: 'hard' as const
-    }
+    // Easy Questions
+    { id: "science_1", question: { en: "What planet is closest to the Sun?", hi: "सूर्य के सबसे निकट कौन सा ग्रह है?", pa: "ਸੂਰਜ ਦੇ ਸਭ ਤੋਂ ਨੇੜੇ ਕਿਹੜਾ ਗ੍ਰਹਿ ਹੈ?" }, options: { en: ["Mercury", "Venus", "Earth", "Mars"], hi: ["बुध", "शुक्र", "पृथ्वी", "मंगल"], pa: ["ਬੁੱਧ", "ਸ਼ੁੱਕਰ", "ਧਰਤੀ", "ਮੰਗਲ"] }, correct: 0, explanation: { en: "Mercury is the closest planet to the Sun", hi: "बुध सूर्य के सबसे निकट का ग्रह है", pa: "ਬੁੱਧ ਸੂਰਜ ਦਾ ਸਭ ਤੋਂ ਨਜ਼ਦੀਕੀ ਗ੍ਰਹਿ ਹੈ" }, difficulty: 'easy' as const },
+    { id: "science_2", question: { en: "How many legs does a spider have?", hi: "मकड़ी के कितने पैर होते हैं?", pa: "ਮੱਕੜੀ ਦੀਆਂ ਕਿੰਨੀਆਂ ਲੱਤਾਂ ਹੁੰਦੀਆਂ ਹਨ?" }, options: { en: ["8", "6", "10", "4"], hi: ["8", "6", "10", "4"], pa: ["8", "6", "10", "4"] }, correct: 0, explanation: { en: "Spiders are arachnids and have 8 legs", hi: "मकड़ियां अरचिन्ड होती हैं और उनके 8 पैर होते हैं", pa: "ਮੱਕੜੀਆਂ ਅਰੈਕਨਿਡ ਹੁੰਦੀਆਂ ਹਨ ਅਤੇ ਉਨ੍ਹਾਂ ਦੀਆਂ 8 ਲੱਤਾਂ ਹੁੰਦੀਆਂ ਹਨ" }, difficulty: 'easy' as const },
+    { id: "science_3", question: { en: "What do plants need from the sun?", hi: "पौधों को सूर्य से क्या चाहिए?", pa: "ਪੌਦਿਆਂ ਨੂੰ ਸੂਰਜ ਤੋਂ ਕੀ ਚਾਹੀਦਾ ਹੈ?" }, options: { en: ["Light", "Heat", "Radiation", "Gravity"], hi: ["प्रकाश", "गर्मी", "विकिरण", "गुरुत्वाकर्षण"], pa: ["ਰੋਸ਼ਨੀ", "ਗਰਮੀ", "ਰੇਡੀਏਸ਼ਨ", "ਗੁਰੂਤਾਕਰਸ਼ਣ"] }, correct: 0, explanation: { en: "Plants need light from the sun for photosynthesis", hi: "पौधों को प्रकाश संश्लेषण के लिए सूर्य से प्रकाश की आवश्यकता होती है", pa: "ਪੌਦਿਆਂ ਨੂੰ ਪ੍ਰਕਾਸ਼ ਸੰਸ਼ਲੇਸ਼ਣ ਲਈ ਸੂਰਜ ਤੋਂ ਰੌਸ਼ਨੀ ਦੀ ਲੋੜ ਹੁੰਦੀ ਹੈ" }, difficulty: 'easy' as const },
+    { id: "science_4", question: { en: "What gas do we breathe in?", hi: "हम कौन सी गैस सांस में लेते हैं?", pa: "ਅਸੀਂ ਕਿਹੜੀ ਗੈਸ ਸਾਹ ਲੈਂਦੇ ਹਾਂ?" }, options: { en: ["Oxygen", "Carbon dioxide", "Nitrogen", "Helium"], hi: ["ऑक्सीजन", "कार्बन डाइऑक्साइड", "नाइट्रोजन", "हीलियम"], pa: ["ਆਕਸੀਜਨ", "ਕਾਰਬਨ ਡਾਈਆਕਸਾਈਡ", "ਨਾਈਟ੍ਰੋਜਨ", "ਹੀਲੀਅਮ"] }, correct: 0, explanation: { en: "We breathe in oxygen which our body needs", hi: "हम ऑक्सीजन में सांस लेते हैं जिसकी हमारे शरीर को जरूरत होती है", pa: "ਅਸੀਂ ਆਕਸੀਜਨ ਸਾਹ ਲੈਂਦੇ ਹਾਂ ਜਿਸਦੀ ਸਾਡੇ ਸਰੀਰ ਨੂੰ ਲੋੜ ਹੁੰਦੀ ਹੈ" }, difficulty: 'easy' as const },
+    { id: "science_5", question: { en: "What is the largest mammal?", hi: "सबसे बड़ा स्तनपायी कौन सा है?", pa: "ਸਭ ਤੋਂ ਵੱਡਾ ਥਣਧਾਰੀ ਜੀਵ ਕਿਹੜਾ ਹੈ?" }, options: { en: ["Blue whale", "Elephant", "Giraffe", "Lion"], hi: ["ब्लू व्हेल", "हाथी", "जिराफ़", "शेर"], pa: ["ਨੀਲੀ ਵ੍ਹੇਲ", "ਹਾਥੀ", "ਜਿਰਾਫ", "ਸ਼ੇਰ"] }, correct: 0, explanation: { en: "The blue whale is the largest mammal on Earth", hi: "ब्लू व्हेल पृथ्वी पर सबसे बड़ा स्तनपायी है", pa: "ਨੀਲੀ ਵ੍ਹੇਲ ਧਰਤੀ ਦਾ ਸਭ ਤੋਂ ਵੱਡਾ ਥਣਧਾਰੀ ਜੀਵ ਹੈ" }, difficulty: 'easy' as const },
+    { id: "science_6", question: { en: "How many bones are in an adult human body?", hi: "एक वयस्क मानव शरीर में कितनी हड्डियाँ होती हैं?", pa: "ਇੱਕ ਬਾਲਗ ਮਨੁੱਖੀ ਸਰੀਰ ਵਿੱਚ ਕਿੰਨੀਆਂ ਹੱਡੀਆਂ ਹੁੰਦੀਆਂ ਹਨ?" }, options: { en: ["206", "200", "210", "195"], hi: ["206", "200", "210", "195"], pa: ["206", "200", "210", "195"] }, correct: 0, explanation: { en: "An adult human has 206 bones", hi: "एक वयस्क इंसान में 206 हड्डियाँ होती हैं", pa: "ਇੱਕ ਬਾਲਗ ਮਨੁੱਖ ਵਿੱਚ 206 ਹੱਡੀਆਂ ਹੁੰਦੀਆਂ ਹਨ" }, difficulty: 'easy' as const },
+    { id: "science_7", question: { en: "What is H2O?", hi: "H2O क्या है?", pa: "H2O ਕੀ ਹੈ?" }, options: { en: ["Water", "Oxygen", "Hydrogen", "Carbon dioxide"], hi: ["पानी", "ऑक्सीजन", "हाइड्रोजन", "कार्बन डाइऑक्साइड"], pa: ["ਪਾਣੀ", "ਆਕਸੀਜਨ", "ਹਾਈਡ੍ਰੋਜਨ", "ਕਾਰਬਨ ਡਾਈਆਕਸਾਈਡ"] }, correct: 0, explanation: { en: "H2O is the chemical formula for water", hi: "H2O पानी का रासायनिक सूत्र है", pa: "H2O ਪਾਣੀ ਦਾ ਰਸਾਇਣਕ ਫਾਰਮੂਲਾ ਹੈ" }, difficulty: 'easy' as const },
+    // Medium Questions
+    { id: "science_8", question: { en: "What gas do plants absorb from the atmosphere?", hi: "पौधे वायुमंडल से कौन सी गैस अवशोषित करते हैं?", pa: "ਪੌਦੇ ਵਾਯੂਮੰਡਲ ਵਿੱਚੋਂ ਕਿਹੜੀ ਗੈਸ ਸੋਖਦੇ ਹਨ?" }, options: { en: ["Carbon Dioxide", "Oxygen", "Nitrogen", "Hydrogen"], hi: ["कार्बन डाइऑक्साइड", "ऑक्सीजन", "नाइट्रोजन", "हाइड्रोजन"], pa: ["ਕਾਰਬਨ ਡਾਈਆਕਸਾਈਡ", "ਆਕਸੀਜਨ", "ਨਾਈਟ੍ਰੋਜਨ", "ਹਾਈਡ੍ਰੋਜਨ"] }, correct: 0, explanation: { en: "Plants absorb CO₂ during photosynthesis", hi: "पौधे प्रकाश संश्लेषण के दौरान CO₂ को अवशोषित करते हैं", pa: "ਪੌਦੇ ਪ੍ਰਕਾਸ਼ ਸੰਸ਼ਲੇਸ਼ਣ ਦੌਰਾਨ CO₂ ਨੂੰ ਸੋਖਦੇ ਹਨ" }, difficulty: 'medium' as const },
+    { id: "science_9", question: { en: "How many chambers does a human heart have?", hi: "मानव हृदय में कितने कक्ष होते हैं?", pa: "ਮਨੁੱਖੀ ਦਿਲ ਦੇ ਕਿੰਨੇ ਚੈਂਬਰ ਹੁੰਦੇ ਹਨ?" }, options: { en: ["4", "3", "2", "5"], hi: ["4", "3", "2", "5"], pa: ["4", "3", "2", "5"] }, correct: 0, explanation: { en: "The human heart has 4 chambers: 2 atria and 2 ventricles", hi: "मानव हृदय में 4 कक्ष होते हैं: 2 अलिंद और 2 निलय", pa: "ਮਨੁੱਖੀ ਦਿਲ ਦੇ 4 ਚੈਂਬਰ ਹੁੰਦੇ ਹਨ: 2 ਐਟ੍ਰੀਆ ਅਤੇ 2 ਵੈਂਟ੍ਰੀਕਲ" }, difficulty: 'medium' as const },
+    { id: "science_10", question: { en: "What is the speed of light?", hi: "प्रकाश की गति क्या है?", pa: "ਪ੍ਰਕਾਸ਼ ਦੀ ਗਤੀ ਕੀ ਹੈ?" }, options: { en: ["300,000 km/s", "150,000 km/s", "450,000 km/s", "200,000 km/s"], hi: ["300,000 किमी/सेकंड", "150,000 किमी/सेकंड", "450,000 किमी/सेकंड", "200,000 किमी/सेकंड"], pa: ["300,000 ਕਿਲੋਮੀਟਰ/ਸੈਕਿੰਡ", "150,000 ਕਿਲੋਮੀਟਰ/ਸੈਕਿੰਡ", "450,000 ਕਿਲੋਮੀਟਰ/ਸੈਕਿੰਡ", "200,000 ਕਿਲੋਮੀਟਰ/ਸੈਕਿੰਡ"] }, correct: 0, explanation: { en: "Light travels at approximately 300,000 kilometers per second", hi: "प्रकाश लगभग 300,000 किलोमीटर प्रति सेकंड की गति से यात्रा करता है", pa: "ਪ੍ਰਕਾਸ਼ ਲਗਭਗ 300,000 ਕਿਲੋਮੀਟਰ ਪ੍ਰਤੀ ਸਕਿੰਟ ਦੀ ਰਫਤਾਰ ਨਾਲ ਯਾਤਰਾ ਕਰਦਾ ਹੈ" }, difficulty: 'medium' as const },
+    { id: "science_11", question: { en: "What type of animal is a dolphin?", hi: "डॉल्फिन किस प्रकार का जानवर है?", pa: "ਡਾਲਫਿਨ ਕਿਸ ਕਿਸਮ ਦਾ ਜਾਨਵਰ ਹੈ?" }, options: { en: ["Mammal", "Fish", "Reptile", "Amphibian"], hi: ["स्तनपायी", "मछली", "सरीसृप", "उभयचर"], pa: ["ਥਣਧਾਰੀ", "ਮੱਛੀ", "ਸੱਪ", "ਉਭਾਰੀ"] }, correct: 0, explanation: { en: "Dolphins are marine mammals, not fish", hi: "डॉल्फिन समुद्री स्तनधारी हैं, मछली नहीं", pa: "ਡਾਲਫਿਨ ਸਮੁੰਦਰੀ ਥਣਧਾਰੀ ਜੀਵ ਹਨ, ਮੱਛੀਆਂ ਨਹੀਂ" }, difficulty: 'medium' as const },
+    { id: "science_12", question: { en: "What causes tides?", hi: "ज्वार का क्या कारण है?", pa: "ਜਵਾਰ ਦਾ ਕੀ ਕਾਰਨ ਹੈ?" }, options: { en: ["Moon's gravity", "Sun's heat", "Earth's rotation", "Wind"], hi: ["चंद्रमा का गुरुत्वाकर्षण", "सूर्य की गर्मी", "पृथ्वी का घूमना", "हवा"], pa: ["ਚੰਦਰਮਾ ਦੀ ਗੁਰੂਤਾ", "ਸੂਰਜ ਦੀ ਗਰਮੀ", "ਧਰਤੀ ਦਾ ਘੁੰਮਣਾ", "ਹਵਾ"] }, correct: 0, explanation: { en: "Tides are primarily caused by the Moon's gravitational pull", hi: "ज्वार मुख्य रूप से चंद्रमा के गुरुत्वाकर्षण खिंचाव के कारण होता है", pa: "ਜਵਾਰ ਮੁੱਖ ਤੌਰ 'ਤੇ ਚੰਦਰਮਾ ਦੇ ਗੁਰੂਤਾ ਖਿੱਚ ਕਾਰਨ ਹੁੰਦੇ ਹਨ" }, difficulty: 'medium' as const },
+    { id: "science_13", question: { en: "What is the hardest natural substance?", hi: "सबसे कठोर प्राकृतिक पदार्थ कौन सा है?", pa: "ਸਭ ਤੋਂ ਔਖਾ ਕੁਦਰਤੀ ਪਦਾਰਥ ਕਿਹੜਾ ਹੈ?" }, options: { en: ["Diamond", "Steel", "Quartz", "Iron"], hi: ["हीरा", "स्टील", "क्वार्ट्ज", "लोहा"], pa: ["ਹੀਰਾ", "ਸਟੀਲ", "ਕੁਆਰਟਜ਼", "ਲੋਹਾ"] }, correct: 0, explanation: { en: "Diamond is the hardest naturally occurring substance", hi: "हीरा सबसे कठोर प्राकृतिक रूप से पाया जाने वाला पदार्थ है", pa: "ਹੀਰਾ ਸਭ ਤੋਂ ਔਖਾ ਕੁਦਰਤੀ ਤੌਰ 'ਤੇ ਹੋਣ ਵਾਲਾ ਪਦਾਰਥ ਹੈ" }, difficulty: 'medium' as const },
+    { id: "science_14", question: { en: "How long does it take Earth to orbit the Sun?", hi: "पृथ्वी को सूर्य की परिक्रमा करने में कितना समय लगता है?", pa: "ਧਰਤੀ ਨੂੰ ਸੂਰਜ ਦੁਆਲੇ ਘੁੰਮਣ ਵਿੱਚ ਕਿੰਨਾ ਸਮਾਂ ਲੱਗਦਾ ਹੈ?" }, options: { en: ["365 days", "360 days", "370 days", "355 days"], hi: ["365 दिन", "360 दिन", "370 दिन", "355 दिन"], pa: ["365 ਦਿਨ", "360 ਦਿਨ", "370 ਦਿਨ", "355 ਦਿਨ"] }, correct: 0, explanation: { en: "Earth takes approximately 365 days to orbit the Sun", hi: "पृथ्वी को सूर्य की परिक्रमा करने में लगभग 365 दिन लगते हैं", pa: "ਧਰਤੀ ਨੂੰ ਸੂਰਜ ਦੁਆਲੇ ਘੁੰਮਣ ਵਿੱਚ ਲਗਭਗ 365 ਦਿਨ ਲੱਗਦੇ ਹਨ" }, difficulty: 'medium' as const },
+    // Hard Questions
+    { id: "science_15", question: { en: "What is the chemical symbol for gold?", hi: "सोने का रासायनिक प्रतीक क्या है?", pa: "ਸੋਨੇ ਦਾ ਰਸਾਇਣਕ ਚਿੰਨ੍ਹ ਕੀ ਹੈ?" }, options: { en: ["Au", "Ag", "Pb", "Fe"], hi: ["Au", "Ag", "Pb", "Fe"], pa: ["Au", "Ag", "Pb", "Fe"] }, correct: 0, explanation: { en: "Au comes from the Latin word 'aurum' meaning gold", hi: "Au लैटिन शब्द 'aurum' से आया है जिसका अर्थ है सोना", pa: "Au ਲਾਤੀਨੀ ਸ਼ਬਦ 'aurum' ਤੋਂ ਆਇਆ ਹੈ ਜਿਸਦਾ ਅਰਥ ਹੈ ਸੋਨਾ" }, difficulty: 'hard' as const },
+    { id: "science_16", question: { en: "What is the pH of pure water?", hi: "शुद्ध जल का पीएच क्या है?", pa: "ਸ਼ੁੱਧ ਪਾਣੀ ਦਾ pH ਕੀ ਹੈ?" }, options: { en: ["7", "6", "8", "5"], hi: ["7", "6", "8", "5"], pa: ["7", "6", "8", "5"] }, correct: 0, explanation: { en: "Pure water has a neutral pH of 7", hi: "शुद्ध पानी का तटस्थ पीएच 7 होता है", pa: "ਸ਼ੁੱਧ ਪਾਣੀ ਦਾ ਇੱਕ ਨਿਰਪੱਖ pH 7 ਹੁੰਦਾ ਹੈ" }, difficulty: 'hard' as const },
+    { id: "science_17", question: { en: "Which blood type is known as the universal donor?", hi: "किस रक्त प्रकार को सार्वभौमिक दाता के रूप में जाना जाता है?", pa: "ਕਿਹੜੇ ਖੂਨ ਦੀ ਕਿਸਮ ਨੂੰ ਸਰਵ ਵਿਆਪਕ ਦਾਨੀ ਵਜੋਂ ਜਾਣਿਆ ਜਾਂਦਾ ਹੈ?" }, options: { en: ["O negative", "A positive", "B negative", "AB positive"], hi: ["O नेगेटिव", "A पॉजिटिव", "B नेगेटिव", "AB पॉजिटिव"], pa: ["O ਨੈਗੇਟਿਵ", "A ਪਾਜ਼ਿਟਿਵ", "B ਨੈਗੇਟਿਵ", "AB ਪਾਜ਼ਿਟਿਵ"] }, correct: 0, explanation: { en: "O negative blood can be given to anyone", hi: "O नेगेटिव रक्त किसी को भी दिया जा सकता है", pa: "O ਨੈਗੇਟਿਵ ਖੂਨ ਕਿਸੇ ਨੂੰ ਵੀ ਦਿੱਤਾ ਜਾ ਸਕਦਾ ਹੈ" }, difficulty: 'hard' as const },
+    { id: "science_18", question: { en: "What is the powerhouse of the cell?", hi: "कोशिका का पावरहाउस क्या है?", pa: "ਸੈੱਲ ਦਾ ਪਾਵਰਹਾਊਸ ਕੀ ਹੈ?" }, options: { en: ["Mitochondria", "Nucleus", "Ribosome", "Cytoplasm"], hi: ["माइटोकॉन्ड्रिया", "नाभिक", "राइबोसोम", "साइटोप्लाज्म"], pa: ["ਮਾਈਟੋਕਾਂਡਰੀਆ", "ਨਿਊਕਲੀਅਸ", "ਰਾਈਬੋਸੋਮ", "ਸਾਈਟੋਪਲਾਜ਼ਮ"] }, correct: 0, explanation: { en: "Mitochondria produce energy (ATP) for the cell", hi: "माइटोकॉन्ड्रिया कोशिका के लिए ऊर्जा (एटीपी) का उत्पादन करते हैं", pa: "ਮਾਈਟੋਕਾਂਡਰੀਆ ਸੈੱਲ ਲਈ ਊਰਜਾ (ATP) ਪੈਦਾ ਕਰਦਾ ਹੈ" }, difficulty: 'hard' as const },
+    { id: "science_19", question: { en: "What is the study of earthquakes called?", hi: "भूकंप के अध्ययन को क्या कहा जाता है?", pa: "ਭੂਚਾਲ ਦੇ ਅਧਿਐਨ ਨੂੰ ਕੀ ਕਿਹਾ ਜਾਂਦਾ ਹੈ?" }, options: { en: ["Seismology", "Geology", "Meteorology", "Oceanography"], hi: ["भूकंप विज्ञान", "भूविज्ञान", "मौसम विज्ञान", "समुद्र विज्ञान"], pa: ["ਭੂਚਾਲ ਵਿਗਿਆਨ", "ਭੂ-ਵਿਗਿਆਨ", "ਮੌਸਮ ਵਿਗਿਆਨ", "ਸਮੁੰਦਰ ਵਿਗਿਆਨ"] }, correct: 0, explanation: { en: "Seismology is the scientific study of earthquakes", hi: "भूकंप विज्ञान भूकंपों का वैज्ञानिक अध्ययन है", pa: "ਭੂਚਾਲ ਵਿਗਿਆਨ ਭੁਚਾਲਾਂ ਦਾ ਵਿਗਿਆਨਕ ਅਧਿਐਨ ਹੈ" }, difficulty: 'hard' as const },
+    { id: "science_20", question: { en: "What gas makes up about 78% of Earth's atmosphere?", hi: "पृथ्वी के वायुमंडल का लगभग 78% कौन सी गैस बनाती है?", pa: "ਧਰਤੀ ਦੇ ਵਾਯੂਮੰਡਲ ਦਾ ਲਗਭਗ 78% ਕਿਹੜੀ ਗੈਸ ਬਣਾਉਂਦੀ ਹੈ?" }, options: { en: ["Nitrogen", "Oxygen", "Carbon dioxide", "Argon"], hi: ["नाइट्रोजन", "ऑक्सीजन", "कार्बन डाइऑक्साइड", "आर्गन"], pa: ["ਨਾਈਟ੍ਰੋਜਨ", "ਆਕਸੀਜਨ", "ਕਾਰਬਨ ਡਾਈਆਕਸਾਈਡ", "ਆਰਗਨ"] }, correct: 0, explanation: { en: "Nitrogen makes up about 78% of Earth's atmosphere", hi: "नाइट्रोजन पृथ्वी के वायुमंडल का लगभग 78% हिस्सा बनाती है", pa: "ਨਾਈਟ੍ਰੋਜਨ ਧਰਤੀ ਦੇ ਵਾਯੂਮੰਡਲ ਦਾ ਲਗਭਗ 78% ਬਣਦਾ ਹੈ" }, difficulty: 'hard' as const },
   ],
-  
   physics: [
-    // Easy Questions (1-7)
-    {
-      id: "physics_1",
-      question: "What is the unit of force?",
-      options: ["Newton", "Joule", "Watt", "Pascal"],
-      correct: 0,
-      explanation: "Newton (N) is the SI unit of force",
-      difficulty: 'easy' as const
-    },
-    {
-      id: "physics_2",
-      question: "What happens to ice when heated?",
-      options: ["It melts", "It freezes", "It evaporates", "Nothing"],
-      correct: 0,
-      explanation: "Ice melts to become liquid water when heated",
-      difficulty: 'easy' as const
-    },
-    {
-      id: "physics_3",
-      question: "What is the speed of sound in air approximately?",
-      options: ["340 m/s", "300 m/s", "400 m/s", "250 m/s"],
-      correct: 0,
-      explanation: "Sound travels at approximately 340 meters per second in air",
-      difficulty: 'easy' as const
-    },
-    {
-      id: "physics_4",
-      question: "What type of energy does a moving car have?",
-      options: ["Kinetic", "Potential", "Chemical", "Nuclear"],
-      correct: 0,
-      explanation: "A moving object has kinetic energy due to its motion",
-      difficulty: 'easy' as const
-    },
-    {
-      id: "physics_5",
-      question: "What is gravity?",
-      options: ["A force", "An energy", "A wave", "A particle"],
-      correct: 0,
-      explanation: "Gravity is a fundamental force of attraction",
-      difficulty: 'easy' as const
-    },
-    {
-      id: "physics_6",
-      question: "What color is light made of all colors?",
-      options: ["White", "Black", "Red", "Blue"],
-      correct: 0,
-      explanation: "White light contains all colors of the visible spectrum",
-      difficulty: 'easy' as const
-    },
-    {
-      id: "physics_7",
-      question: "What happens to metal when heated?",
-      options: ["It expands", "It contracts", "It changes color", "Nothing"],
-      correct: 0,
-      explanation: "Most metals expand when heated due to increased molecular motion",
-      difficulty: 'easy' as const
-    },
-    
-    // Medium Questions (8-14)
-    {
-      id: "physics_8",
-      question: "What is Newton's first law of motion?",
-      options: ["Law of inertia", "F = ma", "Action-reaction", "Conservation of energy"],
-      correct: 0,
-      explanation: "Newton's first law states that objects at rest stay at rest, and objects in motion stay in motion",
-      difficulty: 'medium' as const
-    },
-    {
-      id: "physics_9",
-      question: "What is the acceleration due to gravity on Earth?",
-      options: ["9.8 m/s²", "10 m/s²", "8.8 m/s²", "11 m/s²"],
-      correct: 0,
-      explanation: "The acceleration due to gravity on Earth is approximately 9.8 m/s²",
-      difficulty: 'medium' as const
-    },
-    {
-      id: "physics_10",
-      question: "What type of wave is light?",
-      options: ["Electromagnetic", "Sound", "Mechanical", "Water"],
-      correct: 0,
-      explanation: "Light is an electromagnetic wave",
-      difficulty: 'medium' as const
-    },
-    {
-      id: "physics_11",
-      question: "What is the formula for kinetic energy?",
-      options: ["½mv²", "mgh", "F = ma", "PV = nRT"],
-      correct: 0,
-      explanation: "Kinetic energy equals half mass times velocity squared",
-      difficulty: 'medium' as const
-    },
-    {
-      id: "physics_12",
-      question: "What is the unit of electrical resistance?",
-      options: ["Ohm", "Volt", "Ampere", "Watt"],
-      correct: 0,
-      explanation: "Ohm (Ω) is the unit of electrical resistance",
-      difficulty: 'medium' as const
-    },
-    {
-      id: "physics_13",
-      question: "What happens to frequency when wavelength increases?",
-      options: ["Decreases", "Increases", "Stays same", "Doubles"],
-      correct: 0,
-      explanation: "For waves, frequency and wavelength are inversely related",
-      difficulty: 'medium' as const
-    },
-    {
-      id: "physics_14",
-      question: "What is absolute zero in Celsius?",
-      options: ["-273°C", "-270°C", "-280°C", "-250°C"],
-      correct: 0,
-      explanation: "Absolute zero is -273.15°C, the theoretical lowest possible temperature",
-      difficulty: 'medium' as const
-    },
-    
-    // Hard Questions (15-20)
-    {
-      id: "physics_15",
-      question: "What is Planck's constant approximately?",
-      options: ["6.626 × 10⁻³⁴ J·s", "6.626 × 10⁻²⁴ J·s", "3.14 × 10⁻³⁴ J·s", "1.6 × 10⁻¹⁹ J·s"],
-      correct: 0,
-      explanation: "Planck's constant is approximately 6.626 × 10⁻³⁴ joule-seconds",
-      difficulty: 'hard' as const
-    },
-    {
-      id: "physics_16",
-      question: "What principle explains how airplanes fly?",
-      options: ["Bernoulli's principle", "Archimedes principle", "Pascal's principle", "Newton's principle"],
-      correct: 0,
-      explanation: "Bernoulli's principle explains lift generation in aircraft wings",
-      difficulty: 'hard' as const
-    },
-    {
-      id: "physics_17",
-      question: "What is the uncertainty principle?",
-      options: ["Cannot know position and momentum precisely", "Energy cannot be created", "Mass equals energy", "Action equals reaction"],
-      correct: 0,
-      explanation: "Heisenberg's uncertainty principle states position and momentum cannot be simultaneously determined precisely",
-      difficulty: 'hard' as const
-    },
-    {
-      id: "physics_18",
-      question: "What is the speed of light in a vacuum?",
-      options: ["299,792,458 m/s", "300,000,000 m/s", "299,000,000 m/s", "298,000,000 m/s"],
-      correct: 0,
-      explanation: "The exact speed of light in vacuum is 299,792,458 meters per second",
-      difficulty: 'hard' as const
-    },
-    {
-      id: "physics_19",
-      question: "What is wave-particle duality?",
-      options: ["Light behaves as both wave and particle", "Matter can be energy", "Waves create particles", "Particles create waves"],
-      correct: 0,
-      explanation: "Wave-particle duality describes how light and matter exhibit both wave and particle properties",
-      difficulty: 'hard' as const
-    },
-    {
-      id: "physics_20",
-      question: "What is the strong nuclear force?",
-      options: ["Force holding protons and neutrons together", "Electromagnetic force", "Gravitational force", "Weak nuclear force"],
-      correct: 0,
-      explanation: "The strong nuclear force binds protons and neutrons in atomic nuclei",
-      difficulty: 'hard' as const
-    }
+    // Easy Questions
+    { id: "physics_1", question: { en: "What is the unit of force?", hi: "बल की इकाई क्या है?", pa: "ਬਲ ਦੀ ਇਕਾਈ ਕੀ ਹੈ?" }, options: { en: ["Newton", "Joule", "Watt", "Pascal"], hi: ["न्यूटन", "जूल", "वाट", "पास्कल"], pa: ["ਨਿਊਟਨ", "ਜੂਲ", "ਵਾਟ", "ਪਾਸਕਲ"] }, correct: 0, explanation: { en: "Newton (N) is the SI unit of force", hi: "न्यूटन (N) बल की SI इकाई है", pa: "ਨਿਊਟਨ (N) ਬਲ ਦੀ SI ਇਕਾਈ ਹੈ" }, difficulty: 'easy' as const },
+    { id: "physics_2", question: { en: "What happens to ice when heated?", hi: "गर्म करने पर बर्फ का क्या होता है?", pa: "ਗਰਮ ਕਰਨ 'ਤੇ ਬਰਫ਼ ਦਾ ਕੀ ਹੁੰਦਾ ਹੈ?" }, options: { en: ["It melts", "It freezes", "It evaporates", "Nothing"], hi: ["यह पिघलता है", "यह जमता है", "यह वाष्पित हो जाता है", "कुछ नहीं"], pa: ["ਇਹ ਪਿਘਲਦਾ ਹੈ", "ਇਹ ਜੰਮ ਜਾਂਦਾ ਹੈ", "ਇਹ ਭਾਫ਼ ਬਣ ਜਾਂਦਾ ਹੈ", "ਕੁਝ ਨਹੀਂ"] }, correct: 0, explanation: { en: "Ice melts to become liquid water when heated", hi: "गर्म करने पर बर्फ पिघलकर तरल पानी बन जाती है", pa: "ਗਰਮ ਕਰਨ 'ਤੇ ਬਰਫ਼ ਪਿਘਲ ਕੇ ਤਰਲ ਪਾਣੀ ਬਣ ਜਾਂਦੀ ਹੈ" }, difficulty: 'easy' as const },
+    { id: "physics_3", question: { en: "What is the speed of sound in air approximately?", hi: "हवा में ध्वनि की गति लगभग कितनी होती है?", pa: "ਹਵਾ ਵਿੱਚ ਧੁਨੀ ਦੀ ਗਤੀ ਲਗਭਗ ਕਿੰਨੀ ਹੈ?" }, options: { en: ["340 m/s", "300 m/s", "400 m/s", "250 m/s"], hi: ["340 मी/से", "300 मी/से", "400 मी/से", "250 मी/से"], pa: ["340 m/s", "300 m/s", "400 m/s", "250 m/s"] }, correct: 0, explanation: { en: "Sound travels at approximately 340 meters per second in air", hi: "ध्वनि हवा में लगभग 340 मीटर प्रति सेकंड की गति से यात्रा करती है", pa: "ਧੁਨੀ ਹਵਾ ਵਿੱਚ ਲਗਭਗ 340 ਮੀਟਰ ਪ੍ਰਤੀ ਸਕਿੰਟ ਦੀ ਰਫਤਾਰ ਨਾਲ ਯਾਤਰਾ ਕਰਦੀ ਹੈ" }, difficulty: 'easy' as const },
+    { id: "physics_4", question: { en: "What type of energy does a moving car have?", hi: "चलती कार में किस प्रकार की ऊर्जा होती है?", pa: "ਚਲਦੀ ਕਾਰ ਵਿੱਚ ਕਿਸ ਕਿਸਮ ਦੀ ਊਰਜਾ ਹੁੰਦੀ ਹੈ?" }, options: { en: ["Kinetic", "Potential", "Chemical", "Nuclear"], hi: ["गतिज", "स्थितिज", "रासायनिक", "नाभिकीय"], pa: ["ਗਤੀਆਤਮਕ", "ਸੰਭਾਵੀ", "ਰਸਾਇਣਕ", "ਪ੍ਰਮਾਣੂ"] }, correct: 0, explanation: { en: "A moving object has kinetic energy due to its motion", hi: "गतिमान वस्तु में उसकी गति के कारण गतिज ऊर्जा होती है", pa: "ਇੱਕ ਚਲਦੀ ਵਸਤੂ ਵਿੱਚ ਇਸਦੀ ਗਤੀ ਦੇ ਕਾਰਨ ਗਤੀਆਤਮਕ ਊਰਜਾ ਹੁੰਦੀ ਹੈ" }, difficulty: 'easy' as const },
+    { id: "physics_5", question: { en: "What is gravity?", hi: "गुरुत्वाकर्षण क्या है?", pa: "ਗੁਰੂਤਾਕਰਸ਼ਣ ਕੀ ਹੈ?" }, options: { en: ["A force", "An energy", "A wave", "A particle"], hi: ["एक बल", "एक ऊर्जा", "एक तरंग", "एक कण"], pa: ["ਇੱਕ ਬਲ", "ਇੱਕ ਊਰਜਾ", "ਇੱਕ ਲਹਿਰ", "ਇੱਕ ਕਣ"] }, correct: 0, explanation: { en: "Gravity is a fundamental force of attraction", hi: "गुरुत्वाकर्षण एक मौलिक आकर्षण बल है", pa: "ਗੁਰੂਤਾਕਰਸ਼ਣ ਖਿੱਚ ਦਾ ਇੱਕ ਬੁਨਿਆਦੀ ਬਲ ਹੈ" }, difficulty: 'easy' as const },
+    { id: "physics_6", question: { en: "What color is light made of all colors?", hi: "सभी रंगों से बना प्रकाश किस रंग का होता है?", pa: "ਸਾਰੇ ਰੰਗਾਂ ਦਾ ਬਣਿਆ ਪ੍ਰਕਾਸ਼ ਕਿਹੜਾ ਰੰਗ ਹੈ?" }, options: { en: ["White", "Black", "Red", "Blue"], hi: ["सफ़ेद", "काला", "लाल", "नीला"], pa: ["ਚਿੱਟਾ", "ਕਾਲਾ", "ਲਾਲ", "ਨੀਲਾ"] }, correct: 0, explanation: { en: "White light contains all colors of the visible spectrum", hi: "सफेद प्रकाश में दृश्यमान स्पेक्ट्रम के सभी रंग होते हैं", pa: "ਚਿੱਟੇ ਪ੍ਰਕਾਸ਼ ਵਿੱਚ ਦਿਸਣ ਵਾਲੇ ਸਪੈਕਟ੍ਰਮ ਦੇ ਸਾਰੇ ਰੰਗ ਹੁੰਦੇ ਹਨ" }, difficulty: 'easy' as const },
+    { id: "physics_7", question: { en: "What happens to metal when heated?", hi: "गर्म करने पर धातु का क्या होता है?", pa: "ਗਰਮ ਕਰਨ 'ਤੇ ਧਾਤ ਦਾ ਕੀ ਹੁੰਦਾ ਹੈ?" }, options: { en: ["It expands", "It contracts", "It changes color", "Nothing"], hi: ["यह फैलता है", "यह सिकुड़ता है", "इसका रंग बदलता है", "कुछ नहीं"], pa: ["ਇਹ ਫੈਲਦਾ ਹੈ", "ਇਹ ਸੁੰਗੜਦਾ ਹੈ", "ਇਸਦਾ ਰੰਗ ਬਦਲਦਾ ਹੈ", "ਕੁਝ ਨਹੀਂ"] }, correct: 0, explanation: { en: "Most metals expand when heated", hi: "अधिकांश धातुएं गर्म करने पर फैलती हैं", pa: "ਜ਼ਿਆਦਾਤਰ ਧਾਤਾਂ ਗਰਮ ਹੋਣ 'ਤੇ ਫੈਲਦੀਆਂ ਹਨ" }, difficulty: 'easy' as const },
+    // Medium Questions
+    { id: "physics_8", question: { en: "What is Newton's first law of motion?", hi: "न्यूटन का गति का पहला नियम क्या है?", pa: "ਨਿਊਟਨ ਦਾ ਗਤੀ ਦਾ ਪਹਿਲਾ ਨਿਯਮ ਕੀ ਹੈ?" }, options: { en: ["Law of inertia", "F = ma", "Action-reaction", "Conservation of energy"], hi: ["जड़त्व का नियम", "F = ma", "क्रिया-प्रतिक्रिया", "ऊर्जा संरक्षण"], pa: ["ਜੜਤਾ ਦਾ ਨਿਯਮ", "F = ma", "ਕਿਰਿਆ-ਪ੍ਰਤੀਕਿਰਿਆ", "ਊਰਜਾ ਦੀ ਸੰਭਾਲ"] }, correct: 0, explanation: { en: "Newton's first law is the law of inertia", hi: "न्यूटन का पहला नियम जड़त्व का नियम है", pa: "ਨਿਊਟਨ ਦਾ ਪਹਿਲਾ ਨਿਯਮ ਜੜਤਾ ਦਾ ਨਿਯਮ ਹੈ" }, difficulty: 'medium' as const },
+    { id: "physics_9", question: { en: "What is the acceleration due to gravity on Earth?", hi: "पृथ्वी पर गुरुत्वाकर्षण के कारण त्वरण कितना है?", pa: "ਧਰਤੀ 'ਤੇ ਗੁਰੂਤਾਕਰਸ਼ਣ ਦੇ ਕਾਰਨ ਪ੍ਰਵੇਗ ਕੀ ਹੈ?" }, options: { en: ["9.8 m/s²", "10 m/s²", "8.8 m/s²", "11 m/s²"], hi: ["9.8 मी/से²", "10 मी/से²", "8.8 मी/से²", "11 मी/से²"], pa: ["9.8 m/s²", "10 m/s²", "8.8 m/s²", "11 m/s²"] }, correct: 0, explanation: { en: "The acceleration due to gravity on Earth is approximately 9.8 m/s²", hi: "पृथ्वी पर गुरुत्वाकर्षण के कारण त्वरण लगभग 9.8 m/s² है", pa: "ਧਰਤੀ 'ਤੇ ਗੁਰੂਤਾਕਰਸ਼ਣ ਦੇ ਕਾਰਨ ਪ੍ਰਵੇਗ ਲਗਭਗ 9.8 m/s² ਹੈ" }, difficulty: 'medium' as const },
+    { id: "physics_10", question: { en: "What type of wave is light?", hi: "प्रकाश किस प्रकार की तरंग है?", pa: "ਪ੍ਰਕਾਸ਼ ਕਿਸ ਕਿਸਮ ਦੀ ਲਹਿਰ ਹੈ?" }, options: { en: ["Electromagnetic", "Sound", "Mechanical", "Water"], hi: ["विद्युत चुम्बकीय", "ध्वनि", "यांत्रिक", "पानी"], pa: ["ਇਲੈਕਟ੍ਰੋਮੈਗਨੈਟਿਕ", "ਧੁਨੀ", "ਮਕੈਨੀਕਲ", "ਪਾਣੀ"] }, correct: 0, explanation: { en: "Light is an electromagnetic wave", hi: "प्रकाश एक विद्युत चुम्बकीय तरंग है", pa: "ਪ੍ਰਕਾਸ਼ ਇੱਕ ਇਲੈਕਟ੍ਰੋਮੈਗਨੈਟਿਕ ਲਹਿਰ ਹੈ" }, difficulty: 'medium' as const },
+    { id: "physics_11", question: { en: "What is the formula for kinetic energy?", hi: "गतिज ऊर्जा का सूत्र क्या है?", pa: "ਗਤੀਆਤਮਕ ਊਰਜਾ ਦਾ ਫਾਰਮੂਲਾ ਕੀ ਹੈ?" }, options: { en: ["½mv²", "mgh", "F = ma", "PV = nRT"], hi: ["½mv²", "mgh", "F = ma", "PV = nRT"], pa: ["½mv²", "mgh", "F = ma", "PV = nRT"] }, correct: 0, explanation: { en: "Kinetic energy equals half mass times velocity squared", hi: "गतिज ऊर्जा आधे द्रव्यमान गुना वेग के वर्ग के बराबर होती है", pa: "ਗਤੀਆਤਮਕ ਊਰਜਾ ਅੱਧੇ ਪੁੰਜ ਗੁਣਾ ਵੇਗ ਵਰਗ ਦੇ ਬਰਾਬਰ ਹੈ" }, difficulty: 'medium' as const },
+    { id: "physics_12", question: { en: "What is the unit of electrical resistance?", hi: "विद्युत प्रतिरोध की इकाई क्या है?", pa: "ਬਿਜਲਈ ਪ੍ਰਤੀਰੋਧ ਦੀ ਇਕਾਈ ਕੀ ਹੈ?" }, options: { en: ["Ohm", "Volt", "Ampere", "Watt"], hi: ["ओम", "वोल्ट", "एम्पीयर", "वाट"], pa: ["ਓਮ", "ਵੋਲਟ", "ਐਂਪੀਅਰ", "ਵਾਟ"] }, correct: 0, explanation: { en: "Ohm (Ω) is the unit of electrical resistance", hi: "ओम (Ω) विद्युत प्रतिरोध की इकाई है", pa: "ਓਮ (Ω) ਬਿਜਲਈ ਪ੍ਰਤੀਰੋਧ ਦੀ ਇਕਾਈ ਹੈ" }, difficulty: 'medium' as const },
+    { id: "physics_13", question: { en: "What happens to frequency when wavelength increases?", hi: "तरंग दैर्ध्य बढ़ने पर आवृत्ति का क्या होता है?", pa: "ਜਦੋਂ ਤਰੰਗ-ਲੰਬਾਈ ਵਧਦੀ ਹੈ ਤਾਂ ਬਾਰੰਬਾਰਤਾ ਦਾ ਕੀ ਹੁੰਦਾ ਹੈ?" }, options: { en: ["Decreases", "Increases", "Stays same", "Doubles"], hi: ["घटती है", "बढ़ती है", "समान रहती है", "दोगुनी हो जाती है"], pa: ["ਘਟਦੀ ਹੈ", "ਵਧਦੀ ਹੈ", "ਉਹੀ ਰਹਿੰਦੀ ਹੈ", "ਦੁੱਗਣੀ ਹੋ ਜਾਂਦੀ ਹੈ"] }, correct: 0, explanation: { en: "For waves, frequency and wavelength are inversely related", hi: "तरंगों के लिए, आवृत्ति और तरंग दैर्ध्य व्युत्क्रमानुपाती होते हैं", pa: "ਲਹਿਰਾਂ ਲਈ, ਬਾਰੰਬਾਰਤਾ ਅਤੇ ਤਰੰਗ-ਲੰਬਾਈ ਉਲਟ ਤੌਰ 'ਤੇ ਸਬੰਧਤ ਹਨ" }, difficulty: 'medium' as const },
+    { id: "physics_14", question: { en: "What is absolute zero in Celsius?", hi: "सेल्सियस में परम शून्य क्या है?", pa: "ਸੈਲਸੀਅਸ ਵਿੱਚ ਪੂਰਨ ਜ਼ੀਰੋ ਕੀ ਹੈ?" }, options: { en: ["-273°C", "-270°C", "-280°C", "-250°C"], hi: ["-273°C", "-270°C", "-280°C", "-250°C"], pa: ["-273°C", "-270°C", "-280°C", "-250°C"] }, correct: 0, explanation: { en: "Absolute zero is -273.15°C", hi: "परम शून्य -273.15°C है", pa: "ਪੂਰਨ ਜ਼ੀਰੋ -273.15°C ਹੈ" }, difficulty: 'medium' as const },
+    // Hard Questions
+    { id: "physics_15", question: { en: "What is Planck's constant approximately?", hi: "प्लांक स्थिरांक लगभग क्या है?", pa: "ਪਲੈਂਕ ਦਾ ਸਥਿਰ ਅੰਕ ਲਗਭਗ ਕੀ ਹੈ?" }, options: { en: ["6.626 × 10⁻³⁴ J·s", "6.626 × 10⁻²⁴ J·s", "3.14 × 10⁻³⁴ J·s", "1.6 × 10⁻¹⁹ J·s"], hi: ["6.626 × 10⁻³⁴ J·s", "6.626 × 10⁻²⁴ J·s", "3.14 × 10⁻³⁴ J·s", "1.6 × 10⁻¹⁹ J·s"], pa: ["6.626 × 10⁻³⁴ J·s", "6.626 × 10⁻²⁴ J·s", "3.14 × 10⁻³⁴ J·s", "1.6 × 10⁻¹⁹ J·s"] }, correct: 0, explanation: { en: "Planck's constant is approximately 6.626 × 10⁻³⁴ joule-seconds", hi: "प्लांक स्थिरांक लगभग 6.626 × 10⁻³⁴ जूल-सेकंड है", pa: "ਪਲੈਂਕ ਦਾ ਸਥਿਰ ਅੰਕ ਲਗਭਗ 6.626 × 10⁻³⁴ ਜੂਲ-ਸਕਿੰਟ ਹੈ" }, difficulty: 'hard' as const },
+    { id: "physics_16", question: { en: "What principle explains how airplanes fly?", hi: "हवाई जहाज कैसे उड़ते हैं, यह किस सिद्धांत से स्पष्ट होता है?", pa: "ਕਿਹੜਾ ਸਿਧਾਂਤ ਦੱਸਦਾ ਹੈ ਕਿ ਹਵਾਈ ਜਹਾਜ਼ ਕਿਵੇਂ ਉੱਡਦੇ ਹਨ?" }, options: { en: ["Bernoulli's principle", "Archimedes principle", "Pascal's principle", "Newton's principle"], hi: ["बर्नौली का सिद्धांत", "आर्किमिडीज का सिद्धांत", "पास्कल का सिद्धांत", "न्यूटन का सिद्धांत"], pa: ["ਬਰਨੌਲੀ ਦਾ ਸਿਧਾਂਤ", "ਆਰਕੀਮੀਡੀਜ਼ ਦਾ ਸਿਧਾਂਤ", "ਪਾਸਕਲ ਦਾ ਸਿਧਾਂਤ", "ਨਿਊਟਨ ਦਾ ਸਿਧਾਂਤ"] }, correct: 0, explanation: { en: "Bernoulli's principle explains lift generation in aircraft wings", hi: "बर्नौली का सिद्धांत विमान के पंखों में लिफ्ट उत्पादन की व्याख्या करता है", pa: "ਬਰਨੌਲੀ ਦਾ ਸਿਧਾਂਤ ਹਵਾਈ ਜਹਾਜ਼ ਦੇ ਖੰਭਾਂ ਵਿੱਚ ਲਿਫਟ ਉਤਪਾਦਨ ਦੀ ਵਿਆਖਿਆ ਕਰਦਾ ਹੈ" }, difficulty: 'hard' as const },
+    { id: "physics_17", question: { en: "What is the uncertainty principle?", hi: "अनिश्चितता का सिद्धांत क्या है?", pa: "ਅਨਿਸ਼ਚਿਤਤਾ ਦਾ ਸਿਧਾਂਤ ਕੀ ਹੈ?" }, options: { en: ["Cannot know position and momentum precisely", "Energy cannot be created", "Mass equals energy", "Action equals reaction"], hi: ["स्थिति और संवेग को ठीक-ठीक नहीं जान सकते", "ऊर्जा का निर्माण नहीं किया जा सकता", "द्रव्यमान ऊर्जा के बराबर है", "क्रिया प्रतिक्रिया के बराबर है"], pa: ["ਸਥਿਤੀ ਅਤੇ ਗਤੀ ਨੂੰ ਸਹੀ ਤਰ੍ਹਾਂ ਨਹੀਂ ਜਾਣ ਸਕਦੇ", "ਊਰਜਾ ਬਣਾਈ ਨਹੀਂ ਜਾ ਸਕਦੀ", "ਪੁੰਜ ਊਰਜਾ ਦੇ ਬਰਾਬਰ ਹੈ", "ਕਿਰਿਆ ਪ੍ਰਤੀਕਿਰਿਆ ਦੇ ਬਰਾਬਰ ਹੈ"] }, correct: 0, explanation: { en: "Heisenberg's uncertainty principle states position and momentum cannot be simultaneously determined precisely", hi: "हाइजेनबर्ग का अनिश्चितता सिद्धांत कहता है कि स्थिति और संवेग को एक साथ ठीक-ठीक निर्धारित नहीं किया जा सकता है", pa: "ਹਾਈਜ਼ਨਬਰਗ ਦਾ ਅਨਿਸ਼ਚਿਤਤਾ ਸਿਧਾਂਤ ਦੱਸਦਾ ਹੈ ਕਿ ਸਥਿਤੀ ਅਤੇ ਗਤੀ ਨੂੰ ਇੱਕੋ ਸਮੇਂ ਸਹੀ ਢੰਗ ਨਾਲ ਨਿਰਧਾਰਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ" }, difficulty: 'hard' as const },
+    { id: "physics_18", question: { en: "What is the speed of light in a vacuum?", hi: "निर्वात में प्रकाश की गति क्या है?", pa: "ਵੈਕਿਊਮ ਵਿੱਚ ਪ੍ਰਕਾਸ਼ ਦੀ ਗਤੀ ਕੀ ਹੈ?" }, options: { en: ["299,792,458 m/s", "300,000,000 m/s", "299,000,000 m/s", "298,000,000 m/s"], hi: ["299,792,458 मी/से", "300,000,000 मी/से", "299,000,000 मी/से", "298,000,000 मी/से"], pa: ["299,792,458 m/s", "300,000,000 m/s", "299,000,000 m/s", "298,000,000 m/s"] }, correct: 0, explanation: { en: "The exact speed of light in vacuum is 299,792,458 meters per second", hi: "निर्वात में प्रकाश की सटीक गति 299,792,458 मीटर प्रति सेकंड है", pa: "ਵੈਕਿਊਮ ਵਿੱਚ ਪ੍ਰਕਾਸ਼ ਦੀ ਸਹੀ ਗਤੀ 299,792,458 ਮੀਟਰ ਪ੍ਰਤੀ ਸਕਿੰਟ ਹੈ" }, difficulty: 'hard' as const },
+    { id: "physics_19", question: { en: "What is wave-particle duality?", hi: "तरंग-कण द्वैत क्या है?", pa: "ਤਰੰਗ-ਕਣ ਦਵੈਤ ਕੀ ਹੈ?" }, options: { en: ["Light behaves as both wave and particle", "Matter can be energy", "Waves create particles", "Particles create waves"], hi: ["प्रकाश तरंग और कण दोनों के रूप में व्यवहार करता है", "पदार्थ ऊर्जा हो सकता है", "तरंगें कण बनाती हैं", "कण तरंगें बनाते हैं"], pa: ["ਪ੍ਰਕਾਸ਼ ਤਰੰਗ ਅਤੇ ਕਣ ਦੋਵਾਂ ਦੇ ਰੂਪ ਵਿੱਚ ਵਿਵਹਾਰ ਕਰਦਾ ਹੈ", "ਪਦਾਰਥ ਊਰਜਾ ਹੋ ਸਕਦਾ ਹੈ", "ਤਰੰਗਾਂ ਕਣ ਬਣਾਉਂਦੀਆਂ ਹਨ", "ਕਣ ਤਰੰਗਾਂ ਬਣਾਉਂਦੇ ਹਨ"] }, correct: 0, explanation: { en: "Wave-particle duality describes how light and matter exhibit both wave and particle properties", hi: "तरंग-कण द्वैत यह बताता है कि प्रकाश और पदार्थ तरंग और कण दोनों के गुण प्रदर्शित करते हैं", pa: "ਤਰੰਗ-ਕਣ ਦਵੈਤ ਦੱਸਦਾ ਹੈ ਕਿ ਪ੍ਰਕਾਸ਼ ਅਤੇ ਪਦਾਰਥ ਕਿਵੇਂ ਤਰੰਗ ਅਤੇ ਕਣ ਦੋਵਾਂ ਦੇ ਗੁਣ ਪ੍ਰਦਰਸ਼ਿਤ ਕਰਦੇ ਹਨ" }, difficulty: 'hard' as const },
+    { id: "physics_20", question: { en: "What is the strong nuclear force?", hi: "प्रबल नाभिकीय बल क्या है?", pa: "ਮਜ਼ਬੂਤ ​​ਪ੍ਰਮਾਣੂ ਬਲ ਕੀ ਹੈ?" }, options: { en: ["Force holding protons and neutrons together", "Electromagnetic force", "Gravitational force", "Weak nuclear force"], hi: ["प्रोटॉन और न्यूट्रॉन को एक साथ रखने वाला बल", "विद्युत चुम्बकीय बल", "गुरुत्वाकर्षण बल", "कमजोर नाभिकीय बल"], pa: ["ਪ੍ਰੋਟੋਨ ਅਤੇ ਨਿਊਟ੍ਰੋਨ ਨੂੰ ਇਕੱਠੇ ਰੱਖਣ ਵਾਲਾ ਬਲ", "ਇਲੈਕਟ੍ਰੋਮੈਗਨੈਟਿਕ ਬਲ", "ਗੁਰੂਤਾਕਰਸ਼ਣ ਬਲ", "ਕਮਜ਼ੋਰ ਪ੍ਰਮਾਣੂ ਬਲ"] }, correct: 0, explanation: { en: "The strong nuclear force binds protons and neutrons in atomic nuclei", hi: "प्रबल नाभिकीय बल परमाणु नाभिक में प्रोटॉन और न्यूट्रॉन को बांधता है", pa: "ਮਜ਼ਬੂਤ ​​ਪ੍ਰਮਾਣੂ ਬਲ ਪ੍ਰਮਾਣੂ ਨਿਊਕਲੀਅਸ ਵਿੱਚ ਪ੍ਰੋਟੋਨ ਅਤੇ ਨਿਊਟ੍ਰੋਨ ਨੂੰ ਬੰਨ੍ਹਦਾ ਹੈ" }, difficulty: 'hard' as const },
   ],
-  
   chemistry: [
-    // Easy Questions (1-7)
-    {
-      id: "chemistry_1",
-      question: "What is the chemical symbol for water?",
-      options: ["H2O", "CO2", "O2", "H2"],
-      correct: 0,
-      explanation: "Water has the chemical formula H2O (2 hydrogen atoms and 1 oxygen atom)",
-      difficulty: 'easy' as const
-    },
-    {
-      id: "chemistry_2",
-      question: "What is the most abundant gas in Earth's atmosphere?",
-      options: ["Nitrogen", "Oxygen", "Carbon dioxide", "Hydrogen"],
-      correct: 0,
-      explanation: "Nitrogen makes up about 78% of Earth's atmosphere",
-      difficulty: 'easy' as const
-    },
-    {
-      id: "chemistry_3",
-      question: "What is the pH of an acid?",
-      options: ["Less than 7", "Equal to 7", "Greater than 7", "Always 1"],
-      correct: 0,
-      explanation: "Acids have a pH less than 7 on the pH scale",
-      difficulty: 'easy' as const
-    },
-    {
-      id: "chemistry_4",
-      question: "What is salt chemically known as?",
-      options: ["Sodium chloride", "Calcium carbonate", "Potassium iodide", "Magnesium sulfate"],
-      correct: 0,
-      explanation: "Table salt is sodium chloride (NaCl)",
-      difficulty: 'easy' as const
-    },
-    {
-      id: "chemistry_5",
-      question: "What gas is produced when you mix vinegar and baking soda?",
-      options: ["Carbon dioxide", "Oxygen", "Hydrogen", "Nitrogen"],
-      correct: 0,
-      explanation: "The reaction produces carbon dioxide gas, which causes bubbling",
-      difficulty: 'easy' as const
-    },
-    {
-      id: "chemistry_6",
-      question: "What is the smallest unit of an element?",
-      options: ["Atom", "Molecule", "Compound", "Ion"],
-      correct: 0,
-      explanation: "An atom is the smallest unit of an element that retains its properties",
-      difficulty: 'easy' as const
-    },
-    {
-      id: "chemistry_7",
-      question: "What do we call substances that cannot be broken down chemically?",
-      options: ["Elements", "Compounds", "Mixtures", "Solutions"],
-      correct: 0,
-      explanation: "Elements are pure substances that cannot be broken down chemically",
-      difficulty: 'easy' as const
-    },
-    
-    // Medium Questions (8-14)
-    {
-      id: "chemistry_8",
-      question: "How many electrons can the first shell of an atom hold?",
-      options: ["2", "4", "6", "8"],
-      correct: 0,
-      explanation: "The first electron shell can hold a maximum of 2 electrons",
-      difficulty: 'medium' as const
-    },
-    {
-      id: "chemistry_9",
-      question: "What is the atomic number of carbon?",
-      options: ["6", "4", "8", "12"],
-      correct: 0,
-      explanation: "Carbon has 6 protons, so its atomic number is 6",
-      difficulty: 'medium' as const
-    },
-    {
-      id: "chemistry_10",
-      question: "What type of bond forms between metals and non-metals?",
-      options: ["Ionic", "Covalent", "Metallic", "Hydrogen"],
-      correct: 0,
-      explanation: "Ionic bonds form between metals and non-metals through electron transfer",
-      difficulty: 'medium' as const
-    },
-    {
-      id: "chemistry_11",
-      question: "What is the process of a liquid turning into a gas called?",
-      options: ["Evaporation", "Condensation", "Sublimation", "Freezing"],
-      correct: 0,
-      explanation: "Evaporation is the process where liquid changes to gas at the surface",
-      difficulty: 'medium' as const
-    },
-    {
-      id: "chemistry_12",
-      question: "What is the chemical formula for methane?",
-      options: ["CH4", "C2H6", "CO2", "H2O"],
-      correct: 0,
-      explanation: "Methane has the formula CH4 (1 carbon and 4 hydrogen atoms)",
-      difficulty: 'medium' as const
-    },
-    {
-      id: "chemistry_13",
-      question: "What is a catalyst?",
-      options: ["Speeds up reactions", "Slows down reactions", "Creates products", "Removes reactants"],
-      correct: 0,
-      explanation: "A catalyst speeds up chemical reactions without being consumed",
-      difficulty: 'medium' as const
-    },
-    {
-      id: "chemistry_14",
-      question: "What is the molar mass of water (H2O)?",
-      options: ["18 g/mol", "16 g/mol", "20 g/mol", "14 g/mol"],
-      correct: 0,
-      explanation: "H2O = (2×1) + (1×16) = 18 grams per mole",
-      difficulty: 'medium' as const
-    },
-    
-    // Hard Questions (15-20)
-    {
-      id: "chemistry_15",
-      question: "What is Avogadro's number?",
-      options: ["6.022 × 10²³", "6.022 × 10²²", "3.14 × 10²³", "1.6 × 10⁻¹⁹"],
-      correct: 0,
-      explanation: "Avogadro's number is 6.022 × 10²³ particles per mole",
-      difficulty: 'hard' as const
-    },
-    {
-      id: "chemistry_16",
-      question: "What is the electron configuration of neon?",
-      options: ["1s² 2s² 2p⁶", "1s² 2s² 2p⁴", "1s² 2s² 2p⁸", "1s² 2p⁸"],
-      correct: 0,
-      explanation: "Neon has 10 electrons: 1s² 2s² 2p⁶",
-      difficulty: 'hard' as const
-    },
-    {
-      id: "chemistry_17",
-      question: "What is the hybridization of carbon in methane?",
-      options: ["sp³", "sp²", "sp", "s"],
-      correct: 0,
-      explanation: "Carbon in methane (CH4) has sp³ hybridization forming tetrahedral geometry",
-      difficulty: 'hard' as const
-    },
-    {
-      id: "chemistry_18",
-      question: "What is the standard temperature and pressure (STP)?",
-      options: ["0°C and 1 atm", "25°C and 1 atm", "0°C and 2 atm", "20°C and 1 atm"],
-      correct: 0,
-      explanation: "STP is defined as 0°C (273.15 K) and 1 atmosphere pressure",
-      difficulty: 'hard' as const
-    },
-    {
-      id: "chemistry_19",
-      question: "What is the oxidation state of sulfur in H2SO4?",
-      options: ["+6", "+4", "+2", "-2"],
-      correct: 0,
-      explanation: "In H2SO4, sulfur has an oxidation state of +6",
-      difficulty: 'hard' as const
-    },
-    {
-      id: "chemistry_20",
-      question: "What is Le Chatelier's principle?",
-      options: ["System shifts to counteract changes", "Energy is conserved", "Mass is conserved", "Pressure equals force/area"],
-      correct: 0,
-      explanation: "Le Chatelier's principle states that systems shift to counteract imposed changes",
-      difficulty: 'hard' as const
-    }
+    // Easy Questions
+    { id: "chemistry_1", question: { en: "What is the chemical symbol for water?", hi: "पानी का रासायनिक प्रतीक क्या है?", pa: "ਪਾਣੀ ਦਾ ਰਸਾਇਣਕ ਚਿੰਨ੍ਹ ਕੀ ਹੈ?" }, options: { en: ["H2O", "CO2", "O2", "H2"], hi: ["H2O", "CO2", "O2", "H2"], pa: ["H2O", "CO2", "O2", "H2"] }, correct: 0, explanation: { en: "Water is H2O", hi: "पानी H2O है", pa: "ਪਾਣੀ H2O ਹੈ" }, difficulty: 'easy' as const },
+    { id: "chemistry_2", question: { en: "What is the most abundant gas in Earth's atmosphere?", hi: "पृथ्वी के वायुमंडल में सबसे प्रचुर गैस कौन सी है?", pa: "ਧਰਤੀ ਦੇ ਵਾਯੂਮੰਡਲ ਵਿੱਚ ਸਭ ਤੋਂ ਵੱਧ ਭਰਪੂਰ ਗੈਸ ਕਿਹੜੀ ਹੈ?" }, options: { en: ["Nitrogen", "Oxygen", "Carbon dioxide", "Hydrogen"], hi: ["नाइट्रोजन", "ऑक्सीजन", "कार्बन डाइऑक्साइड", "हाइड्रोजन"], pa: ["ਨਾਈਟ੍ਰੋਜਨ", "ਆਕਸੀਜਨ", "ਕਾਰਬਨ ਡਾਈਆਕਸਾਈਡ", "ਹਾਈਡ੍ਰੋਜਨ"] }, correct: 0, explanation: { en: "Nitrogen makes up about 78% of Earth's atmosphere", hi: "नाइट्रोजन पृथ्वी के वायुमंडल का लगभग 78% हिस्सा बनाती है", pa: "ਨਾਈਟ੍ਰੋਜਨ ਧਰਤੀ ਦੇ ਵਾਯੂਮੰਡਲ ਦਾ ਲਗਭਗ 78% ਬਣਦਾ ਹੈ" }, difficulty: 'easy' as const },
+    { id: "chemistry_3", question: { en: "What is the pH of an acid?", hi: "अम्ल का पीएच क्या है?", pa: "ਐਸਿਡ ਦਾ pH ਕੀ ਹੈ?" }, options: { en: ["Less than 7", "Equal to 7", "Greater than 7", "Always 1"], hi: ["7 से कम", "7 के बराबर", "7 से अधिक", "हमेशा 1"], pa: ["7 ਤੋਂ ਘੱਟ", "7 ਦੇ ਬਰਾਬਰ", "7 ਤੋਂ ਵੱਧ", "ਹਮੇਸ਼ਾ 1"] }, correct: 0, explanation: { en: "Acids have a pH less than 7", hi: "अम्ल का पीएच 7 से कम होता है", pa: "ਐਸਿਡ ਦਾ pH 7 ਤੋਂ ਘੱਟ ਹੁੰਦਾ ਹੈ" }, difficulty: 'easy' as const },
+    { id: "chemistry_4", question: { en: "What is salt chemically known as?", hi: "नमक को रासायनिक रूप से क्या कहा जाता है?", pa: "ਲੂਣ ਨੂੰ ਰਸਾਇਣਕ ਤੌਰ 'ਤੇ ਕੀ ਕਿਹਾ ਜਾਂਦਾ ਹੈ?" }, options: { en: ["Sodium chloride", "Calcium carbonate", "Potassium iodide", "Magnesium sulfate"], hi: ["सोडियम क्लोराइड", "कैल्शियम कार्बोनेट", "पोटेशियम आयोडाइड", "मैग्नीशियम सल्फेट"], pa: ["ਸੋਡੀਅਮ ਕਲੋਰਾਈਡ", "ਕੈਲਸ਼ੀਅਮ ਕਾਰਬੋਨੇਟ", "ਪੋਟਾਸ਼ੀਅਮ ਆਇਓਡਾਈਡ", "ਮੈਗਨੀਸ਼ੀਅਮ ਸਲਫੇਟ"] }, correct: 0, explanation: { en: "Table salt is sodium chloride (NaCl)", hi: "खाने का नमक सोडियम क्लोराइड (NaCl) है", pa: "ਟੇਬਲ ਲੂਣ ਸੋਡੀਅਮ ਕਲੋਰਾਈਡ (NaCl) ਹੈ" }, difficulty: 'easy' as const },
+    { id: "chemistry_5", question: { en: "What gas is produced when you mix vinegar and baking soda?", hi: "सिरका और बेकिंग सोडा मिलाने पर कौन सी गैस निकलती है?", pa: "ਸਿਰਕਾ ਅਤੇ ਬੇਕਿੰਗ ਸੋਡਾ ਮਿਲਾਉਣ 'ਤੇ ਕਿਹੜੀ ਗੈਸ ਪੈਦਾ ਹੁੰਦੀ ਹੈ?" }, options: { en: ["Carbon dioxide", "Oxygen", "Hydrogen", "Nitrogen"], hi: ["कार्बन डाइऑक्साइड", "ऑक्सीजन", "हाइड्रोजन", "नाइट्रोजन"], pa: ["ਕਾਰਬਨ ਡਾਈਆਕਸਾਈਡ", "ਆਕਸੀਜਨ", "ਹਾਈਡ੍ਰੋਜਨ", "ਨਾਈਟ੍ਰੋਜਨ"] }, correct: 0, explanation: { en: "The reaction produces carbon dioxide gas", hi: "यह प्रतिक्रिया कार्बन डाइऑक्साइड गैस का उत्पादन करती है", pa: "ਪ੍ਰਤੀਕ੍ਰਿਆ ਕਾਰਬਨ ਡਾਈਆਕਸਾਈਡ ਗੈਸ ਪੈਦਾ ਕਰਦੀ ਹੈ" }, difficulty: 'easy' as const },
+    { id: "chemistry_6", question: { en: "What is the smallest unit of an element?", hi: "किसी तत्व की सबसे छोटी इकाई क्या है?", pa: "ਇੱਕ ਤੱਤ ਦੀ ਸਭ ਤੋਂ ਛੋਟੀ ਇਕਾਈ ਕੀ ਹੈ?" }, options: { en: ["Atom", "Molecule", "Compound", "Ion"], hi: ["परमाणु", "अणु", "यौगिक", "आयन"], pa: ["ਪਰਮਾਣੂ", "ਅਣੂ", "ਯੋਗਿਕ", "ਆਇਨ"] }, correct: 0, explanation: { en: "An atom is the smallest unit of an element", hi: "एक परमाणु किसी तत्व की सबसे छोटी इकाई है", pa: "ਇੱਕ ਪਰਮਾਣੂ ਇੱਕ ਤੱਤ ਦੀ ਸਭ ਤੋਂ ਛੋਟੀ ਇਕਾਈ ਹੈ" }, difficulty: 'easy' as const },
+    { id: "chemistry_7", question: { en: "What do we call substances that cannot be broken down chemically?", hi: "जिन पदार्थों को रासायनिक रूप से तोड़ा नहीं जा सकता, उन्हें हम क्या कहते हैं?", pa: "ਜਿਹੜੇ ਪਦਾਰਥ ਰਸਾਇਣਕ ਤੌਰ 'ਤੇ ਟੁੱਟ ਨਹੀਂ ਸਕਦੇ, ਉਨ੍ਹਾਂ ਨੂੰ ਅਸੀਂ ਕੀ ਕਹਿੰਦੇ ਹਾਂ?" }, options: { en: ["Elements", "Compounds", "Mixtures", "Solutions"], hi: ["तत्व", "यौगिक", "मिश्रण", "विलयन"], pa: ["ਤੱਤ", "ਯੋਗਿਕ", "ਮਿਸ਼ਰਣ", "ਘੋਲ"] }, correct: 0, explanation: { en: "Elements are pure substances that cannot be broken down chemically", hi: "तत्व शुद्ध पदार्थ होते हैं जिन्हें रासायनिक रूप से तोड़ा नहीं जा सकता", pa: "ਤੱਤ ਸ਼ੁੱਧ ਪਦਾਰਥ ਹੁੰਦੇ ਹਨ ਜਿਨ੍ਹਾਂ ਨੂੰ ਰਸਾਇਣਕ ਤੌਰ 'ਤੇ ਤੋੜਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ" }, difficulty: 'easy' as const },
+    // Medium Questions
+    { id: "chemistry_8", question: { en: "How many electrons can the first shell of an atom hold?", hi: "एक परमाणु का पहला कोश कितने इलेक्ट्रॉन धारण कर सकता है?", pa: "ਇੱਕ ਪਰਮਾਣੂ ਦਾ ਪਹਿਲਾ ਸ਼ੈੱਲ ਕਿੰਨੇ ਇਲੈਕਟ੍ਰੌਨ ਰੱਖ ਸਕਦਾ ਹੈ?" }, options: { en: ["2", "4", "6", "8"], hi: ["2", "4", "6", "8"], pa: ["2", "4", "6", "8"] }, correct: 0, explanation: { en: "The first electron shell can hold a maximum of 2 electrons", hi: "पहला इलेक्ट्रॉन कोश अधिकतम 2 इलेक्ट्रॉन धारण कर सकता है", pa: "ਪਹਿਲਾ ਇਲੈਕਟ੍ਰੌਨ ਸ਼ੈੱਲ ਵੱਧ ਤੋਂ ਵੱਧ 2 ਇਲੈਕਟ੍ਰੌਨ ਰੱਖ ਸਕਦਾ ਹੈ" }, difficulty: 'medium' as const },
+    { id: "chemistry_9", question: { en: "What is the atomic number of carbon?", hi: "कार्बन की परमाणु संख्या क्या है?", pa: "ਕਾਰਬਨ ਦਾ ਪਰਮਾਣੂ ਨੰਬਰ ਕੀ ਹੈ?" }, options: { en: ["6", "4", "8", "12"], hi: ["6", "4", "8", "12"], pa: ["6", "4", "8", "12"] }, correct: 0, explanation: { en: "Carbon has 6 protons, so its atomic number is 6", hi: "कार्बन में 6 प्रोटॉन होते हैं, इसलिए इसकी परमाणु संख्या 6 है", pa: "ਕਾਰਬਨ ਵਿੱਚ 6 ਪ੍ਰੋਟੋਨ ਹੁੰਦੇ ਹਨ, ਇਸ ਲਈ ਇਸਦਾ ਪਰਮਾਣੂ ਨੰਬਰ 6 ਹੈ" }, difficulty: 'medium' as const },
+    { id: "chemistry_10", question: { en: "What type of bond forms between metals and non-metals?", hi: "धातुओं और अधातुओं के बीच किस प्रकार का बंधन बनता है?", pa: "ਧਾਤਾਂ ਅਤੇ ਗੈਰ-ਧਾਤਾਂ ਵਿਚਕਾਰ ਕਿਸ ਕਿਸਮ ਦਾ ਬੰਧਨ ਬਣਦਾ ਹੈ?" }, options: { en: ["Ionic", "Covalent", "Metallic", "Hydrogen"], hi: ["आयोनिक", "सहसंयोजक", "धात्विक", "हाइड्रोजन"], pa: ["ਆਇਓਨਿਕ", "ਸਹਿ-ਸੰਯੋਜਕ", "ਧਾਤੂ", "ਹਾਈਡ੍ਰੋਜਨ"] }, correct: 0, explanation: { en: "Ionic bonds form between metals and non-metals", hi: "धातुओं और अधातुओं के बीच आयोनिक बंधन बनते हैं", pa: "ਧਾਤਾਂ ਅਤੇ ਗੈਰ-ਧਾਤਾਂ ਵਿਚਕਾਰ ਆਇਓਨਿਕ ਬੰਧਨ ਬਣਦੇ ਹਨ" }, difficulty: 'medium' as const },
+    { id: "chemistry_11", question: { en: "What is the process of a liquid turning into a gas called?", hi: "किसी द्रव के गैस में बदलने की प्रक्रिया को क्या कहते हैं?", pa: "ਇੱਕ ਤਰਲ ਦੇ ਗੈਸ ਵਿੱਚ ਬਦਲਣ ਦੀ ਪ੍ਰਕਿਰਿਆ ਨੂੰ ਕੀ ਕਿਹਾ ਜਾਂਦਾ ਹੈ?" }, options: { en: ["Evaporation", "Condensation", "Sublimation", "Freezing"], hi: ["वाष्पीकरण", "संघनन", "ऊर्ध्वपातन", "हिमीकरण"], pa: ["ਵਾਸ਼ਪੀਕਰਨ", "ਸੰਘਣਾਪਣ", "ਸਬਲਿਮੇਸ਼ਨ", "ਜੰਮਣਾ"] }, correct: 0, explanation: { en: "Evaporation is the process where liquid changes to gas", hi: "वाष्पीकरण वह प्रक्रिया है जिसमें द्रव गैस में बदलता है", pa: "ਵਾਸ਼ਪੀਕਰਨ ਉਹ ਪ੍ਰਕਿਰਿਆ ਹੈ ਜਿੱਥੇ ਤਰਲ ਗੈਸ ਵਿੱਚ ਬਦਲਦਾ ਹੈ" }, difficulty: 'medium' as const },
+    { id: "chemistry_12", question: { en: "What is the chemical formula for methane?", hi: "मीथेन का रासायनिक सूत्र क्या है?", pa: "ਮੀਥੇਨ ਦਾ ਰਸਾਇਣਕ ਫਾਰਮੂਲਾ ਕੀ ਹੈ?" }, options: { en: ["CH4", "C2H6", "CO2", "H2O"], hi: ["CH4", "C2H6", "CO2", "H2O"], pa: ["CH4", "C2H6", "CO2", "H2O"] }, correct: 0, explanation: { en: "Methane has the formula CH4", hi: "मीथेन का सूत्र CH4 है", pa: "ਮੀਥੇਨ ਦਾ ਫਾਰਮੂਲਾ CH4 ਹੈ" }, difficulty: 'medium' as const },
+    { id: "chemistry_13", question: { en: "What is a catalyst?", hi: "उत्प्रेरक क्या है?", pa: "ਇੱਕ ਉਤਪ੍ਰੇਰਕ ਕੀ ਹੈ?" }, options: { en: ["Speeds up reactions", "Slows down reactions", "Creates products", "Removes reactants"], hi: ["अभिक्रियाओं को तेज करता है", "अभिक्रियाओं को धीमा करता है", "उत्पाद बनाता है", "अभिकारकों को हटाता है"], pa: ["ਪ੍ਰਤੀਕ੍ਰਿਆਵਾਂ ਨੂੰ ਤੇਜ਼ ਕਰਦਾ ਹੈ", "ਪ੍ਰਤੀਕ੍ਰਿਆਵਾਂ ਨੂੰ ਹੌਲੀ ਕਰਦਾ ਹੈ", "ਉਤਪਾਦ ਬਣਾਉਂਦਾ ਹੈ", "ਪ੍ਰਤੀਕਿਰਿਆ ਕਰਨ ਵਾਲਿਆਂ ਨੂੰ ਹਟਾਉਂਦਾ ਹੈ"] }, correct: 0, explanation: { en: "A catalyst speeds up chemical reactions", hi: "एक उत्प्रेरक रासायनिक अभिक्रियाओं को तेज करता है", pa: "ਇੱਕ ਉਤਪ੍ਰੇਰਕ ਰਸਾਇਣਕ ਪ੍ਰਤੀਕ੍ਰਿਆਵਾਂ ਨੂੰ ਤੇਜ਼ ਕਰਦਾ ਹੈ" }, difficulty: 'medium' as const },
+    { id: "chemistry_14", question: { en: "What is the molar mass of water (H2O)?", hi: "पानी (H2O) का दाढ़ द्रव्यमान क्या है?", pa: "ਪਾਣੀ (H2O) ਦਾ ਮੋਲਰ ਪੁੰਜ ਕੀ ਹੈ?" }, options: { en: ["18 g/mol", "16 g/mol", "20 g/mol", "14 g/mol"], hi: ["18 ग्राम/मोल", "16 ग्राम/मोल", "20 ग्राम/मोल", "14 ग्राम/मोल"], pa: ["18 g/mol", "16 g/mol", "20 g/mol", "14 g/mol"] }, correct: 0, explanation: { en: "H2O = (2×1) + (1×16) = 18 grams per mole", hi: "H2O = (2×1) + (1×16) = 18 ग्राम प्रति मोल", pa: "H2O = (2×1) + (1×16) = 18 ਗ੍ਰਾਮ ਪ੍ਰਤੀ ਮੋਲ" }, difficulty: 'medium' as const },
+    // Hard Questions
+    { id: "chemistry_15", question: { en: "What is Avogadro's number?", hi: "एवोगेड्रो संख्या क्या है?", pa: "ਐਵੋਗੈਡਰੋ ਨੰਬਰ ਕੀ ਹੈ?" }, options: { en: ["6.022 × 10²³", "6.022 × 10²²", "3.14 × 10²³", "1.6 × 10⁻¹⁹"], hi: ["6.022 × 10²³", "6.022 × 10²²", "3.14 × 10²³", "1.6 × 10⁻¹⁹"], pa: ["6.022 × 10²³", "6.022 × 10²²", "3.14 × 10²³", "1.6 × 10⁻¹⁹"] }, correct: 0, explanation: { en: "Avogadro's number is 6.022 × 10²³ particles per mole", hi: "एवोगेड्रो संख्या 6.022 × 10²³ कण प्रति मोल है", pa: "ਐਵੋਗੈਡਰੋ ਨੰਬਰ 6.022 × 10²³ ਕਣ ਪ੍ਰਤੀ ਮੋਲ ਹੈ" }, difficulty: 'hard' as const },
+    { id: "chemistry_16", question: { en: "What is the electron configuration of neon?", hi: "नियॉन का इलेक्ट्रॉन विन्यास क्या है?", pa: "ਨਿਓਨ ਦੀ ਇਲੈਕਟ੍ਰੌਨ ਸੰਰਚਨਾ ਕੀ ਹੈ?" }, options: { en: ["1s² 2s² 2p⁶", "1s² 2s² 2p⁴", "1s² 2s² 2p⁸", "1s² 2p⁸"], hi: ["1s² 2s² 2p⁶", "1s² 2s² 2p⁴", "1s² 2s² 2p⁸", "1s² 2p⁸"], pa: ["1s² 2s² 2p⁶", "1s² 2s² 2p⁴", "1s² 2s² 2p⁸", "1s² 2p⁸"] }, correct: 0, explanation: { en: "Neon has 10 electrons: 1s² 2s² 2p⁶", hi: "नियॉन में 10 इलेक्ट्रॉन होते हैं: 1s² 2s² 2p⁶", pa: "ਨਿਓਨ ਵਿੱਚ 10 ਇਲੈਕਟ੍ਰੌਨ ਹਨ: 1s² 2s² 2p⁶" }, difficulty: 'hard' as const },
+    { id: "chemistry_17", question: { en: "What is the hybridization of carbon in methane?", hi: "मीथेन में कार्बन का संकरण क्या है?", pa: "ਮੀਥੇਨ ਵਿੱਚ ਕਾਰਬਨ ਦੀ ਹਾਈਬ੍ਰਿਡਾਈਜ਼ੇਸ਼ਨ ਕੀ ਹੈ?" }, options: { en: ["sp³", "sp²", "sp", "s"], hi: ["sp³", "sp²", "sp", "s"], pa: ["sp³", "sp²", "sp", "s"] }, correct: 0, explanation: { en: "Carbon in methane (CH4) has sp³ hybridization", hi: "मीथेन (CH4) में कार्बन का sp³ संकरण होता है", pa: "ਮੀਥੇਨ (CH4) ਵਿੱਚ ਕਾਰਬਨ ਦੀ sp³ ਹਾਈਬ੍ਰਿਡਾਈਜ਼ੇਸ਼ਨ ਹੈ" }, difficulty: 'hard' as const },
+    { id: "chemistry_18", question: { en: "What is the standard temperature and pressure (STP)?", hi: "मानक तापमान और दबाव (एसटीपी) क्या है?", pa: "ਮਿਆਰੀ ਤਾਪਮਾਨ ਅਤੇ ਦਬਾਅ (STP) ਕੀ ਹੈ?" }, options: { en: ["0°C and 1 atm", "25°C and 1 atm", "0°C and 2 atm", "20°C and 1 atm"], hi: ["0°C और 1 atm", "25°C और 1 atm", "0°C और 2 atm", "20°C और 1 atm"], pa: ["0°C ਅਤੇ 1 atm", "25°C ਅਤੇ 1 atm", "0°C ਅਤੇ 2 atm", "20°C ਅਤੇ 1 atm"] }, correct: 0, explanation: { en: "STP is defined as 0°C and 1 atmosphere pressure", hi: "एसटीपी को 0°C और 1 वायुमंडलीय दबाव के रूप में परिभाषित किया गया है", pa: "STP ਨੂੰ 0°C ਅਤੇ 1 ਵਾਯੂਮੰਡਲ ਦਬਾਅ ਵਜੋਂ ਪਰਿਭਾਸ਼ਿਤ ਕੀਤਾ ਗਿਆ ਹੈ" }, difficulty: 'hard' as const },
+    { id: "chemistry_19", question: { en: "What is the oxidation state of sulfur in H2SO4?", hi: "H2SO4 में सल्फर की ऑक्सीकरण अवस्था क्या है?", pa: "H2SO4 ਵਿੱਚ ਗੰਧਕ ਦੀ ਆਕਸੀਕਰਨ ਅਵਸਥਾ ਕੀ ਹੈ?" }, options: { en: ["+6", "+4", "+2", "-2"], hi: ["+6", "+4", "+2", "-2"], pa: ["+6", "+4", "+2", "-2"] }, correct: 0, explanation: { en: "In H2SO4, sulfur has an oxidation state of +6", hi: "H2SO4 में, सल्फर की ऑक्सीकरण अवस्था +6 होती है", pa: "H2SO4 ਵਿੱਚ, ਗੰਧਕ ਦੀ ਇੱਕ ਆਕਸੀਕਰਨ ਅਵਸਥਾ +6 ਹੁੰਦੀ ਹੈ" }, difficulty: 'hard' as const },
+    { id: "chemistry_20", question: { en: "What is Le Chatelier's principle?", hi: "ले चेटेलियर का सिद्धांत क्या है?", pa: "ਲੇ ਚੈਟੇਲੀਅਰ ਦਾ ਸਿਧਾਂਤ ਕੀ ਹੈ?" }, options: { en: ["System shifts to counteract changes", "Energy is conserved", "Mass is conserved", "Pressure equals force/area"], hi: ["सिस्टम परिवर्तनों का प्रतिकार करने के लिए शिफ्ट होता है", "ऊर्जा संरक्षित रहती है", "द्रव्यमान संरक्षित रहता है", "दबाव बल/क्षेत्रफल के बराबर होता है"], pa: ["ਸਿਸਟਮ ਤਬਦੀਲੀਆਂ ਦਾ ਮੁਕਾਬਲਾ ਕਰਨ ਲਈ ਬਦਲਦਾ ਹੈ", "ਊਰਜਾ ਸੁਰੱਖਿਅਤ ਹੈ", "ਪੁੰਜ ਸੁਰੱਖਿਅਤ ਹੈ", "ਦਬਾਅ ਬਲ/ਖੇਤਰ ਦੇ ਬਰਾਬਰ ਹੈ"] }, correct: 0, explanation: { en: "Le Chatelier's principle states that systems shift to counteract imposed changes", hi: "ले चेटेलियर का सिद्धांत कहता है कि सिस्टम लगाए गए परिवर्तनों का प्रतिकार करने के लिए शिफ्ट होते हैं", pa: "ਲੇ ਚੈਟੇਲੀਅਰ ਦਾ ਸਿਧਾਂਤ ਦੱਸਦਾ ਹੈ ਕਿ ਸਿਸਟਮ ਲਗਾਏ ਗਏ ਬਦਲਾਅ ਦਾ ਮੁਕਾਬਲਾ ਕਰਨ ਲਈ ਬਦਲਦੇ ਹਨ" }, difficulty: 'hard' as const },
   ],
-  
   biology: [
-    // Easy Questions (1-7)
-    {
-      id: "biology_1",
-      question: "What is the basic unit of life?",
-      options: ["Cell", "Atom", "Organ", "Tissue"],
-      correct: 0,
-      explanation: "The cell is the basic structural and functional unit of life",
-      difficulty: 'easy' as const
-    },
-    {
-      id: "biology_2",
-      question: "What do plants use to make food?",
-      options: ["Sunlight", "Moon", "Stars", "Wind"],
-      correct: 0,
-      explanation: "Plants use sunlight in photosynthesis to make their own food",
-      difficulty: 'easy' as const
-    },
-    {
-      id: "biology_3",
-      question: "How many limbs do humans have?",
-      options: ["4", "2", "6", "8"],
-      correct: 0,
-      explanation: "Humans have 4 limbs: 2 arms and 2 legs",
-      difficulty: 'easy' as const
-    },
-    {
-      id: "biology_4",
-      question: "What do we call animals that eat only plants?",
-      options: ["Herbivores", "Carnivores", "Omnivores", "Decomposers"],
-      correct: 0,
-      explanation: "Herbivores are animals that eat only plants",
-      difficulty: 'easy' as const
-    },
-    {
-      id: "biology_5",
-      question: "Where is DNA found in a cell?",
-      options: ["Nucleus", "Cytoplasm", "Cell membrane", "Ribosome"],
-      correct: 0,
-      explanation: "DNA is primarily found in the nucleus of eukaryotic cells",
-      difficulty: 'easy' as const
-    },
-    {
-      id: "biology_6",
-      question: "What is the largest organ in the human body?",
-      options: ["Skin", "Liver", "Brain", "Lungs"],
-      correct: 0,
-      explanation: "The skin is the largest organ in the human body",
-      difficulty: 'easy' as const
-    },
-    {
-      id: "biology_7",
-      question: "What process do plants use to make oxygen?",
-      options: ["Photosynthesis", "Respiration", "Digestion", "Circulation"],
-      correct: 0,
-      explanation: "Plants produce oxygen as a byproduct of photosynthesis",
-      difficulty: 'easy' as const
-    },
-    
-    // Medium Questions (8-14)
-    {
-      id: "biology_8",
-      question: "What is the function of red blood cells?",
-      options: ["Carry oxygen", "Fight infection", "Clot blood", "Digest food"],
-      correct: 0,
-      explanation: "Red blood cells carry oxygen from lungs to body tissues",
-      difficulty: 'medium' as const
-    },
-    {
-      id: "biology_9",
-      question: "How many chromosomes do humans normally have?",
-      options: ["46", "44", "48", "42"],
-      correct: 0,
-      explanation: "Humans normally have 46 chromosomes (23 pairs)",
-      difficulty: 'medium' as const
-    },
-    {
-      id: "biology_10",
-      question: "What is the process by which cells divide?",
-      options: ["Mitosis", "Meiosis", "Photosynthesis", "Metabolism"],
-      correct: 0,
-      explanation: "Mitosis is the process of cell division for growth and repair",
-      difficulty: 'medium' as const
-    },
-    {
-      id: "biology_11",
-      question: "What is the scientific name for humans?",
-      options: ["Homo sapiens", "Homo erectus", "Pan troglodytes", "Australopithecus"],
-      correct: 0,
-      explanation: "The scientific name for modern humans is Homo sapiens",
-      difficulty: 'medium' as const
-    },
-    {
-      id: "biology_12",
-      question: "What organelle produces energy in cells?",
-      options: ["Mitochondria", "Nucleus", "Ribosome", "Golgi apparatus"],
-      correct: 0,
-      explanation: "Mitochondria are the powerhouses that produce ATP energy",
-      difficulty: 'medium' as const
-    },
-    {
-      id: "biology_13",
-      question: "What is the study of heredity called?",
-      options: ["Genetics", "Ecology", "Anatomy", "Physiology"],
-      correct: 0,
-      explanation: "Genetics is the study of heredity and genetic variation",
-      difficulty: 'medium' as const
-    },
-    {
-      id: "biology_14",
-      question: "What type of symmetry do humans have?",
-      options: ["Bilateral", "Radial", "Asymmetrical", "Spherical"],
-      correct: 0,
-      explanation: "Humans have bilateral symmetry with left and right halves",
-      difficulty: 'medium' as const
-    },
-    
-    // Hard Questions (15-20)
-    {
-      id: "biology_15",
-      question: "What is the difference between DNA and RNA?",
-      options: ["RNA has uracil instead of thymine", "DNA is single-stranded", "RNA is more stable", "DNA has ribose sugar"],
-      correct: 0,
-      explanation: "RNA contains uracil base instead of thymine found in DNA",
-      difficulty: 'hard' as const
-    },
-    {
-      id: "biology_16",
-      question: "What is the Hardy-Weinberg principle?",
-      options: ["Allele frequencies remain constant", "Evolution always occurs", "Mutations are beneficial", "Selection favors fitness"],
-      correct: 0,
-      explanation: "Hardy-Weinberg principle states allele frequencies remain constant under certain conditions",
-      difficulty: 'hard' as const
-    },
-    {
-      id: "biology_17",
-      question: "What is the function of ribosomes?",
-      options: ["Protein synthesis", "DNA replication", "Lipid production", "Waste removal"],
-      correct: 0,
-      explanation: "Ribosomes are the sites of protein synthesis in cells",
-      difficulty: 'hard' as const
-    },
-    {
-      id: "biology_18",
-      question: "What is crossing over in genetics?",
-      options: ["Exchange of genetic material", "Cell division", "Protein folding", "Energy production"],
-      correct: 0,
-      explanation: "Crossing over is the exchange of genetic material between homologous chromosomes",
-      difficulty: 'hard' as const
-    },
-    {
-      id: "biology_19",
-      question: "What is the function of the endoplasmic reticulum?",
-      options: ["Protein and lipid synthesis", "Energy production", "Waste disposal", "DNA storage"],
-      correct: 0,
-      explanation: "The ER is involved in protein and lipid synthesis and transport",
-      difficulty: 'hard' as const
-    },
-    {
-      id: "biology_20",
-      question: "What is apoptosis?",
-      options: ["Programmed cell death", "Cell division", "Protein synthesis", "Energy production"],
-      correct: 0,
-      explanation: "Apoptosis is programmed cell death that occurs naturally in organisms",
-      difficulty: 'hard' as const
-    }
+    // Easy Questions
+    { id: "biology_1", question: { en: "What is the basic unit of life?", hi: "जीवन की मूल इकाई क्या है?", pa: "ਜੀਵਨ ਦੀ ਮੁੱਢਲੀ ਇਕਾਈ ਕੀ ਹੈ?" }, options: { en: ["Cell", "Atom", "Organ", "Tissue"], hi: ["कोशिका", "परमाणु", "अंग", "ऊतक"], pa: ["ਸੈੱਲ", "ਪਰਮਾਣੂ", "ਅੰਗ", "ਟਿਸ਼ੂ"] }, correct: 0, explanation: { en: "The cell is the basic unit of life", hi: "कोशिका जीवन की मूल इकाई है", pa: "ਸੈੱਲ ਜੀਵਨ ਦੀ ਮੁੱਢਲੀ ਇਕਾਈ ਹੈ" }, difficulty: 'easy' as const },
+    { id: "biology_2", question: { en: "What do plants use to make food?", hi: "पौधे भोजन बनाने के लिए किसका उपयोग करते हैं?", pa: "ਪੌਦੇ ਭੋਜਨ ਬਣਾਉਣ ਲਈ ਕੀ ਵਰਤਦੇ ਹਨ?" }, options: { en: ["Sunlight", "Moon", "Stars", "Wind"], hi: ["सूर्य का प्रकाश", "चंद्रमा", "तारे", "हवा"], pa: ["ਸੂਰਜ ਦੀ ਰੌਸ਼ਨੀ", "ਚੰਦਰਮਾ", "ਤਾਰੇ", "ਹਵਾ"] }, correct: 0, explanation: { en: "Plants use sunlight in photosynthesis to make food", hi: "पौधे भोजन बनाने के लिए प्रकाश संश्लेषण में सूर्य के प्रकाश का उपयोग करते हैं", pa: "ਪੌਦੇ ਭੋਜਨ ਬਣਾਉਣ ਲਈ ਪ੍ਰਕਾਸ਼ ਸੰਸ਼ਲੇਸ਼ਣ ਵਿੱਚ ਸੂਰਜ ਦੀ ਰੌਸ਼ਨੀ ਦੀ ਵਰਤੋਂ ਕਰਦੇ ਹਨ" }, difficulty: 'easy' as const },
+    { id: "biology_3", question: { en: "How many limbs do humans have?", hi: "मनुष्यों के कितने अंग होते हैं?", pa: "ਮਨੁੱਖਾਂ ਦੇ ਕਿੰਨੇ ਅੰਗ ਹੁੰਦੇ ਹਨ?" }, options: { en: ["4", "2", "6", "8"], hi: ["4", "2", "6", "8"], pa: ["4", "2", "6", "8"] }, correct: 0, explanation: { en: "Humans have 4 limbs: 2 arms and 2 legs", hi: "मनुष्यों के 4 अंग होते हैं: 2 हाथ और 2 पैर", pa: "ਮਨੁੱਖਾਂ ਦੇ 4 ਅੰਗ ਹਨ: 2 ਬਾਹਾਂ ਅਤੇ 2 ਲੱਤਾਂ" }, difficulty: 'easy' as const },
+    { id: "biology_4", question: { en: "What do we call animals that eat only plants?", hi: "जो जानवर केवल पौधे खाते हैं उन्हें हम क्या कहते हैं?", pa: "ਜਿਹੜੇ ਜਾਨਵਰ ਸਿਰਫ਼ ਪੌਦੇ ਖਾਂਦੇ ਹਨ, ਉਨ੍ਹਾਂ ਨੂੰ ਅਸੀਂ ਕੀ ਕਹਿੰਦੇ ਹਾਂ?" }, options: { en: ["Herbivores", "Carnivores", "Omnivores", "Decomposers"], hi: ["शाकाहारी", "मांसाहारी", "सर्वाहारी", "अपघटक"], pa: ["ਸ਼ਾਕਾਹਾਰੀ", "ਮਾਸਾਹਾਰੀ", "ਸਰਬਭੋਗੀ", "ਡੀਕੰਪੋਜ਼ਰ"] }, correct: 0, explanation: { en: "Herbivores are animals that eat only plants", hi: "शाकाहारी वे जानवर हैं जो केवल पौधे खाते हैं", pa: "ਸ਼ਾਕਾਹਾਰੀ ਉਹ ਜਾਨਵਰ ਹਨ ਜੋ ਸਿਰਫ਼ ਪੌਦੇ ਖਾਂਦੇ ਹਨ" }, difficulty: 'easy' as const },
+    { id: "biology_5", question: { en: "Where is DNA found in a cell?", hi: "डीएनए एक कोशिका में कहाँ पाया जाता है?", pa: "ਡੀਐਨਏ ਇੱਕ ਸੈੱਲ ਵਿੱਚ ਕਿੱਥੇ ਪਾਇਆ ਜਾਂਦਾ ਹੈ?" }, options: { en: ["Nucleus", "Cytoplasm", "Cell membrane", "Ribosome"], hi: ["नाभिक", "साइटोप्लाज्म", "कोशिका झिल्ली", "राइबोसोम"], pa: ["ਨਿਊਕਲੀਅਸ", "ਸਾਈਟੋਪਲਾਜ਼ਮ", "ਸੈੱਲ ਝਿੱਲੀ", "ਰਾਈਬੋਸੋਮ"] }, correct: 0, explanation: { en: "DNA is primarily found in the nucleus", hi: "डीएनए मुख्य रूप से नाभिक में पाया जाता है", pa: "ਡੀਐਨਏ ਮੁੱਖ ਤੌਰ 'ਤੇ ਨਿਊਕਲੀਅਸ ਵਿੱਚ ਪਾਇਆ ਜਾਂਦਾ ਹੈ" }, difficulty: 'easy' as const },
+    { id: "biology_6", question: { en: "What is the largest organ in the human body?", hi: "मानव शरीर का सबसे बड़ा अंग कौन सा है?", pa: "ਮਨੁੱਖੀ ਸਰੀਰ ਦਾ ਸਭ ਤੋਂ ਵੱਡਾ ਅੰਗ ਕਿਹੜਾ ਹੈ?" }, options: { en: ["Skin", "Liver", "Brain", "Lungs"], hi: ["त्वचा", "यकृत", "मस्तिष्क", "फेफड़े"], pa: ["ਚਮੜੀ", "ਜਿਗਰ", "ਦਿਮਾਗ", "ਫੇਫੜੇ"] }, correct: 0, explanation: { en: "The skin is the largest organ", hi: "त्वचा सबसे बड़ा अंग है", pa: "ਚਮੜੀ ਸਭ ਤੋਂ ਵੱਡਾ ਅੰਗ ਹੈ" }, difficulty: 'easy' as const },
+    { id: "biology_7", question: { en: "What process do plants use to make oxygen?", hi: "पौधे ऑक्सीजन बनाने के लिए किस प्रक्रिया का उपयोग करते हैं?", pa: "ਪੌਦੇ ਆਕਸੀਜਨ ਬਣਾਉਣ ਲਈ ਕਿਹੜੀ ਪ੍ਰਕਿਰਿਆ ਦੀ ਵਰਤੋਂ ਕਰਦੇ ਹਨ?" }, options: { en: ["Photosynthesis", "Respiration", "Digestion", "Circulation"], hi: ["प्रकाश संश्लेषण", "श्वसन", "पाचन", "परिसंचरण"], pa: ["ਪ੍ਰਕਾਸ਼ ਸੰਸ਼ਲੇਸ਼ਣ", "ਸਾਹ ਕਿਰਿਆ", "ਪਾਚਨ", "ਸਰਕੂਲੇਸ਼ਨ"] }, correct: 0, explanation: { en: "Plants produce oxygen as a byproduct of photosynthesis", hi: "पौधे प्रकाश संश्लेषण के उप-उत्पाद के रूप में ऑक्सीजन का उत्पादन करते हैं", pa: "ਪੌਦੇ ਪ੍ਰਕਾਸ਼ ਸੰਸ਼ਲੇਸ਼ਣ ਦੇ ਉਪ-ਉਤਪਾਦ ਵਜੋਂ ਆਕਸੀਜਨ ਪੈਦਾ ਕਰਦੇ ਹਨ" }, difficulty: 'easy' as const },
+    // Medium Questions
+    { id: "biology_8", question: { en: "What is the function of red blood cells?", hi: "लाल रक्त कोशिकाओं का क्या कार्य है?", pa: "ਲਾਲ ਖੂਨ ਦੇ ਸੈੱਲਾਂ ਦਾ ਕੰਮ ਕੀ ਹੈ?" }, options: { en: ["Carry oxygen", "Fight infection", "Clot blood", "Digest food"], hi: ["ऑक्सीजन ले जाना", "संक्रमण से लड़ना", "रक्त का थक्का बनाना", "भोजन पचाना"], pa: ["ਆਕਸੀਜਨ ਲੈ ਕੇ ਜਾਣਾ", "ਸੰਕਰਮਣ ਨਾਲ ਲੜਨਾ", "ਖੂਨ ਦਾ ਗਤਲਾ ਬਣਾਉਣਾ", "ਭੋਜਨ ਪਚਾਉਣਾ"] }, correct: 0, explanation: { en: "Red blood cells carry oxygen", hi: "लाल रक्त कोशिकाएं ऑक्सीजन ले जाती हैं", pa: "ਲਾਲ ਖੂਨ ਦੇ ਸੈੱਲ ਆਕਸੀਜਨ ਲੈ ਜਾਂਦੇ ਹਨ" }, difficulty: 'medium' as const },
+    { id: "biology_9", question: { en: "How many chromosomes do humans normally have?", hi: "मनुष्यों में सामान्य रूप से कितने गुणसूत्र होते हैं?", pa: "ਮਨੁੱਖਾਂ ਵਿੱਚ ਆਮ ਤੌਰ 'ਤੇ ਕਿੰਨੇ ਕ੍ਰੋਮੋਸੋਮ ਹੁੰਦੇ ਹਨ?" }, options: { en: ["46", "44", "48", "42"], hi: ["46", "44", "48", "42"], pa: ["46", "44", "48", "42"] }, correct: 0, explanation: { en: "Humans normally have 46 chromosomes (23 pairs)", hi: "मनुष्यों में सामान्य रूप से 46 गुणसूत्र (23 जोड़े) होते हैं", pa: "ਮਨੁੱਖਾਂ ਵਿੱਚ ਆਮ ਤੌਰ 'ਤੇ 46 ਕ੍ਰੋਮੋਸੋਮ (23 ਜੋੜੇ) ਹੁੰਦੇ ਹਨ" }, difficulty: 'medium' as const },
+    { id: "biology_10", question: { en: "What is the process by which cells divide?", hi: "कोशिकाएं किस प्रक्रिया से विभाजित होती हैं?", pa: "ਉਹ ਪ੍ਰਕਿਰਿਆ ਕਿਹੜੀ ਹੈ ਜਿਸ ਦੁਆਰਾ ਸੈੱਲ ਵੰਡਦੇ ਹਨ?" }, options: { en: ["Mitosis", "Meiosis", "Photosynthesis", "Metabolism"], hi: ["माइटोसिस", "अर्धसूत्रीविभाजन", "प्रकाश संश्लेषण", "चयापचय"], pa: ["ਮਾਈਟੋਸਿਸ", "ਮਿਓਸਿਸ", "ਪ੍ਰਕਾਸ਼ ਸੰਸ਼ਲੇਸ਼ਣ", "ਮੈਟਾਬੋਲਿਜ਼ਮ"] }, correct: 0, explanation: { en: "Mitosis is the process of cell division for growth and repair", hi: "माइटोसिस वृद्धि और मरम्मत के लिए कोशिका विभाजन की प्रक्रिया है", pa: "ਮਾਈਟੋਸਿਸ ਵਿਕਾਸ ਅਤੇ ਮੁਰੰਮਤ ਲਈ ਸੈੱਲ ਡਿਵੀਜ਼ਨ ਦੀ ਪ੍ਰਕਿਰਿਆ ਹੈ" }, difficulty: 'medium' as const },
+    { id: "biology_11", question: { en: "What is the scientific name for humans?", hi: "मनुष्यों का वैज्ञानिक नाम क्या है?", pa: "ਮਨੁੱਖਾਂ ਦਾ ਵਿਗਿਆਨਕ ਨਾਮ ਕੀ ਹੈ?" }, options: { en: ["Homo sapiens", "Homo erectus", "Pan troglodytes", "Australopithecus"], hi: ["होमो सेपियन्स", "होमो इरेक्टस", "पैन ट्रोग्लोडाइट्स", "ऑस्ट्रेलोपिथेकस"], pa: ["ਹੋਮੋ ਸੇਪੀਅਨਜ਼", "ਹੋਮੋ ਇਰੈਕਟਸ", "ਪੈਨ ਟਰੋਗਲੋਡਾਈਟਸ", "ਆਸਟ੍ਰੇਲੋਪੀਥੀਕਸ"] }, correct: 0, explanation: { en: "The scientific name for modern humans is Homo sapiens", hi: "आधुनिक मनुष्यों का वैज्ञानिक नाम होमो सेपियन्स है", pa: "ਆਧੁਨਿਕ ਮਨੁੱਖਾਂ ਦਾ ਵਿਗਿਆਨਕ ਨਾਮ ਹੋਮੋ ਸੇਪੀਅਨਜ਼ ਹੈ" }, difficulty: 'medium' as const },
+    { id: "biology_12", question: { en: "What organelle produces energy in cells?", hi: "कोशिकाओं में कौन सा अंग ऊर्जा उत्पन्न करता है?", pa: "ਸੈੱਲਾਂ ਵਿੱਚ ਕਿਹੜਾ ਅੰਗ ਊਰਜਾ ਪੈਦਾ ਕਰਦਾ ਹੈ?" }, options: { en: ["Mitochondria", "Nucleus", "Ribosome", "Golgi apparatus"], hi: ["माइटोकॉन्ड्रिया", "नाभिक", "राइबोसोम", "गोल्गी उपकरण"], pa: ["ਮਾਈਟੋਕਾਂਡਰੀਆ", "ਨਿਊਕਲੀਅਸ", "ਰਾਈਬੋਸੋਮ", "ਗੋਲਗੀ ਉਪਕਰਣ"] }, correct: 0, explanation: { en: "Mitochondria are the powerhouses that produce ATP energy", hi: "माइटोकॉन्ड्रिया वे पावरहाउस हैं जो एटीपी ऊर्जा का उत्पादन करते हैं", pa: "ਮਾਈਟੋਕਾਂਡਰੀਆ ਉਹ ਪਾਵਰਹਾਊਸ ਹਨ ਜੋ ATP ਊਰਜਾ ਪੈਦਾ ਕਰਦੇ ਹਨ" }, difficulty: 'medium' as const },
+    { id: "biology_13", question: { en: "What is the study of heredity called?", hi: "आनुवंशिकता के अध्ययन को क्या कहा जाता है?", pa: "ਵਿਰਾਸਤ ਦੇ ਅਧਿਐਨ ਨੂੰ ਕੀ ਕਿਹਾ ਜਾਂਦਾ ਹੈ?" }, options: { en: ["Genetics", "Ecology", "Anatomy", "Physiology"], hi: ["आनुवंशिकी", "पारिस्थितिकी", "शरीर रचना विज्ञान", "शरीर क्रिया विज्ञान"], pa: ["ਜੈਨੇਟਿਕਸ", "ਈਕੋਲੋਜੀ", "ਸਰੀਰ ਵਿਗਿਆਨ", "ਫਿਜ਼ੀਓਲੋਜੀ"] }, correct: 0, explanation: { en: "Genetics is the study of heredity", hi: "आनुवंशिकी आनुवंशिकता का अध्ययन है", pa: "ਜੈਨੇਟਿਕਸ ਵਿਰਾਸਤ ਦਾ ਅਧਿਐਨ ਹੈ" }, difficulty: 'medium' as const },
+    { id: "biology_14", question: { en: "What type of symmetry do humans have?", hi: "मनुष्यों में किस प्रकार की समरूपता होती है?", pa: "ਮਨੁੱਖਾਂ ਵਿੱਚ ਕਿਸ ਕਿਸਮ ਦੀ ਸਮਰੂਪਤਾ ਹੁੰਦੀ ਹੈ?" }, options: { en: ["Bilateral", "Radial", "Asymmetrical", "Spherical"], hi: ["द्विपक्षीय", "रेडियल", "असममित", "गोलाकार"], pa: ["ਦੁਵੱਲੀ", "ਰੇਡੀਅਲ", "ਅਸਮਮਿਤ", "ਗੋਲਾਕਾਰ"] }, correct: 0, explanation: { en: "Humans have bilateral symmetry", hi: "मनुष्यों में द्विपक्षीय समरूपता होती है", pa: "ਮਨੁੱਖਾਂ ਵਿੱਚ ਦੁਵੱਲੀ ਸਮਰੂਪਤਾ ਹੁੰਦੀ ਹੈ" }, difficulty: 'medium' as const },
+    // Hard Questions
+    { id: "biology_15", question: { en: "What is the difference between DNA and RNA?", hi: "डीएनए और आरएनए में क्या अंतर है?", pa: "ਡੀਐਨਏ ਅਤੇ ਆਰਐਨਏ ਵਿੱਚ ਕੀ ਅੰਤਰ ਹੈ?" }, options: { en: ["RNA has uracil instead of thymine", "DNA is single-stranded", "RNA is more stable", "DNA has ribose sugar"], hi: ["आरएनए में थाइमिन के बजाय यूरेसिल होता है", "डीएनए सिंगल-स्ट्रैंडेड है", "आरएनए अधिक स्थिर है", "डीएनए में राइबोज शुगर होता है"], pa: ["RNA ਵਿੱਚ ਥਾਈਮਾਈਨ ਦੀ ਬਜਾਏ ਯੂਰਾਸਿਲ ਹੁੰਦਾ ਹੈ", "DNA ਸਿੰਗਲ-ਸਟ੍ਰੈਂਡਡ ਹੈ", "RNA ਵਧੇਰੇ ਸਥਿਰ ਹੈ", "DNA ਵਿੱਚ ਰਾਈਬੋਜ਼ ਸ਼ੂਗਰ ਹੁੰਦੀ ਹੈ"] }, correct: 0, explanation: { en: "RNA contains uracil base instead of thymine found in DNA", hi: "आरएनए में डीएनए में पाए जाने वाले थाइमिन के बजाय यूरेसिल बेस होता है", pa: "RNA ਵਿੱਚ ਡੀਐਨਏ ਵਿੱਚ ਪਾਏ ਜਾਣ ਵਾਲੇ ਥਾਈਮਾਈਨ ਦੀ ਬਜਾਏ ਯੂਰਾਸਿਲ ਬੇਸ ਹੁੰਦਾ ਹੈ" }, difficulty: 'hard' as const },
+    { id: "biology_16", question: { en: "What is the Hardy-Weinberg principle?", hi: "हार्डी-वेनबर्ग सिद्धांत क्या है?", pa: "ਹਾਰਡੀ-ਵੇਨਬਰਗ ਸਿਧਾਂਤ ਕੀ ਹੈ?" }, options: { en: ["Allele frequencies remain constant", "Evolution always occurs", "Mutations are beneficial", "Selection favors fitness"], hi: ["एलील आवृत्तियाँ स्थिर रहती हैं", "विकास हमेशा होता है", "उत्परिवर्तन फायदेमंद होते हैं", "चयन फिटनेस का पक्षधर है"], pa: ["ਐਲੀਲ ਬਾਰੰਬਾਰਤਾ ਸਥਿਰ ਰਹਿੰਦੀ ਹੈ", "ਵਿਕਾਸ ਹਮੇਸ਼ਾ ਹੁੰਦਾ ਹੈ", "ਮਿਊਟੇਸ਼ਨ ਲਾਭਦਾਇਕ ਹਨ", "ਚੋਣ ਤੰਦਰੁਸਤੀ ਦਾ ਪੱਖ ਪੂਰਦੀ ਹੈ"] }, correct: 0, explanation: { en: "Hardy-Weinberg principle states allele frequencies remain constant", hi: "हार्डी-वेनबर्ग सिद्धांत कहता है कि एलील आवृत्तियाँ स्थिर रहती हैं", pa: "ਹਾਰਡੀ-ਵੇਨਬਰਗ ਸਿਧਾਂਤ ਦੱਸਦਾ ਹੈ ਕਿ ਐਲੀਲ ਬਾਰੰਬਾਰਤਾ ਸਥਿਰ ਰਹਿੰਦੀ ਹੈ" }, difficulty: 'hard' as const },
+    { id: "biology_17", question: { en: "What is the function of ribosomes?", hi: "राइबोसोम का कार्य क्या है?", pa: "ਰਾਈਬੋਸੋਮ ਦਾ ਕੰਮ ਕੀ ਹੈ?" }, options: { en: ["Protein synthesis", "DNA replication", "Lipid production", "Waste removal"], hi: ["प्रोटीन संश्लेषण", "डीएनए प्रतिकृति", "लिपिड उत्पादन", "अपशिष्ट निष्कासन"], pa: ["ਪ੍ਰੋਟੀਨ ਸੰਸਲੇਸ਼ਣ", "ਡੀਐਨਏ ਪ੍ਰਤੀਕ੍ਰਿਤੀ", "ਲਿਪਿਡ ਉਤਪਾਦਨ", "ਰਹਿੰਦ-ਖੂੰਹਦ ਨੂੰ ਹਟਾਉਣਾ"] }, correct: 0, explanation: { en: "Ribosomes are the sites of protein synthesis in cells", hi: "राइबोसोम कोशिकाओं में प्रोटीन संश्लेषण के स्थल हैं", pa: "ਰਾਈਬੋਸੋਮ ਸੈੱਲਾਂ ਵਿੱਚ ਪ੍ਰੋਟੀਨ ਸੰਸਲੇਸ਼ਣ ਦੇ ਸਥਾਨ ਹਨ" }, difficulty: 'hard' as const },
+    { id: "biology_18", question: { en: "What is crossing over in genetics?", hi: "आनुवंशिकी में क्रॉसिंग ओवर क्या है?", pa: "ਜੈਨੇਟਿਕਸ ਵਿੱਚ ਕ੍ਰਾਸਿੰਗ ਓਵਰ ਕੀ ਹੈ?" }, options: { en: ["Exchange of genetic material", "Cell division", "Protein folding", "Energy production"], hi: ["आनुवंशिक सामग्री का आदान-प्रदान", "कोशिका विभाजन", "प्रोटीन फोल्डिंग", "ऊर्जा उत्पादन"], pa: ["ਜੈਨੇਟਿਕ ਸਮੱਗਰੀ ਦਾ ਆਦਾਨ-ਪ੍ਰਦਾਨ", "ਸੈੱਲ ਡਿਵੀਜ਼ਨ", "ਪ੍ਰੋਟੀਨ ਫੋਲਡਿੰਗ", "ਊਰਜਾ ਉਤਪਾਦਨ"] }, correct: 0, explanation: { en: "Crossing over is the exchange of genetic material between homologous chromosomes", hi: "क्रॉसिंग ओवर समरूप गुणसूत्रों के बीच आनुवंशिक सामग्री का आदान-प्रदान है", pa: "ਕ੍ਰਾਸਿੰਗ ਓਵਰ ਸਮਰੂਪ ਕ੍ਰੋਮੋਸੋਮਜ਼ ਵਿਚਕਾਰ ਜੈਨੇਟਿਕ ਸਮੱਗਰੀ ਦਾ ਆਦਾਨ-ਪ੍ਰਦਾਨ ਹੈ" }, difficulty: 'hard' as const },
+    { id: "biology_19", question: { en: "What is the function of the endoplasmic reticulum?", hi: "एंडोप्लाज्मिक रेटिकुलम का क्या कार्य है?", pa: "ਐਂਡੋਪਲਾਜ਼ਮਿਕ ਰੈਟੀਕੁਲਮ ਦਾ ਕੰਮ ਕੀ ਹੈ?" }, options: { en: ["Protein and lipid synthesis", "Energy production", "Waste disposal", "DNA storage"], hi: ["प्रोटीन और लिपिड संश्लेषण", "ऊर्जा उत्पादन", "अपशिष्ट निपटान", "डीएनए भंडारण"], pa: ["ਪ੍ਰੋਟੀਨ ਅਤੇ ਲਿਪਿਡ ਸੰਸਲੇਸ਼ਣ", "ਊਰਜਾ ਉਤਪਾਦਨ", "ਰਹਿੰਦ-ਖੂੰਹਦ ਦਾ ਨਿਪਟਾਰਾ", "ਡੀਐਨਏ ਸਟੋਰੇਜ"] }, correct: 0, explanation: { en: "The ER is involved in protein and lipid synthesis", hi: "ईआर प्रोटीन और लिपिड संश्लेषण में शामिल है", pa: "ER ਪ੍ਰੋਟੀਨ ਅਤੇ ਲਿਪਿਡ ਸੰਸਲੇਸ਼ਣ ਵਿੱਚ ਸ਼ਾਮਲ ਹੈ" }, difficulty: 'hard' as const },
+    { id: "biology_20", question: { en: "What is apoptosis?", hi: "एपोप्टोसिस क्या है?", pa: "ਐਪੋਪਟੋਸਿਸ ਕੀ ਹੈ?" }, options: { en: ["Programmed cell death", "Cell division", "Protein synthesis", "Energy production"], hi: ["क्रमादेशित कोशिका मृत्यु", "कोशिका विभाजन", "प्रोटीन संश्लेषण", "ऊर्जा उत्पादन"], pa: ["ਪ੍ਰੋਗਰਾਮਡ ਸੈੱਲ ਮੌਤ", "ਸੈੱਲ ਡਿਵੀਜ਼ਨ", "ਪ੍ਰੋਟੀਨ ਸੰਸਲੇਸ਼ਣ", "ਊਰਜਾ ਉਤਪਾਦਨ"] }, correct: 0, explanation: { en: "Apoptosis is programmed cell death", hi: "एपोप्टोसिस क्रमादेशित कोशिका मृत्यु है", pa: "ਐਪੋਪਟੋਸਿਸ ਪ੍ਰੋਗਰਾਮਡ ਸੈੱਲ ਮੌਤ ਹੈ" }, difficulty: 'hard' as const },
   ],
-  
   history: [
-    // Easy Questions (1-7)
-    {
-      id: "history_1",
-      question: "Who was the first President of the United States?",
-      options: ["George Washington", "Thomas Jefferson", "John Adams", "Benjamin Franklin"],
-      correct: 0,
-      explanation: "George Washington was the first President of the United States (1789-1797)",
-      difficulty: 'easy' as const
-    },
-    {
-      id: "history_2",
-      question: "In which year did World War II end?",
-      options: ["1945", "1944", "1946", "1943"],
-      correct: 0,
-      explanation: "World War II ended in 1945 with the surrender of Japan",
-      difficulty: 'easy' as const
-    },
-    {
-      id: "history_3",
-      question: "Which ancient wonder was located in Egypt?",
-      options: ["Great Pyramid of Giza", "Hanging Gardens", "Colossus of Rhodes", "Lighthouse of Alexandria"],
-      correct: 0,
-      explanation: "The Great Pyramid of Giza is the only surviving ancient wonder",
-      difficulty: 'easy' as const
-    },
-    {
-      id: "history_4",
-      question: "Who discovered America in 1492?",
-      options: ["Christopher Columbus", "Amerigo Vespucci", "Vasco da Gama", "Ferdinand Magellan"],
-      correct: 0,
-      explanation: "Christopher Columbus reached the Americas in 1492",
-      difficulty: 'easy' as const
-    },
-    {
-      id: "history_5",
-      question: "Which empire was ruled by Julius Caesar?",
-      options: ["Roman Empire", "Greek Empire", "Egyptian Empire", "Persian Empire"],
-      correct: 0,
-      explanation: "Julius Caesar was a Roman general and dictator",
-      difficulty: 'easy' as const
-    },
-    {
-      id: "history_6",
-      question: "What was the period called when Europe rediscovered art and learning?",
-      options: ["Renaissance", "Medieval", "Baroque", "Enlightenment"],
-      correct: 0,
-      explanation: "The Renaissance was a period of cultural rebirth in Europe",
-      difficulty: 'easy' as const
-    },
-    {
-      id: "history_7",
-      question: "Who wrote the Declaration of Independence?",
-      options: ["Thomas Jefferson", "George Washington", "John Adams", "Benjamin Franklin"],
-      correct: 0,
-      explanation: "Thomas Jefferson was the primary author of the Declaration of Independence",
-      difficulty: 'easy' as const
-    },
-    
-    // Medium Questions (8-14)
-    {
-      id: "history_8",
-      question: "Which war was fought between the North and South in America?",
-      options: ["Civil War", "Revolutionary War", "War of 1812", "Spanish-American War"],
-      correct: 0,
-      explanation: "The American Civil War (1861-1865) was fought between the Union and Confederacy",
-      difficulty: 'medium' as const
-    },
-    {
-      id: "history_9",
-      question: "Who was known as the 'Iron Lady'?",
-      options: ["Margaret Thatcher", "Queen Elizabeth II", "Indira Gandhi", "Golda Meir"],
-      correct: 0,
-      explanation: "Margaret Thatcher, UK Prime Minister, was nicknamed the 'Iron Lady'",
-      difficulty: 'medium' as const
-    },
-    {
-      id: "history_10",
-      question: "What year did the Berlin Wall fall?",
-      options: ["1989", "1987", "1991", "1985"],
-      correct: 0,
-      explanation: "The Berlin Wall fell on November 9, 1989",
-      difficulty: 'medium' as const
-    },
-    {
-      id: "history_11",
-      question: "Which dynasty ruled China for the longest time?",
-      options: ["Zhou Dynasty", "Han Dynasty", "Tang Dynasty", "Ming Dynasty"],
-      correct: 0,
-      explanation: "The Zhou Dynasty ruled China for about 800 years (1046-256 BC)",
-      difficulty: 'medium' as const
-    },
-    {
-      id: "history_12",
-      question: "What was the name of the ship that sank in 1912?",
-      options: ["Titanic", "Lusitania", "Britannic", "Olympic"],
-      correct: 0,
-      explanation: "The RMS Titanic sank on April 15, 1912, during its maiden voyage",
-      difficulty: 'medium' as const
-    },
-    {
-      id: "history_13",
-      question: "Who led the Indian independence movement?",
-      options: ["Mahatma Gandhi", "Jawaharlal Nehru", "Subhas Chandra Bose", "Sardar Patel"],
-      correct: 0,
-      explanation: "Mahatma Gandhi led India's non-violent independence movement",
-      difficulty: 'medium' as const
-    },
-    {
-      id: "history_14",
-      question: "What was the main cause of World War I?",
-      options: ["Assassination of Archduke Franz Ferdinand", "Invasion of Poland", "Pearl Harbor attack", "Holocaust"],
-      correct: 0,
-      explanation: "The assassination of Archduke Franz Ferdinand triggered World War I",
-      difficulty: 'medium' as const
-    },
-    
-    // Hard Questions (15-20)
-    {
-      id: "history_15",
-      question: "What was the Treaty of Versailles?",
-      options: ["End of WWI treaty", "End of WWII treaty", "Trade agreement", "Military alliance"],
-      correct: 0,
-      explanation: "The Treaty of Versailles officially ended World War I in 1919",
-      difficulty: 'hard' as const
-    },
-    {
-      id: "history_16",
-      question: "Who was the first emperor of Rome?",
-      options: ["Augustus", "Julius Caesar", "Nero", "Trajan"],
-      correct: 0,
-      explanation: "Augustus (originally Octavian) was the first Roman Emperor",
-      difficulty: 'hard' as const
-    },
-    {
-      id: "history_17",
-      question: "What was the Manhattan Project?",
-      options: ["Atomic bomb development", "Space program", "Computer development", "Medical research"],
-      correct: 0,
-      explanation: "The Manhattan Project was the US program to develop atomic weapons during WWII",
-      difficulty: 'hard' as const
-    },
-    {
-      id: "history_18",
-      question: "Which empire was ruled by Genghis Khan?",
-      options: ["Mongol Empire", "Ottoman Empire", "Byzantine Empire", "Chinese Empire"],
-      correct: 0,
-      explanation: "Genghis Khan founded and ruled the Mongol Empire",
-      difficulty: 'hard' as const
-    },
-    {
-      id: "history_19",
-      question: "What was the Silk Road?",
-      options: ["Trade route network", "Ancient road in China", "Textile factory", "Military highway"],
-      correct: 0,
-      explanation: "The Silk Road was a network of trade routes connecting East and West",
-      difficulty: 'hard' as const
-    },
-    {
-      id: "history_20",
-      question: "What was the Industrial Revolution?",
-      options: ["Period of mechanization", "Political revolution", "Scientific discovery", "Religious movement"],
-      correct: 0,
-      explanation: "The Industrial Revolution was a period of major mechanization and technological change",
-      difficulty: 'hard' as const
-    }
+    // Easy Questions
+    { id: "history_1", question: { en: "Who was the first President of the United States?", hi: "संयुक्त राज्य अमेरिका के पहले राष्ट्रपति कौन थे?", pa: "ਸੰਯੁਕਤ ਰਾਜ ਦੇ ਪਹਿਲੇ ਰਾਸ਼ਟਰਪਤੀ ਕੌਣ ਸਨ?" }, options: { en: ["George Washington", "Thomas Jefferson", "John Adams", "Benjamin Franklin"], hi: ["जॉर्ज वाशिंगटन", "थॉमस जेफरसन", "जॉन एडम्स", "बेंजामिन फ्रैंकलिन"], pa: ["ਜਾਰਜ ਵਾਸ਼ਿੰਗਟਨ", "ਥਾਮਸ ਜੈਫਰਸਨ", "ਜੌਨ ਐਡਮਜ਼", "ਬੈਂਜਾਮਿਨ ਫਰੈਂਕਲਿਨ"] }, correct: 0, explanation: { en: "George Washington was the first President of the United States", hi: "जॉर्ज वाशिंगटन संयुक्त राज्य अमेरिका के पहले राष्ट्रपति थे", pa: "ਜਾਰਜ ਵਾਸ਼ਿੰਗਟਨ ਸੰਯੁਕਤ ਰਾਜ ਦੇ ਪਹਿਲੇ ਰਾਸ਼ਟਰਪਤੀ ਸਨ" }, difficulty: 'easy' as const },
+    { id: "history_2", question: { en: "In which year did World War II end?", hi: "द्वितीय विश्व युद्ध किस वर्ष समाप्त हुआ?", pa: "ਦੂਜਾ ਵਿਸ਼ਵ ਯੁੱਧ ਕਿਸ ਸਾਲ ਖਤਮ ਹੋਇਆ?" }, options: { en: ["1945", "1944", "1946", "1943"], hi: ["1945", "1944", "1946", "1943"], pa: ["1945", "1944", "1946", "1943"] }, correct: 0, explanation: { en: "World War II ended in 1945", hi: "द्वितीय विश्व युद्ध 1945 में समाप्त हुआ", pa: "ਦੂਜਾ ਵਿਸ਼ਵ ਯੁੱਧ 1945 ਵਿੱਚ ਖਤਮ ਹੋਇਆ" }, difficulty: 'easy' as const },
+    { id: "history_3", question: { en: "Which ancient wonder was located in Egypt?", hi: "कौन सा प्राचीन आश्चर्य मिस्र में स्थित था?", pa: "ਕਿਹੜਾ ਪ੍ਰਾਚੀਨ ਅਜੂਬਾ ਮਿਸਰ ਵਿੱਚ ਸਥਿਤ ਸੀ?" }, options: { en: ["Great Pyramid of Giza", "Hanging Gardens", "Colossus of Rhodes", "Lighthouse of Alexandria"], hi: ["गीज़ा का महान पिरामिड", "हैंगिंग गार्डन", "रोड्स का कोलोसस", "अलेक्जेंड्रिया का प्रकाशस्तंभ"], pa: ["ਗੀਜ਼ਾ ਦਾ ਮਹਾਨ ਪਿਰਾਮਿਡ", "ਹੈਂਗਿੰਗ ਗਾਰਡਨ", "ਰੋਡਜ਼ ਦਾ ਕੋਲੋਸਸ", "ਅਲੈਗਜ਼ੈਂਡਰੀਆ ਦਾ ਲਾਈਟਹਾਊਸ"] }, correct: 0, explanation: { en: "The Great Pyramid of Giza is in Egypt", hi: "गीज़ा का महान पिरामिड मिस्र में है", pa: "ਗੀਜ਼ਾ ਦਾ ਮਹਾਨ ਪਿਰਾਮਿਡ ਮਿਸਰ ਵਿੱਚ ਹੈ" }, difficulty: 'easy' as const },
+    { id: "history_4", question: { en: "Who discovered America in 1492?", hi: "1492 में अमेरिका की खोज किसने की?", pa: "1492 ਵਿੱਚ ਅਮਰੀਕਾ ਦੀ ਖੋਜ ਕਿਸਨੇ ਕੀਤੀ?" }, options: { en: ["Christopher Columbus", "Amerigo Vespucci", "Vasco da Gama", "Ferdinand Magellan"], hi: ["क्रिस्टोफर कोलंबस", "अमेरिगो वेस्पुची", "वास्को डी गामा", "फर्डिनेंड मैगलन"], pa: ["ਕ੍ਰਿਸਟੋਫਰ ਕੋਲੰਬਸ", "ਅਮੇਰਿਗੋ ਵੇਸਪੁਚੀ", "ਵਾਸਕੋ ਡੀ ਗਾਮਾ", "ਫਰਡੀਨੈਂਡ ਮੈਗੇਲਨ"] }, correct: 0, explanation: { en: "Christopher Columbus reached the Americas in 1492", hi: "क्रिस्टोफर कोलंबस 1492 में अमेरिका पहुंचे", pa: "ਕ੍ਰਿਸਟੋਫਰ ਕੋਲੰਬਸ 1492 ਵਿੱਚ ਅਮਰੀਕਾ ਪਹੁੰਚਿਆ" }, difficulty: 'easy' as const },
+    { id: "history_5", question: { en: "Which empire was ruled by Julius Caesar?", hi: "जूलियस सीज़र किस साम्राज्य पर शासन करता था?", pa: "ਜੂਲੀਅਸ ਸੀਜ਼ਰ ਨੇ ਕਿਸ ਸਾਮਰਾਜ ਉੱਤੇ ਰਾਜ ਕੀਤਾ?" }, options: { en: ["Roman Empire", "Greek Empire", "Egyptian Empire", "Persian Empire"], hi: ["रोमन साम्राज्य", "ग्रीक साम्राज्य", "मिस्र साम्राज्य", "फारसी साम्राज्य"], pa: ["ਰੋਮਨ ਸਾਮਰਾਜ", "ਯੂਨਾਨੀ ਸਾਮਰਾਜ", "ਮਿਸਰੀ ਸਾਮਰਾਜ", "ਫ਼ਾਰਸੀ ਸਾਮਰਾਜ"] }, correct: 0, explanation: { en: "Julius Caesar was a Roman general and dictator", hi: "जूलियस सीज़र एक रोमन जनरल और तानाशाह था", pa: "ਜੂਲੀਅਸ ਸੀਜ਼ਰ ਇੱਕ ਰੋਮਨ ਜਰਨੈਲ ਅਤੇ ਤਾਨਾਸ਼ਾਹ ਸੀ" }, difficulty: 'easy' as const },
+    { id: "history_6", question: { en: "What was the period called when Europe rediscovered art and learning?", hi: "उस काल को क्या कहा जाता था जब यूरोप ने कला और शिक्षा को फिर से खोजा?", pa: "ਉਸ ਦੌਰ ਨੂੰ ਕੀ ਕਿਹਾ ਜਾਂਦਾ ਸੀ ਜਦੋਂ ਯੂਰਪ ਨੇ ਕਲਾ ਅਤੇ ਸਿੱਖਿਆ ਨੂੰ ਮੁੜ ਖੋਜਿਆ?" }, options: { en: ["Renaissance", "Medieval", "Baroque", "Enlightenment"], hi: ["पुनर्जागरण", "मध्यकालीन", "बैरोक", "ज्ञानोदय"], pa: ["ਪੁਨਰਜਾਗਰਣ", "ਮੱਧਕਾਲੀ", "ਬੈਰੋਕ", "ਗਿਆਨ"] }, correct: 0, explanation: { en: "The Renaissance was a period of cultural rebirth in Europe", hi: "पुनर्जागरण यूरोप में सांस्कृतिक पुनर्जन्म का काल था", pa: "ਪੁਨਰਜਾਗਰਣ ਯੂਰਪ ਵਿੱਚ ਸੱਭਿਆਚਾਰਕ ਪੁਨਰ ਜਨਮ ਦਾ ਦੌਰ ਸੀ" }, difficulty: 'easy' as const },
+    { id: "history_7", question: { en: "Who wrote the Declaration of Independence?", hi: "स्वतंत्रता की घोषणा किसने लिखी?", pa: "ਸੁਤੰਤਰਤਾ ਦਾ ਐਲਾਨਨਾਮਾ ਕਿਸਨੇ ਲਿਖਿਆ?" }, options: { en: ["Thomas Jefferson", "George Washington", "John Adams", "Benjamin Franklin"], hi: ["थॉमस जेफरसन", "जॉर्ज वाशिंगटन", "जॉन एडम्स", "बेंजामिन फ्रैंकलिन"], pa: ["ਥਾਮਸ ਜੈਫਰਸਨ", "ਜਾਰਜ ਵਾਸ਼ਿੰਗਟਨ", "ਜੌਨ ਐਡਮਜ਼", "ਬੈਂਜਾਮਿਨ ਫਰੈਂਕਲਿਨ"] }, correct: 0, explanation: { en: "Thomas Jefferson was the primary author", hi: "थॉमस जेफरसन मुख्य लेखक थे", pa: "ਥਾਮਸ ਜੈਫਰਸਨ ਮੁੱਖ ਲੇਖਕ ਸੀ" }, difficulty: 'easy' as const },
+    // Medium Questions
+    { id: "history_8", question: { en: "Which war was fought between the North and South in America?", hi: "अमेरिका में उत्तर और दक्षिण के बीच कौन सा युद्ध लड़ा गया था?", pa: "ਅਮਰੀਕਾ ਵਿੱਚ ਉੱਤਰ ਅਤੇ ਦੱਖਣ ਵਿਚਕਾਰ ਕਿਹੜੀ ਜੰਗ ਲੜੀ ਗਈ ਸੀ?" }, options: { en: ["Civil War", "Revolutionary War", "War of 1812", "Spanish-American War"], hi: ["गृहयुद्ध", "क्रांतिकारी युद्ध", "1812 का युद्ध", "स्पेनिश-अमेरिकी युद्ध"], pa: ["ਸਿਵਲ ਵਾਰ", "ਇਨਕਲਾਬੀ ਜੰਗ", "1812 ਦੀ ਜੰਗ", "ਸਪੇਨੀ-ਅਮਰੀਕੀ ਜੰਗ"] }, correct: 0, explanation: { en: "The American Civil War was fought between the North and South", hi: "अमेरिकी गृहयुद्ध उत्तर और दक्षिण के बीच लड़ा गया था", pa: "ਅਮਰੀਕੀ ਘਰੇਲੂ ਯੁੱਧ ਉੱਤਰ ਅਤੇ ਦੱਖਣ ਵਿਚਕਾਰ ਲੜਿਆ ਗਿਆ ਸੀ" }, difficulty: 'medium' as const },
+    { id: "history_9", question: { en: "Who was known as the 'Iron Lady'?", hi: "'आयरन लेडी' के नाम से किसे जाना जाता था?", pa: "'ਆਇਰਨ ਲੇਡੀ' ਵਜੋਂ ਕਿਸਨੂੰ ਜਾਣਿਆ ਜਾਂਦਾ ਸੀ?" }, options: { en: ["Margaret Thatcher", "Queen Elizabeth II", "Indira Gandhi", "Golda Meir"], hi: ["मार्गरेट थैचर", "महारानी एलिजाबेथ द्वितीय", "इंदिरा गांधी", "गोल्डा मीर"], pa: ["ਮਾਰਗਰੇਟ ਥੈਚਰ", "ਮਹਾਰਾਣੀ ਐਲਿਜ਼ਾਬੈਥ II", "ਇੰਦਰਾ ਗਾਂਧੀ", "ਗੋਲਡਾ ਮੀਰ"] }, correct: 0, explanation: { en: "Margaret Thatcher was nicknamed the 'Iron Lady'", hi: "मार्गरेट थैचर को 'आयरन लेडी' का उपनाम दिया गया था", pa: "ਮਾਰਗਰੇਟ ਥੈਚਰ ਨੂੰ 'ਆਇਰਨ ਲੇਡੀ' ਦਾ ਉਪਨਾਮ ਦਿੱਤਾ ਗਿਆ ਸੀ" }, difficulty: 'medium' as const },
+    { id: "history_10", question: { en: "What year did the Berlin Wall fall?", hi: "बर्लिन की दीवार किस वर्ष गिरी?", pa: "ਬਰਲਿਨ ਦੀ ਕੰਧ ਕਿਸ ਸਾਲ ਡਿੱਗੀ?" }, options: { en: ["1989", "1987", "1991", "1985"], hi: ["1989", "1987", "1991", "1985"], pa: ["1989", "1987", "1991", "1985"] }, correct: 0, explanation: { en: "The Berlin Wall fell on November 9, 1989", hi: "बर्लिन की दीवार 9 नवंबर, 1989 को गिरी", pa: "ਬਰਲਿਨ ਦੀ ਕੰਧ 9 ਨਵੰਬਰ 1989 ਨੂੰ ਡਿੱਗੀ" }, difficulty: 'medium' as const },
+    { id: "history_11", question: { en: "Which dynasty ruled China for the longest time?", hi: "किस राजवंश ने चीन पर सबसे लंबे समय तक शासन किया?", pa: "ਕਿਸ ਰਾਜਵੰਸ਼ ਨੇ ਚੀਨ ਉੱਤੇ ਸਭ ਤੋਂ ਲੰਬਾ ਸਮਾਂ ਰਾਜ ਕੀਤਾ?" }, options: { en: ["Zhou Dynasty", "Han Dynasty", "Tang Dynasty", "Ming Dynasty"], hi: ["झोउ राजवंश", "हान राजवंश", "तांग राजवंश", "मिंग राजवंश"], pa: ["ਝੋਉ ਰਾਜਵੰਸ਼", "ਹਾਨ ਰਾਜਵੰਸ਼", "ਤਾਂਗ ਰਾਜਵੰਸ਼", "ਮਿੰਗ ਰਾਜਵੰਸ਼"] }, correct: 0, explanation: { en: "The Zhou Dynasty ruled for about 800 years", hi: "झोउ राजवंश ने लगभग 800 वर्षों तक शासन किया", pa: "ਝੋਉ ਰਾਜਵੰਸ਼ ਨੇ ਲਗਭਗ 800 ਸਾਲ ਰਾਜ ਕੀਤਾ" }, difficulty: 'medium' as const },
+    { id: "history_12", question: { en: "What was the name of the ship that sank in 1912?", hi: "1912 में डूबे जहाज का क्या नाम था?", pa: "1912 ਵਿੱਚ ਡੁੱਬਣ ਵਾਲੇ ਜਹਾਜ਼ ਦਾ ਕੀ ਨਾਮ ਸੀ?" }, options: { en: ["Titanic", "Lusitania", "Britannic", "Olympic"], hi: ["टाइटैनिक", "लुसिटानिया", "ब्रिटैनिक", "ओलंपिक"], pa: ["ਟਾਈਟੈਨਿਕ", "ਲੁਸੀਟਾਨੀਆ", "ਬ੍ਰਿਟੈਨਿਕ", "ਓਲੰਪਿਕ"] }, correct: 0, explanation: { en: "The RMS Titanic sank on April 15, 1912", hi: "आरएमएस टाइटैनिक 15 अप्रैल, 1912 को डूब गया", pa: "ਆਰਐਮਐਸ ਟਾਈਟੈਨਿਕ 15 ਅਪ੍ਰੈਲ 1912 ਨੂੰ ਡੁੱਬ ਗਿਆ" }, difficulty: 'medium' as const },
+    { id: "history_13", question: { en: "Who led the Indian independence movement?", hi: "भारतीय स्वतंत्रता आंदोलन का नेतृत्व किसने किया?", pa: "ਭਾਰਤੀ ਆਜ਼ਾਦੀ ਅੰਦੋਲਨ ਦੀ ਅਗਵਾਈ ਕਿਸਨੇ ਕੀਤੀ?" }, options: { en: ["Mahatma Gandhi", "Jawaharlal Nehru", "Subhas Chandra Bose", "Sardar Patel"], hi: ["महात्मा गांधी", "जवाहरलाल नेहरू", "सुभाष चंद्र बोस", "सरदार पटेल"], pa: ["ਮਹਾਤਮਾ ਗਾਂਧੀ", "ਜਵਾਹਰ ਲਾਲ ਨਹਿਰੂ", "ਸੁਭਾਸ਼ ਚੰਦਰ ਬੋਸ", "ਸਰਦਾਰ ਪਟੇਲ"] }, correct: 0, explanation: { en: "Mahatma Gandhi led India's non-violent independence movement", hi: "महात्मा गांधी ने भारत के अहिंसक स्वतंत्रता आंदोलन का नेतृत्व किया", pa: "ਮਹਾਤਮਾ ਗਾਂਧੀ ਨੇ ਭਾਰਤ ਦੇ ਅਹਿੰਸਕ ਆਜ਼ਾਦੀ ਅੰਦੋਲਨ ਦੀ ਅਗਵਾਈ ਕੀਤੀ" }, difficulty: 'medium' as const },
+    { id: "history_14", question: { en: "What was the main cause of World War I?", hi: "प्रथम विश्व युद्ध का मुख्य कारण क्या था?", pa: "ਪਹਿਲੇ ਵਿਸ਼ਵ ਯੁੱਧ ਦਾ ਮੁੱਖ ਕਾਰਨ ਕੀ ਸੀ?" }, options: { en: ["Assassination of Archduke Franz Ferdinand", "Invasion of Poland", "Pearl Harbor attack", "Holocaust"], hi: ["आर्कड्यूक फ्रांज फर्डिनेंड की हत्या", "पोलैंड पर आक्रमण", "पर्ल हार्बर पर हमला", "होलोकॉस्ट"], pa: ["ਆਰਕਡਿਊਕ ਫਰਾਂਜ਼ ਫਰਡੀਨੈਂਡ ਦੀ ਹੱਤਿਆ", "ਪੋਲੈਂਡ 'ਤੇ ਹਮਲਾ", "ਪਰਲ ਹਾਰਬਰ 'ਤੇ ਹਮਲਾ", "ਹੋਲੋਕਾਸਟ"] }, correct: 0, explanation: { en: "The assassination of Archduke Franz Ferdinand triggered WWI", hi: "आर्कड्यूक फ्रांज फर्डिनेंड की हत्या ने प्रथम विश्व युद्ध को जन्म दिया", pa: "ਆਰਕਡਿਊਕ ਫਰਾਂਜ਼ ਫਰਡੀਨੈਂਡ ਦੀ ਹੱਤਿਆ ਨੇ ਪਹਿਲੇ ਵਿਸ਼ਵ ਯੁੱਧ ਨੂੰ ਸ਼ੁਰੂ ਕਰ ਦਿੱਤਾ" }, difficulty: 'medium' as const },
+    // Hard Questions
+    { id: "history_15", question: { en: "What was the Treaty of Versailles?", hi: "वर्साय की संधि क्या थी?", pa: "ਵਰਸੇਲਜ਼ ਦੀ ਸੰਧੀ ਕੀ ਸੀ?" }, options: { en: ["End of WWI treaty", "End of WWII treaty", "Trade agreement", "Military alliance"], hi: ["प्रथम विश्व युद्ध की समाप्ति की संधि", "द्वितीय विश्व युद्ध की समाप्ति की संधि", "व्यापार समझौता", "सैन्य गठबंधन"], pa: ["ਪਹਿਲੇ ਵਿਸ਼ਵ ਯੁੱਧ ਦੀ ਸਮਾਪਤੀ ਦੀ ਸੰਧੀ", "ਦੂਜੇ ਵਿਸ਼ਵ ਯੁੱਧ ਦੀ ਸਮਾਪਤੀ ਦੀ ਸੰਧੀ", "ਵਪਾਰ ਸਮਝੌਤਾ", "ਫੌਜੀ ਗਠਜੋੜ"] }, correct: 0, explanation: { en: "The Treaty of Versailles officially ended World War I", hi: "वर्साय की संधि ने आधिकारिक तौर पर प्रथम विश्व युद्ध को समाप्त कर दिया", pa: "ਵਰਸੇਲਜ਼ ਦੀ ਸੰਧੀ ਨੇ ਅਧਿਕਾਰਤ ਤੌਰ 'ਤੇ ਪਹਿਲੇ ਵਿਸ਼ਵ ਯੁੱਧ ਨੂੰ ਖਤਮ ਕਰ ਦਿੱਤਾ" }, difficulty: 'hard' as const },
+    { id: "history_16", question: { en: "Who was the first emperor of Rome?", hi: "रोम का पहला सम्राट कौन था?", pa: "ਰੋਮ ਦਾ ਪਹਿਲਾ ਸਮਰਾਟ ਕੌਣ ਸੀ?" }, options: { en: ["Augustus", "Julius Caesar", "Nero", "Trajan"], hi: ["ऑगस्टस", "जूलियस सीज़र", "नीरो", "ट्रोजन"], pa: ["ਆਗਸਟਸ", "ਜੂਲੀਅਸ ਸੀਜ਼ਰ", "ਨੀਰੋ", "ਟਰਾਜਨ"] }, correct: 0, explanation: { en: "Augustus (originally Octavian) was the first Roman Emperor", hi: "ऑगस्टस (मूल रूप से ऑक्टेवियन) पहला रोमन सम्राट था", pa: "ਆਗਸਟਸ (ਅਸਲ ਵਿੱਚ ਔਕਟੇਵੀਅਨ) ਪਹਿਲਾ ਰੋਮਨ ਸਮਰਾਟ ਸੀ" }, difficulty: 'hard' as const },
+    { id: "history_17", question: { en: "What was the Manhattan Project?", hi: "मैनहट्टन परियोजना क्या थी?", pa: "ਮੈਨਹਟਨ ਪ੍ਰੋਜੈਕਟ ਕੀ ਸੀ?" }, options: { en: ["Atomic bomb development", "Space program", "Computer development", "Medical research"], hi: ["परमाणु बम का विकास", "अंतरिक्ष कार्यक्रम", "कंप्यूटर का विकास", "चिकित्सा अनुसंधान"], pa: ["ਪ੍ਰਮਾਣੂ ਬੰਬ ਦਾ ਵਿਕਾਸ", "ਪੁਲਾੜ ਪ੍ਰੋਗਰਾਮ", "ਕੰਪਿਊਟਰ ਦਾ ਵਿਕਾਸ", "ਮੈਡੀਕਲ ਖੋਜ"] }, correct: 0, explanation: { en: "The Manhattan Project was the US program to develop atomic weapons", hi: "मैनहट्टन परियोजना परमाणु हथियार विकसित करने का अमेरिकी कार्यक्रम था", pa: "ਮੈਨਹਟਨ ਪ੍ਰੋਜੈਕਟ ਪ੍ਰਮਾਣੂ ਹਥਿਆਰ ਵਿਕਸਤ ਕਰਨ ਲਈ ਅਮਰੀਕੀ ਪ੍ਰੋਗਰਾਮ ਸੀ" }, difficulty: 'hard' as const },
+    { id: "history_18", question: { en: "Which empire was ruled by Genghis Khan?", hi: "चंगेज खान किस साम्राज्य पर शासन करता था?", pa: "ਚੰਗੇਜ਼ ਖਾਨ ਨੇ ਕਿਸ ਸਾਮਰਾਜ ਉੱਤੇ ਰਾਜ ਕੀਤਾ?" }, options: { en: ["Mongol Empire", "Ottoman Empire", "Byzantine Empire", "Chinese Empire"], hi: ["मंगोल साम्राज्य", "ओटोमन साम्राज्य", "बीजान्टिन साम्राज्य", "चीनी साम्राज्य"], pa: ["ਮੰਗੋਲ ਸਾਮਰਾਜ", "ਓਟੋਮਨ ਸਾਮਰਾਜ", "ਬਾਈਜ਼ੈਂਟਾਈਨ ਸਾਮਰਾਜ", "ਚੀਨੀ ਸਾਮਰਾਜ"] }, correct: 0, explanation: { en: "Genghis Khan founded and ruled the Mongol Empire", hi: "चंगेज खान ने मंगोल साम्राज्य की स्थापना की और उस पर शासन किया", pa: "ਚੰਗੇਜ਼ ਖਾਨ ਨੇ ਮੰਗੋਲ ਸਾਮਰਾਜ ਦੀ ਸਥਾਪਨਾ ਕੀਤੀ ਅਤੇ ਰਾਜ ਕੀਤਾ" }, difficulty: 'hard' as const },
+    { id: "history_19", question: { en: "What was the Silk Road?", hi: "रेशम मार्ग क्या था?", pa: "ਸਿਲਕ ਰੋਡ ਕੀ ਸੀ?" }, options: { en: ["Trade route network", "Ancient road in China", "Textile factory", "Military highway"], hi: ["व्यापार मार्ग नेटवर्क", "चीन में प्राचीन सड़क", "कपड़ा कारखाना", "सैन्य राजमार्ग"], pa: ["ਵਪਾਰਕ ਰੂਟ ਨੈੱਟਵਰਕ", "ਚੀਨ ਵਿੱਚ ਪ੍ਰਾਚੀਨ ਸੜਕ", "ਟੈਕਸਟਾਈਲ ਫੈਕਟਰੀ", "ਫੌਜੀ ਹਾਈਵੇਅ"] }, correct: 0, explanation: { en: "The Silk Road was a network of trade routes connecting East and West", hi: "रेशम मार्ग पूर्व और पश्चिम को जोड़ने वाले व्यापार मार्गों का एक नेटवर्क था", pa: "ਸਿਲਕ ਰੋਡ ਪੂਰਬ ਅਤੇ ਪੱਛਮ ਨੂੰ ਜੋੜਨ ਵਾਲੇ ਵਪਾਰਕ ਮਾਰਗਾਂ ਦਾ ਇੱਕ ਨੈਟਵਰਕ ਸੀ" }, difficulty: 'hard' as const },
+    { id: "history_20", question: { en: "What was the Industrial Revolution?", hi: "औद्योगिक क्रांति क्या थी?", pa: "ਉਦਯੋਗਿਕ ਕ੍ਰਾਂਤੀ ਕੀ ਸੀ?" }, options: { en: ["Period of mechanization", "Political revolution", "Scientific discovery", "Religious movement"], hi: ["मशीनीकरण का दौर", "राजनीतिक क्रांति", "वैज्ञानिक खोज", "धार्मिक आंदोलन"], pa: ["ਮਸ਼ੀਨੀਕਰਨ ਦਾ ਦੌਰ", "ਸਿਆਸੀ ਇਨਕਲਾਬ", "ਵਿਗਿਆਨਕ ਖੋਜ", "ਧਾਰਮਿਕ ਅੰਦੋਲਨ"] }, correct: 0, explanation: { en: "The Industrial Revolution was a period of major mechanization", hi: "औद्योगिक क्रांति प्रमुख मशीनीकरण का दौर था", pa: "ਉਦਯੋਗਿਕ ਕ੍ਰਾਂਤੀ ਪ੍ਰਮੁੱਖ ਮਸ਼ੀਨੀਕਰਨ ਦਾ ਦੌਰ ਸੀ" }, difficulty: 'hard' as const },
   ]
 };
 
 export function getQuestionsBySubject(subjectId: string): Question[] {
-  const questionBank = QuestionBanks[subjectId as keyof typeof QuestionBanks];
-  return questionBank || QuestionBanks.math; // Fallback to math if subject not found
+  const bank = QuestionBanks[subjectId as keyof typeof QuestionBanks];
+  if (bank) {
+    return [...bank].sort(() => Math.random() - 0.5);
+  }
+  return [...QuestionBanks.math].sort(() => Math.random() - 0.5);
 }
