@@ -12,32 +12,44 @@ import {
   LogOut
 } from 'lucide-react';
 
+// IMPROVEMENT 1: Added a User interface for better type safety
+interface User {
+  id: string;
+  name: string;
+  xp: number;
+  level: number;
+}
+
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userRole, setUserRole] = useState<'student' | 'teacher' | 'admin' | null>(null);
   const [language, setLanguage] = useState('en');
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [isLiteMode, setIsLiteMode] = useState(false);
-  const [isOffline, setIsOffline] = useState(false);
+  const [isOffline, setIsOffline] = useState(!navigator.onLine); // Set initial state accurately
   const [currentGame, setCurrentGame] = useState<any>(null);
   const [gameActive, setGameActive] = useState(false);
-  const [currentUser, setCurrentUser] = useState<any>(null);
+  const [currentUser, setCurrentUser] = useState<User | null>(null); // Use the User interface
 
-  // Mock offline status simulation
+  // IMPROVEMENT 2: Replaced mock offline simulation with real browser events
   useEffect(() => {
-    const interval = setInterval(() => {
-      setIsOffline(Math.random() > 0.8);
-    }, 5000);
-    return () => clearInterval(interval);
+    const handleOnline = () => setIsOffline(false);
+    const handleOffline = () => setIsOffline(true);
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
   }, []);
 
   // Apply theme to document
   useEffect(() => {
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
+    const root = window.document.documentElement;
+    root.classList.remove('light', 'dark');
+    root.classList.add(theme);
   }, [theme]);
 
   const translations = {
@@ -52,16 +64,16 @@ export default function App() {
       welcome: 'वापसी पर स्वागत'
     },
     pa: {
-    appTitle: 'ਐਡੁਗੇਮਹਬ',
-    logout: 'ਲੌਗਆਉਟ',
-    welcome: 'ਵਾਪਸੀ ਤੇ ਸੁਆਗਤ ਹੈ',
-  }
+      appTitle: 'ਐਡੁਗੇਮਹੱਬ',
+      logout: 'ਲੌਗਆਉਟ',
+      welcome: 'ਵਾਪਸੀ ਤੇ ਸੁਆਗਤ ਹੈ',
+    }
   };
 
-  const t = translations[language as keyof typeof translations];
+  const t = translations[language as keyof typeof translations] || translations.en;
 
   // Authentication handlers
-  const handleLogin = (user: any, role: 'student' | 'teacher' | 'admin') => {
+  const handleLogin = (user: User, role: 'student' | 'teacher' | 'admin') => {
     setCurrentUser(user);
     setUserRole(role);
     setIsAuthenticated(true);
@@ -87,19 +99,22 @@ export default function App() {
   };
 
   const handleGameComplete = (score: number, xp: number) => {
-    // Update user stats
-    setCurrentUser(prev => ({
-      ...prev,
-      xp: prev.xp + xp,
-      level: Math.floor((prev.xp + xp) / 200) + 1
-    }));
+    if (!currentUser) return;
+    setCurrentUser(prevUser => {
+      if (!prevUser) return null;
+      const newXp = prevUser.xp + xp;
+      return {
+        ...prevUser,
+        xp: newXp,
+        level: Math.floor(newXp / 200) + 1
+      };
+    });
   };
 
   // Show login screen if not authenticated
   if (!isAuthenticated) {
     return (
       <div className={`min-h-screen ${isLiteMode ? 'bg-gray-100 dark:bg-gray-900' : 'bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-blue-900 dark:to-purple-900'}`}>
-        {/* Header for login screen */}
         <header className="bg-white dark:bg-gray-800 shadow-sm border-b-2 border-blue-200 dark:border-gray-600">
           <div className="max-w-7xl mx-auto px-4 py-3">
             <div className="flex items-center justify-between">
@@ -111,9 +126,9 @@ export default function App() {
                   {t.appTitle}
                 </h1>
               </div>
-              
               <div className="flex items-center gap-3">
-                <OfflineStatus isOffline={isOffline} />
+                {/* FIX: Pass the language prop to OfflineStatus */}
+                <OfflineStatus isOffline={isOffline} language={language} />
                 <ThemeToggle theme={theme} setTheme={setTheme} />
                 <LanguageToggle language={language} setLanguage={setLanguage} />
               </div>
@@ -142,7 +157,6 @@ export default function App() {
   // Main authenticated app
   return (
     <div className={`min-h-screen ${isLiteMode ? 'bg-gray-100 dark:bg-gray-900' : 'bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-blue-900 dark:to-purple-900'}`}>
-      {/* Header */}
       <header className="bg-white dark:bg-gray-800 shadow-sm border-b-2 border-blue-200 dark:border-gray-600">
         <div className="max-w-7xl mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
@@ -161,7 +175,8 @@ export default function App() {
             </div>
             
             <div className="flex items-center gap-3">
-              <OfflineStatus isOffline={isOffline} />
+              {/* FIX: Pass the language prop to OfflineStatus */}
+              <OfflineStatus isOffline={isOffline} language={language} />
               <ThemeToggle theme={theme} setTheme={setTheme} />
               <LanguageToggle language={language} setLanguage={setLanguage} />
               
@@ -177,9 +192,8 @@ export default function App() {
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 py-6">
-        {userRole === 'student' && (
+        {userRole === 'student' && currentUser && (
           <StudentDashboard 
             user={currentUser} 
             language={language} 
@@ -190,7 +204,7 @@ export default function App() {
           />
         )}
 
-        {userRole === 'teacher' && (
+        {userRole === 'teacher' && currentUser && (
           <TeacherDashboard 
             user={currentUser} 
             language={language} 
@@ -200,7 +214,7 @@ export default function App() {
           />
         )}
 
-        {userRole === 'admin' && (
+        {userRole === 'admin' && currentUser && (
           <AdminDashboard 
             user={currentUser} 
             language={language} 
