@@ -51,16 +51,11 @@ export default function App() {
       logout: 'लॉगआउट',
       welcome: 'वापसी पर स्वागत'
     },
-    ta: {
-      appTitle: 'கற்றல் கேம் மையம்',
-      logout: 'வெளியேறு',
-      welcome: 'மீண்டும் வரவேற்கிறோம்'
-    },
-    es: {
-      appTitle: 'EduGameHub',
-      logout: 'Cerrar Sesión',
-      welcome: 'Bienvenido de nuevo'
-    }
+    pa: {
+    appTitle: 'ਐਡੁਗੇਮਹਬ',
+    logout: 'ਲੌਗਆਉਟ',
+    welcome: 'ਵਾਪਸੀ ਤੇ ਸੁਆਗਤ ਹੈ',
+  }
   };
 
   const t = translations[language as keyof typeof translations];

@@ -76,26 +76,26 @@ export function GameInterface({ subject, language, onExit, onGameComplete }: Gam
       perfectScore: 'परफेक्ट स्कोर!',
       submitAnswer: 'उत्तर जमा करें'
     },
-    es: {
-      question: 'Pregunta',
-      of: 'de',
-      timeLeft: 'Tiempo Restante',
-      score: 'Puntuación',
-      streak: 'Racha',
-      correct: '¡Correcto!',
-      incorrect: '¡Incorrecto!',
-      nextQuestion: 'Siguiente Pregunta',
-      gameComplete: '¡Juego Completado!',
-      finalScore: 'Puntuación Final',
-      xpEarned: 'XP Ganado',
-      playAgain: 'Jugar de Nuevo',
-      backToDashboard: 'Volver al Panel',
-      excellent: '¡Excelente!',
-      good: '¡Buen Trabajo!',
-      keepTrying: '¡Sigue Intentando!',
-      streakBonus: 'Bonus de Racha',
-      perfectScore: '¡Puntuación Perfecta!',
-      submitAnswer: 'Enviar Respuesta'
+    pa: {
+      question: 'ਸਵਾਲ',
+      of: 'ਵਿੱਚੋਂ',
+      timeLeft: 'ਬਾਕੀ ਸਮਾਂ',
+      score: 'ਸਕੋਰ',
+      streak: 'ਸਟ੍ਰੀਕ',
+      correct: 'ਸਹੀ!',
+      incorrect: 'ਗਲਤ!',
+      nextQuestion: 'ਅਗਲਾ ਸਵਾਲ',
+      gameComplete: 'ਖੇਡ ਪੂਰੀ!',
+      finalScore: 'ਅੰਤਿਮ ਸਕੋਰ',
+      xpEarned: 'XP ਕਮਾਏ',
+      playAgain: 'ਦੁਬਾਰਾ ਖੇਡੋ',
+      backToDashboard: 'ਡੈਸ਼ਬੋਰਡ \'ਤੇ ਵਾਪਸ',
+      excellent: 'ਸ਼ਾਨਦਾਰ!',
+      good: 'ਬਹੁਤ ਵਧੀਆ!',
+      keepTrying: 'ਕੋਸ਼ਿਸ਼ ਕਰਦੇ ਰਹੋ!',
+      streakBonus: 'ਸਟ੍ਰੀਕ ਬੋਨਸ',
+      perfectScore: 'ਪੂਰਾ ਸਕੋਰ!',
+      submitAnswer: 'ਜਵਾਬ ਜਮ੍ਹਾਂ ਕਰੋ'
     }
   };
 
