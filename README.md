@@ -43,7 +43,7 @@ Rural students often face challenges such as limited internet access, lack of en
 ## Features
 
 - **Gamified Learning**: Pokemon Red-style top-down adventure games
-- **Multilingual Support**: English, Spanish, and Tamil with quick toggle
+- **Multilingual Support**: English, Hindi, and Punjabi with quick toggle
 - **Offline Access**: Downloadable lessons and offline capability
 - **Mobile-First Design**: Optimized for low-cost devices
 - **Dark/Light Mode**: Theme toggle with proper color system
@@ -170,10 +170,8 @@ The app includes:
 
 Supported languages:
 - English (en)
-- Spanish (es)
-- Tamil (ta)
 - Hindi (hi)
-
+- Punjabi (pa)
 
 ---
 
