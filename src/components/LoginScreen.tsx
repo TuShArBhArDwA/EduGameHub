@@ -63,7 +63,13 @@ export function LoginScreen({ language, onLogin }: LoginScreenProps) {
       demoCredentials: 'Demo Credentials',
       demoStudent: 'student / demo123',
       demoTeacher: 'teacher / demo123',
-      demoAdmin: 'admin / demo123'
+      demoAdmin: 'admin / demo123',
+      demoStudentName: 'Tushar Bhardwaj',
+      demoStudentRank: 'Science Explorer',
+      demoTeacherName: 'Dr. Tushar Bhardwaj',
+      demoTeacherRank: 'Master Educator',
+      demoAdminName: 'Tushar Bhardwaj',
+      demoAdminRank: 'Platform Guardian'
     },
     hi: {
       appTitle: 'एडुगेमहब',
@@ -93,7 +99,13 @@ export function LoginScreen({ language, onLogin }: LoginScreenProps) {
       demoCredentials: 'डेमो क्रेडेंशियल',
       demoStudent: 'student / demo123',
       demoTeacher: 'teacher / demo123',
-      demoAdmin: 'admin / demo123'
+      demoAdmin: 'admin / demo123',
+      demoStudentName: 'तुषार भारद्वाज',
+      demoStudentRank: 'विज्ञान अन्वेषक',
+      demoTeacherName: 'डॉ. तुषार भारद्वाज',
+      demoTeacherRank: 'मास्टर शिक्षक',
+      demoAdminName: 'तुषार भारद्वाज',
+      demoAdminRank: 'प्लेटफ़ॉर्म संरक्षक'
     },
     pa: {
       appTitle: 'ਐਜੂਗੇਮਹੱਬ',
@@ -123,7 +135,13 @@ export function LoginScreen({ language, onLogin }: LoginScreenProps) {
       demoCredentials: 'ਡੈਮੋ ਕ੍ਰੈਡੈਂਸ਼ੀਅਲ',
       demoStudent: 'student / demo123',
       demoTeacher: 'teacher / demo123',
-      demoAdmin: 'admin / demo123'
+      demoAdmin: 'admin / demo123',
+       demoStudentName: 'ਤੁਸ਼ਾਰ ਭਾਰਦਵਾਜ',
+      demoStudentRank: 'ਵਿਗਿਆਨ ਖੋਜੀ',
+      demoTeacherName: 'ਡਾ. ਤੁਸ਼ਾਰ ਭਾਰਦਵਾਜ',
+      demoTeacherRank: 'ਮਾਸਟਰ ਐਜੂਕੇਟਰ',
+      demoAdminName: 'ਤੁਸ਼ਾਰ ਭਾਰਦਵਾਜ',
+      demoAdminRank: 'ਪਲੇਟਫਾਰਮ ਗਾਰਡੀਅਨ'
     }
   };
 
@@ -159,17 +177,18 @@ export function LoginScreen({ language, onLogin }: LoginScreenProps) {
     }
   ];
 
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
     // Demo authentication logic
     const demoUsers = {
-      student: { id: 1, name: 'Alex Kumar', level: 12, xp: 2450, badges: 8, rank: 'Science Explorer' },
-      teacher: { id: 2, name: 'Dr. Priya Singh', level: 25, xp: 8500, badges: 15, rank: 'Master Educator' },
-      admin: { id: 3, name: 'Rajesh Gupta', level: 30, xp: 12000, badges: 20, rank: 'Platform Guardian' }
+      student: { id: 's1', nameKey: 'demoStudentName', level: 12, xp: 2450 },
+      teacher: { id: 't1', nameKey: 'demoTeacherName', level: 25, xp: 8500 },
+      admin: { id: 'a1', nameKey: 'demoAdminName', level: 30, xp: 12000 }
     };
 
-    if (formData.username === selectedRole && formData.password === 'demo123') {
+    if (formData.username.toLowerCase() === selectedRole && formData.password === 'demo123') {
       onLogin(demoUsers[selectedRole!], selectedRole!);
     } else {
       alert('Invalid credentials. Use demo credentials for testing.');
@@ -251,16 +270,16 @@ export function LoginScreen({ language, onLogin }: LoginScreenProps) {
 
   const selectedRoleData = roles.find(r => r.type === selectedRole)!;
   const IconComponent = selectedRoleData.icon;
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-blue-900 dark:to-purple-900 flex items-center justify-center p-4">
       <div className="max-w-md w-full">
-        <Card className={`${selectedRoleData.bgColor} ${selectedRoleData.borderColor} border-2`}>
+        <Card className={`${selectedRoleData.bgColor} dark:bg-gray-800 ${selectedRoleData.borderColor} dark:border-gray-700 border-2`}>
           <CardHeader className="text-center pb-4">
             <div className={`w-16 h-16 bg-gradient-to-r ${selectedRoleData.color} rounded-2xl flex items-center justify-center mx-auto mb-4`}>
               <IconComponent className="w-8 h-8 text-white" />
             </div>
-            <CardTitle className="text-2xl font-bold text-gray-800">
+            {/* FIX: Made title text color theme-aware */}
+            <CardTitle className="text-2xl font-bold text-gray-800 dark:text-white">
               {isLogin ? t.login : t.signup} - {selectedRoleData.title}
             </CardTitle>
           </CardHeader>
@@ -268,32 +287,38 @@ export function LoginScreen({ language, onLogin }: LoginScreenProps) {
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <Label htmlFor="username" className="text-black">{t.username}</Label>
+                {/* FIX: Removed hardcoded text-black for theme compatibility */}
+                <Label htmlFor="username">{t.username}</Label>
                 <Input
                   id="username"
                   type="text"
                   value={formData.username}
                   onChange={(e) => handleInputChange('username', e.target.value)}
-                  className="mt-1 text-[rgba(250,250,250,1)]"
+                  // FIX: Removed hardcoded text color that made it invisible
+                  className="mt-1"
                   required
                 />
               </div>
 
               <div>
-                <Label htmlFor="password" className="text-black">{t.password}</Label>
+                {/* FIX: Removed hardcoded text-black for theme compatibility */}
+                <Label htmlFor="password">{t.password}</Label>
                 <div className="relative mt-1">
                   <Input
                     id="password"
                     type={showPassword ? 'text' : 'password'}
                     value={formData.password}
                     onChange={(e) => handleInputChange('password', e.target.value)}
+                    // FIX: Added consistent margin-top
+                    className="mt-1"
                     required
                   />
+                  {/* IMPROVEMENT: Made button a proper icon button for better alignment */}
                   <Button
                     type="button"
                     variant="ghost"
-                    size="sm"
-                    className="absolute right-2 top-1/2 -translate-y-1/2 h-auto p-1"
+                    size="icon"
+                    className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8"
                     onClick={() => setShowPassword(!showPassword)}
                   >
                     {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -305,83 +330,53 @@ export function LoginScreen({ language, onLogin }: LoginScreenProps) {
                 <>
                   <div>
                     <Label htmlFor="confirmPassword">{t.confirmPassword}</Label>
-                    <Input
-                      id="confirmPassword"
-                      type="password"
-                      value={formData.confirmPassword}
-                      onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
-                      className="mt-1"
-                      required
-                    />
+                    <Input id="confirmPassword" type="password" value={formData.confirmPassword} onChange={(e) => handleInputChange('confirmPassword', e.target.value)} className="mt-1" required />
                   </div>
-
                   {selectedRole === 'student' && (
                     <>
                       <div>
                         <Label htmlFor="schoolCode">{t.schoolCode}</Label>
-                        <Input
-                          id="schoolCode"
-                          type="text"
-                          value={formData.schoolCode}
-                          onChange={(e) => handleInputChange('schoolCode', e.target.value)}
-                          className="mt-1"
-                          required
-                        />
+                        <Input id="schoolCode" type="text" value={formData.schoolCode} onChange={(e) => handleInputChange('schoolCode', e.target.value)} className="mt-1" required />
                       </div>
                       <div>
                         <Label htmlFor="grade">{t.grade}</Label>
-                        <Input
-                          id="grade"
-                          type="text"
-                          value={formData.grade}
-                          onChange={(e) => handleInputChange('grade', e.target.value)}
-                          className="mt-1"
-                          placeholder="6-12"
-                          required
-                        />
+                        <Input id="grade" type="text" value={formData.grade} onChange={(e) => handleInputChange('grade', e.target.value)} className="mt-1" placeholder="6-12" required />
                       </div>
                     </>
                   )}
                 </>
               )}
 
-              <Button 
-                type="submit" 
-                className={`w-full bg-gradient-to-r ${selectedRoleData.color} text-white hover:opacity-90`}
-              >
-                <LogIn className="w-4 h-4 mr-2" />
+              <Button type="submit" className={`w-full bg-gradient-to-r ${selectedRoleData.color} text-white hover:opacity-90`}>
+                {/* IMPROVEMENT: Swapped icon based on login/signup state */}
+                {isLogin ? <LogIn className="w-4 h-4 mr-2" /> : <UserPlus className="w-4 h-4 mr-2" />}
                 {isLogin ? t.loginBtn : t.signupBtn}
               </Button>
             </form>
 
-            <div className="mt-6 space-y-4">
-              <button
-                type="button"
-                onClick={() => setIsLogin(!isLogin)}
-                className="w-full text-center text-sm text-muted-foreground hover:text-foreground underline transition-colors"
-              >
-                {isLogin ? t.switchToSignup : t.switchToLogin}
-              </button>
-
-              {isLogin && (
+                       <div className="mt-6 space-y-4 text-center">
+              {/* FIX: Wrapper div to stack the text buttons vertically */}
+              <div className="flex flex-col items-center space-y-2">
                 <button
                   type="button"
-                  className="w-full text-center text-sm text-muted-foreground hover:text-foreground underline transition-colors"
+                  onClick={() => setIsLogin(!isLogin)}
+                  className="text-sm text-muted-foreground hover:text-foreground underline transition-colors"
                 >
-                  {t.forgotPassword}
+                  {isLogin ? t.switchToSignup : t.switchToLogin}
                 </button>
-              )}
 
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => setSelectedRole(null)}
-                className="w-full border-2"
-              >
+                {isLogin && (
+                  <button
+                    type="button"
+                    className="text-sm text-muted-foreground hover:text-foreground underline transition-colors"
+                  >
+                    {t.forgotPassword}
+                  </button>
+                )}
+              </div>
+              <Button type="button" variant="outline" onClick={() => setSelectedRole(null)} className="w-full border-2">
                 {t.backToRoles}
               </Button>
-
-              {/* Demo credentials reminder */}
               <div className="bg-green-50 dark:bg-green-950/50 border border-green-200 dark:border-green-800 rounded-lg p-3 text-center">
                 <p className="text-xs text-green-700 dark:text-green-300 font-medium">
                   {t.demoCredentials}: {selectedRole} / demo123

@@ -15,7 +15,7 @@ import {
 // IMPROVEMENT 1: Added a User interface for better type safety
 interface User {
   id: string;
-  name: string;
+  nameKey: string;
   xp: number;
   level: number;
 }
@@ -56,17 +56,29 @@ export default function App() {
     en: {
       appTitle: 'EduGameHub',
       logout: 'Logout',
-      welcome: 'Welcome back'
+      welcome: 'Welcome back',
+      // ADD THESE
+      demoStudentName: 'Tushar Bhardwaj',
+      demoTeacherName: 'Dr. Tushar Bhardwaj',
+      demoAdminName: 'Tushar Bhardwaj'
     },
     hi: {
       appTitle: 'एडुगेमहब',
       logout: 'लॉगआउट',
-      welcome: 'वापसी पर स्वागत'
+      welcome: 'वापसी पर स्वागत',
+      // ADD THESE
+      demoStudentName: 'तुषार भारद्वाज',
+      demoTeacherName: 'डॉ. तुषार भारद्वाज',
+      demoAdminName: 'तुषार भारद्वाज'
     },
     pa: {
       appTitle: 'ਐਡੁਗੇਮਹੱਬ',
       logout: 'ਲੌਗਆਉਟ',
       welcome: 'ਵਾਪਸੀ ਤੇ ਸੁਆਗਤ ਹੈ',
+      // ADD THESE
+      demoStudentName: 'ਤੁਸ਼ਾਰ ਭਾਰਦਵਾਜ',
+      demoTeacherName: 'ਡਾ. ਤੁਸ਼ਾਰ ਭਾਰਦਵਾਜ',
+      demoAdminName: 'ਤੁਸ਼ਾਰ ਭਾਰਦਵਾਜ'
     }
   };
 
@@ -169,8 +181,8 @@ export default function App() {
               </h1>
               {currentUser && (
                 <span className="hidden md:inline text-gray-600 dark:text-gray-300">
-                  - {t.welcome}, {currentUser.name}!
-                </span>
+  - {t.welcome}, {t[currentUser.nameKey as keyof typeof t]}!
+</span>
               )}
             </div>
             
@@ -195,7 +207,7 @@ export default function App() {
       <main className="max-w-7xl mx-auto px-4 py-6">
         {userRole === 'student' && currentUser && (
           <StudentDashboard 
-            user={currentUser} 
+            user={{ ...currentUser, name: t[currentUser.nameKey as keyof typeof t] }} 
             language={language} 
             isOffline={isOffline}
             isLiteMode={isLiteMode}
@@ -206,7 +218,7 @@ export default function App() {
 
         {userRole === 'teacher' && currentUser && (
           <TeacherDashboard 
-            user={currentUser} 
+            user={{ ...currentUser, name: t[currentUser.nameKey as keyof typeof t] }} 
             language={language} 
             isOffline={isOffline}
             isLiteMode={isLiteMode}
@@ -216,7 +228,7 @@ export default function App() {
 
         {userRole === 'admin' && currentUser && (
           <AdminDashboard 
-            user={currentUser} 
+            user={{ ...currentUser, name: t[currentUser.nameKey as keyof typeof t] }} 
             language={language} 
             isOffline={isOffline}
             isLiteMode={isLiteMode}
