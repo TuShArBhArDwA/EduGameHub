@@ -1,5 +1,4 @@
-
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react'; // Import useRef
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
@@ -51,8 +50,17 @@ export function PokemonGame({ subject, language, isLiteMode = false, onExit, onG
   const [gameComplete, setGameComplete] = useState(false);
   const [playerDirection, setPlayerDirection] = useState<'up' | 'down' | 'left' | 'right'>('down');
 
+  // --- NEW: Ref to hold the current player position for the game loop ---
+  const playerPosRef = useRef(playerPos);
+  useEffect(() => {
+    playerPosRef.current = playerPos;
+  }, [playerPos]);
+  // ----------------------------------------------------------------------
+
   const GRID_SIZE = 15;
   const TOTAL_QUESTIONS = 20;
+  const OBSTACLE_MOVE_CHANCE = 1; // 20% chance for an obstacle to move each tick
+  const GAME_TICK_INTERVAL = 1000; // Obstacles try to move every 1.5 seconds
 
   const translations = {
     en: {
@@ -134,26 +142,28 @@ export function PokemonGame({ subject, language, isLiteMode = false, onExit, onG
   const initializeGame = useCallback(() => {
     const questions = getQuestionsBySubject(subject.id);
     const items: GameItem[] = [];
-    
-    questions.slice(0, TOTAL_QUESTIONS).forEach((question, index) => {
+    const usedPositions = new Set<string>(['5,5']); // Keep track of occupied spots
+
+    // Helper to get a unique, unoccupied position
+    const getUniquePosition = (): Position => {
       let pos: Position;
-      do { pos = { x: Math.floor(Math.random() * GRID_SIZE), y: Math.floor(Math.random() * GRID_SIZE) }; }
-      while ((pos.x === 5 && pos.y === 5) || items.some(item => item.position.x === pos.x && item.position.y === pos.y));
-      items.push({ id: `question-${index}`, position: pos, type: 'question', content: question, collected: false });
+      do {
+        pos = { x: Math.floor(Math.random() * GRID_SIZE), y: Math.floor(Math.random() * GRID_SIZE) };
+      } while (usedPositions.has(`${pos.x},${pos.y}`));
+      usedPositions.add(`${pos.x},${pos.y}`);
+      return pos;
+    };
+
+    questions.slice(0, TOTAL_QUESTIONS).forEach((question, index) => {
+      items.push({ id: `question-${index}`, position: getUniquePosition(), type: 'question', content: question, collected: false });
     });
 
     for (let i = 0; i < 4; i++) {
-      let pos: Position;
-      do { pos = { x: Math.floor(Math.random() * GRID_SIZE), y: Math.floor(Math.random() * GRID_SIZE) }; }
-      while ((pos.x === 5 && pos.y === 5) || items.some(item => item.position.x === pos.x && item.position.y === pos.y));
-      items.push({ id: `treasure-${i}`, position: pos, type: 'treasure', collected: false });
+      items.push({ id: `treasure-${i}`, position: getUniquePosition(), type: 'treasure', collected: false });
     }
 
     for (let i = 0; i < 8; i++) {
-      let pos: Position;
-      do { pos = { x: Math.floor(Math.random() * GRID_SIZE), y: Math.floor(Math.random() * GRID_SIZE) }; }
-      while ((pos.x === 5 && pos.y === 5) || items.some(item => item.position.x === pos.x && item.position.y === pos.y));
-      items.push({ id: `obstacle-${i}`, position: pos, type: 'obstacle' });
+      items.push({ id: `obstacle-${i}`, position: getUniquePosition(), type: 'obstacle' });
     }
 
     setGameItems(items);
@@ -163,6 +173,44 @@ export function PokemonGame({ subject, language, isLiteMode = false, onExit, onG
     initializeGame();
   }, [initializeGame]);
 
+  // --- NEW: Game loop for moving obstacles ---
+  useEffect(() => {
+    const gameLoop = setInterval(() => {
+      if (showQuestionModal || gameComplete) return;
+      
+      setGameItems(prevItems => {
+        const currentPositions = new Set(prevItems.map(item => `${item.position.x},${item.position.y}`));
+        const playerPosKey = `${playerPosRef.current.x},${playerPosRef.current.y}`;
+
+        return prevItems.map(item => {
+          if (item.type !== 'obstacle' || Math.random() > OBSTACLE_MOVE_CHANCE) {
+            return item;
+          }
+
+          const moves = [{ x: 0, y: -1 }, { x: 0, y: 1 }, { x: -1, y: 0 }, { x: 1, y: 0 }];
+          const randomMove = moves[Math.floor(Math.random() * moves.length)];
+          const newPos = { x: item.position.x + randomMove.x, y: item.position.y + randomMove.y };
+          const newPosKey = `${newPos.x},${newPos.y}`;
+
+          if (
+            newPos.x >= 0 && newPos.x < GRID_SIZE &&
+            newPos.y >= 0 && newPos.y < GRID_SIZE &&
+            !currentPositions.has(newPosKey) &&
+            newPosKey !== playerPosKey
+          ) {
+            return { ...item, position: newPos };
+          }
+
+          return item;
+        });
+      });
+    }, GAME_TICK_INTERVAL);
+
+    return () => clearInterval(gameLoop);
+  }, [showQuestionModal, gameComplete]);
+  // ----------------------------------------------------------------------
+
+
   const handleItemCollision = (item: GameItem) => {
     if (item.type === 'question' && !item.collected) {
       setCurrentQuestion(item.content);
@@ -171,8 +219,6 @@ export function PokemonGame({ subject, language, isLiteMode = false, onExit, onG
       setScore(prev => prev + 20);
       setTreasuresFound(prev => prev + 1);
       setGameItems(prev => prev.map(gameItem => gameItem.id === item.id ? { ...gameItem, collected: true } : gameItem));
-    } else if (item.type === 'obstacle') {
-      setHealth(prev => Math.max(0, prev - 10));
     }
   };
 
@@ -188,13 +234,21 @@ export function PokemonGame({ subject, language, isLiteMode = false, onExit, onG
         case 'left': newPos.x = Math.max(0, prev.x - 1); break;
         case 'right': newPos.x = Math.min(GRID_SIZE - 1, prev.x + 1); break;
       }
-      const itemAtPosition = gameItems.find(item => item.position.x === newPos.x && item.position.y === newPos.y);
-      if (itemAtPosition) {
-        handleItemCollision(itemAtPosition);
+      
+      const itemAtNewPos = gameItems.find(item => item.position.x === newPos.x && item.position.y === newPos.y);
+
+      if (itemAtNewPos) {
+        if (itemAtNewPos.type === 'obstacle') {
+          setHealth(h => Math.max(0, h - 5)); // Take damage for bumping into it
+          return prev; // Block movement by returning original position
+        }
+        handleItemCollision(itemAtNewPos);
       }
+      
       return newPos;
     });
   }, [gameItems, showQuestionModal, gameComplete]);
+
 
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
@@ -305,7 +359,7 @@ export function PokemonGame({ subject, language, isLiteMode = false, onExit, onG
           </div>
         </div>
         
-        {/* MERGED LAYOUT FROM YOUR ORIGINAL CODE */}
+        {/* --- THIS LAYOUT IS IDENTICAL TO YOUR PROVIDED CODE --- */}
         <div className="flex gap-4">
           <Card className="flex-1 border-2 border-green-300">
             <CardContent className="p-4">
