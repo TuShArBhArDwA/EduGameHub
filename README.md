@@ -128,19 +128,19 @@ npm run build
 
 ### Repository Configuration
 
-The app is configured for the repository `edugamehub1` by user `Terrificdatabytes`. The base path in `vite.config.ts` is set to:
+The app is configured for the repository `EduGameHub` by user `TuShArBhArDwA`. The base path in `vite.config.ts` is set to:
 
 ```typescript
-base: process.env.NODE_ENV === 'production' && process.env.GITHUB_PAGES ? '/edugamehub1/' : './',
+base: process.env.NODE_ENV === 'production' && process.env.GITHUB_PAGES ? '/EduGameHub/' : './',
 ```
 
 ### GitHub Pages Setup
 
-1. Go to your repository settings: https://github.com/Terrificdatabytes/edugamehub1/settings
+1. Go to your repository settings: https://github.com/TuShArBhArDwA/EduGameHub/settings
 2. Navigate to "Pages" section in the left sidebar
 3. Under "Source", select "GitHub Actions"
 4. The deployment workflow will automatically deploy when you push to main/master
-5. Your app will be available at: https://terrificdatabytes.github.io/edugamehub1/
+5. Your app will be available at: https://TuShArBhArDwA.github.io/EduGameHub/
 
 **Important**: If you don't have a `package-lock.json` file, run `npm install` locally first to generate it, then commit it to your repository for faster CI builds.
 
